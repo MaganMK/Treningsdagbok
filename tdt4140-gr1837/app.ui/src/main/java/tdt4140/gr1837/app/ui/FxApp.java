@@ -1,16 +1,14 @@
-package tdt4140.gr18nn.app.ui;
+package tdt4140.gr1837.app.ui;
 
-import org.junit.Test;
-import org.testfx.framework.junit.ApplicationTest;
-
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class FxAppTest extends ApplicationTest {
+public class FxApp extends Application {
 
-	@Override
+    @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("FxApp.fxml"));
         Scene scene = new Scene(root);
@@ -18,7 +16,7 @@ public class FxAppTest extends ApplicationTest {
         stage.show();
     }
 
-    @Test
-    public void testFxApp() {
+    public static void main(String[] args) {
+        launch(args);
     }
 }
