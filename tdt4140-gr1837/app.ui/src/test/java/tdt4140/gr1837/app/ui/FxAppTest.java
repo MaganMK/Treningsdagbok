@@ -9,6 +9,13 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class FxAppTest extends ApplicationTest {
+	
+	@BeforeClass
+    public static void headless() {
+    		if (Boolean.valueOf(System.getProperty("gitlab-ci", "false"))) {
+    			GitlabCISupport.headless();
+    		}
+    }
 
 	@Override
     public void start(Stage stage) throws Exception {
