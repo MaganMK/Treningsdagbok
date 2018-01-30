@@ -2,6 +2,7 @@ package tdt4140.gr1837.app.ui;
 
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
+import static org.junit.Assert.*;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
