@@ -2,6 +2,7 @@ package tdt4140.gr1837.app.ui;
 
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
+import static org.junit.Assert.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,8 +18,10 @@ public class FxAppTest extends ApplicationTest {
         stage.show();
     }
 
+
     @Test
-    public void testFxApp() {
-    	assertTrue("Automatically successful test for FxApp :)", true);
-    }
+	public void test() 
+	{
+		assertTrue("Automatically successful test :)", true);
+	}
 }
