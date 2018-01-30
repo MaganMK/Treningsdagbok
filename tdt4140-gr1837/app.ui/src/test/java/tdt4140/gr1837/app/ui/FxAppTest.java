@@ -20,6 +20,11 @@ public class FxAppTest extends ApplicationTest {
 
     @Test
     public void testFxApp() {
-    	assertTrue("Automatically successful test for FxApp :)", true);
     }
+    
+    @Test
+	public void test() 
+	{
+		assertTrue("Automatically successful test :)", true);
+	}
 }
