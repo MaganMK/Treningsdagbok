@@ -12,7 +12,7 @@ public class InitialJUnitTest {
 	@Test
 	public void test() 
 	{
-		assertTrue("Automatically successful test  :)", true);
+		assertTrue("Automatically successful test :)", true);
 	}
 
 }
