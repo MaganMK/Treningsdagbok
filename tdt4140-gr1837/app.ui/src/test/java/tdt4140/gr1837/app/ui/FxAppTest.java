@@ -1,7 +1,6 @@
 package tdt4140.gr1837.app.ui;
 
 import org.junit.Test;
-import org.junit.BeforeClass;
 import org.testfx.framework.junit.ApplicationTest;
 import static org.junit.Assert.*;
 import javafx.fxml.FXMLLoader;
