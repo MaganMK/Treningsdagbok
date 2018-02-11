@@ -1,20 +1,17 @@
 Applikasjonen: 
-Her finner du prosjektmappa med kildekode, ressurser og diverse tilhørende *applikasjonsnavn*-applikasjonen. 
+Her finner du prosjektmappa med kildekode, ressurser og diverse tilhørende treningsdagbok-applikasjonen. 
 
-Denne applikasjonen lar brukere (datagivere) logføre styrketreningsøkter slik at brukerens personlige trener (tjenesteyter) 
+Denne applikasjonen lar brukere (datagivere) loggføre styrketreningsøkter slik at brukerens personlige trener (tjenesteyter) 
 kan komme med forslag til forbedringer av styrketreningen o.l.
-Tjenesteyteren vil få opp en grafisk datarepresentasjon av dataene brukeren har logget.
+Tjenesteyteren vil få opp en grafisk representasjon av dataene brukeren har logget.
 
-Applikasjonen vil kunne utviddes med støtte for kondisjonstrening og kostohold, samt et brukergrensesnitt for datagivere. 
-
-
+Applikasjonen vil kunne utvides med støtte for kondisjonstrening og kosthold, samt et brukergrensesnitt for datagivere. 
 
 Rammeverk:
 - Applikasjonen er skrevet i Java, med bruk av Eclipse IDE
-- Applikasjonen er utviklet med en testdrevet approach (TDD)
-- Applikasjonen er en trelagsklientapplikasjon
-- Applikasjonen bruker MVC-arkitekturen
-
+- Applikasjonen er basert på testdrevet utvikling (TDD)
+- Applikasjonen er en tre-lags klientapplikasjon
+- Applikasjonen benytter MVC-arkitekturen
 
 Standarer og konvensjoner:
 - Alle variabelnavn, metodenavn, osv. følger lower camel case notasjon
