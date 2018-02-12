@@ -1,11 +1,13 @@
 Applikasjonen: 
 Her finner du prosjektmappa med kildekode, ressurser og diverse tilhørende treningsdagbok-applikasjonen. 
 
-Denne applikasjonen lar brukere (datagivere) loggføre styrketreningsøkter slik at brukerens personlige trener (tjenesteyter) 
-kan komme med forslag til forbedringer av styrketreningen o.l.
+Denne applikasjonen lar brukere (datagivere) loggføre treningsøkter slik at brukerens personlige trener (tjenesteyter) 
+kan komme med forslag til forbedringer av treningen o.l.
 Tjenesteyteren vil få opp en grafisk representasjon av dataene brukeren har logget.
 
-Applikasjonen vil kunne utvides med støtte for kondisjonstrening og kosthold, samt et brukergrensesnitt for datagivere. 
+Applikasjonen vil først implementere støtte for styrketrening for så å kunne utvides med støtte for kondisjonstrening, samt et brukergrensesnitt for datagivere. 
+Dersom det er innen for vår tidsramme vil vi utvidde med "manager"-funksjonalitet som viser data relatert til treningssenteret (f.eks. pågang iløpet av en dag).
+
 
 Rammeverk:
 - Applikasjonen er skrevet i Java, med bruk av Eclipse IDE
