@@ -8,7 +8,7 @@ import tdt4140.gr1837.app.core.User;
 public class StaminaTabController {
 	
 	//Tekstfelt for å se hvilken bruker man er inne på
-	@FXML Text clientName;
+	//@FXML Text clientName;
 
 	//Managercontroller for kommunikasjon mellom controllers
 	public ManagerController managerController;
@@ -19,8 +19,10 @@ public class StaminaTabController {
 	}
 
 	//Setter oppsøkt bruker i tekstfelt
+	/*
 	public void setUser(User user) {
 		clientName.setText(user.getName());
 	}
+	*/
 
 }

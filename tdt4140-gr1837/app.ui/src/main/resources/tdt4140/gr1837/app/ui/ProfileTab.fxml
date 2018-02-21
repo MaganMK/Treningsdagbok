@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -7,13 +13,32 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.ProfileTabController">
    <children>
-      <Pane prefHeight="600" prefWidth="800">
+      <Pane prefHeight="550.0" prefWidth="680.0">
          <children>
-            <Text fx:id="clientName" layoutX="360" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="719.4700813293457">
+            <Text fx:id="clientName" layoutX="169.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="John Doe" wrappingWidth="452.8034858703613">
                <font>
-                  <Font size="37.0" />
+                  <Font size="25.0" />
                </font>
             </Text>
+            <ScrollPane fx:id="scrollPane" layoutX="47.0" layoutY="185.0" prefHeight="281.0" prefWidth="582.0">
+               <content>
+                  <TableView fx:id="exerciseTable" prefHeight="321.0" prefWidth="569.0">
+                    <columns>
+                      <TableColumn fx:id="colExercise" prefWidth="75.0" text="Øvelse" />
+                      <TableColumn fx:id="colSet1" prefWidth="75.0" text="Set" />
+                        <TableColumn fx:id="colSet2" prefWidth="75.0" text="Set" />
+                        <TableColumn fx:id="colSet3" prefWidth="75.0" text="Set" />
+                        <TableColumn fx:id="colSet4" prefWidth="75.0" text="Set" />
+                        <TableColumn fx:id="colSet5" prefWidth="75.0" text="Set" />
+                    </columns>
+                  </TableView>
+               </content>
+            </ScrollPane>
+            <ImageView fx:id="profilePicture" fitHeight="100.0" fitWidth="100.0" layoutX="47.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../../temporary/zucka.jpg" />
+               </image></ImageView>
+            <Label layoutX="47.0" layoutY="166.0" text="Tidligere treningsøkter" />
          </children>
       </Pane>
    </children>

@@ -12,7 +12,7 @@ public class StrengthTabController {
 	@FXML Pane pane;
 	
 	//Klientnavn
-	@FXML Text clientName;
+	//@FXML Text clientName;
 
 	//Managercontroller for kommunikasjon mellom controllers
 	public ManagerController managerController;
@@ -23,8 +23,10 @@ public class StrengthTabController {
 	}
 	
 	//Setter user som skrives i søkefeltet
+	/*
 	public void setUser(User user) {
 			clientName.setText(user.getName());
 		}
+		*/
 
 }

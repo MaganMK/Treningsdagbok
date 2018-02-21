@@ -6,26 +6,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import org.controlsfx.control.textfield.CustomTextField?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600" prefWidth="800" stylesheets="@style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.SearchTabController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="550" prefWidth="680" stylesheets="@style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.SearchTabController">
    <children>
-      <Text layoutX="343.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Søk etter bruker">
+      <Text layoutX="258.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Søk etter bruker">
          <font>
             <Font size="23.0" />
          </font>
       </Text>
       <Text fx:id="errorMessage" fill="RED" layoutX="191.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="301.3333282470703" />
-      <TextField fx:id="autocompleteField" layoutX="190.0" layoutY="198.0" prefHeight="28.0" prefWidth="375.0" promptText="Navn" stylesheets="@style.css">
+      <TextField fx:id="autocompleteField" layoutX="111.0" layoutY="198.0" prefHeight="29.0" prefWidth="375.0" promptText="Navn" stylesheets="@style.css">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor>
       </TextField>
-      <Button layoutX="582.0" layoutY="198.0" mnemonicParsing="false" onAction="#searchForUser" prefHeight="28.0" prefWidth="77.0" text="Gå">
+      <Button layoutX="492.0" layoutY="198.0" mnemonicParsing="false" onAction="#searchForUser" prefHeight="27.0" prefWidth="77.0" text="Gå">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <CustomTextField fx:id="testField" layoutX="190.0" layoutY="259.0" prefHeight="25.0" prefWidth="214.0" />
    </children>
 </AnchorPane>
