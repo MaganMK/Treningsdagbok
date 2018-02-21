@@ -6,12 +6,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class FxApp extends Application {
-
-    @Override
+//Klasse for å kjøre manager.fxml
+public class ManagerLauncher extends Application {
+	
+	@Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FxApp.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Manager.fxml"));
+        
         Scene scene = new Scene(root);
+        
+        stage.setTitle("Treningsdagbok");
         stage.setScene(scene);
         stage.show();
     }
@@ -19,4 +23,5 @@ public class FxApp extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
 }

@@ -1,0 +1,20 @@
+/*Endrer tabstørrelsen slik at alle er like*/
+.tab {
+
+    -fx-pref-width: 100;
+} 
+.tab-header-background {
+    -fx-background-color:transparent;
+}
+
+#autoField {
+	-fx-background-color: #FF99FF;
+}
+
+.button{
+    -fx-background-color: lightblue;
+}
+
+.button:hover {
+	-fx-background-color: lightgray;
+}
