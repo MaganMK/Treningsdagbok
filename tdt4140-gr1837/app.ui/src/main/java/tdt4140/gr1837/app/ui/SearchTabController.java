@@ -1,5 +1,7 @@
 package tdt4140.gr1837.app.ui;
 
+import org.controlsfx.control.textfield.CustomTextField;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -12,6 +14,7 @@ public class SearchTabController {
 	//Definerer søkefelt og feilmelding
 	@FXML public Text errorMessage;
 	@FXML public TextField autocompleteField;
+	@FXML CustomTextField testField;
 	
 	//Midlertidig database med brukere
 	public UserDatabase users = new UserDatabase();
