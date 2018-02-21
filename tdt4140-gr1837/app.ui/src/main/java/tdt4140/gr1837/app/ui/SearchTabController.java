@@ -14,7 +14,7 @@ public class SearchTabController {
 	
 	//Definerer søkefelt og feilmelding
 	@FXML public Text errorMessage;
-	@FXML public CustomTextField autocompleteField;
+	@FXML public TextField autocompleteField;
 	
 	//Midlertidig database med brukere
 	public UserDatabase users = new UserDatabase();
