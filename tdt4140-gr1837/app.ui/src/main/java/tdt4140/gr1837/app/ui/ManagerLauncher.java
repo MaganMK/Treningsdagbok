@@ -6,7 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-//Klasse for å kjøre manager.fxml
+// Klasse for a kjore manager.fxml
 public class ManagerLauncher extends Application {
 	
 	@Override

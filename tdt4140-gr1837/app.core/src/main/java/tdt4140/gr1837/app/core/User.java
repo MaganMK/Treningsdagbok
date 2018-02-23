@@ -1,6 +1,6 @@
 package tdt4140.gr1837.app.core;
 
-//Midlertidig user-klasse til å fylle userdatabasen, testes derfor ikke
+// Midlertidig user-klasse til a fylle userdatabasen, testes derfor ikke
 public class User {
 	
 	public String name;

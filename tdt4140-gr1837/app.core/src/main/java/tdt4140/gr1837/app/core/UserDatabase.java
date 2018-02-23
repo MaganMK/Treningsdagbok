@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//Midlertidig "database" for å teste at ting funker, testes derfor ikke med junit
+// Midlertidig "database" for a teste at ting funker, testes derfor ikke med junit
 public class UserDatabase {
 	
 	private List<User> users = new ArrayList<>();
