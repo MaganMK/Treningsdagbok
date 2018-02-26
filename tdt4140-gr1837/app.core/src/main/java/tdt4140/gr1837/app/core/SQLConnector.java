@@ -2,8 +2,11 @@ package tdt4140.gr1837.app.core;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SQLConnector {
 	private static String url = "jdbc:mysql://mysql.stud.ntnu.no/didris_test1";
@@ -35,14 +38,39 @@ public class SQLConnector {
 		}
 	}
 	public static void main(String args[]) throws SQLException {
-		Connection connection = SQLConnector.getConnection();
-		insert_client(connection, "\"Per Pålsen\"", 41010101, 20, "\"msakmdmkm\"");
+		for(int i =1; i < 100; i++) {
+			String[] user = getUser(i);
+			System.out.println(String.format("%s, %s %s %s %s",i, user[0],user[1],user[2],user[3]));
+		}
+		//insert_client(connection, "\"Per Pålsen\"", 41010101, 20, "\"msakmdmkm\"");
 	}
-	private static boolean insert_client(Connection connection, String name, int mobile_number, int age, String motivation) throws SQLException
-	{
-		String q = String.format("INSERT INTO Klient(navn, tlf, alder, motivasjon,K_ID) VALUES(%s,%s,%s,%s,4);", name, mobile_number, age, motivation);
+	public static String[] getUser(int id) throws SQLException {
+		Connection connection = SQLConnector.getConnection();
+		String query = "SELECT * FROM Klient WHERE K_ID="+id;
 		Statement stmt = connection.createStatement();
-		stmt.executeUpdate(q);
-		return true;
+		ResultSet rs = stmt.executeQuery(query);
+		while (rs.next()){
+			String[] arr= {rs.getString("navn"), rs.getString("tlf"), rs.getString("alder"), rs.getString("motivasjon")};
+			return arr;
+		}
+		return null;
+	}
+	public static List<User> getUsers()
+	{
+		Connection connection = SQLConnector.getConnection();
+		List<User> users=new ArrayList<>();
+		String query = "SELECT * FROM Klient";
+		Statement stmt;
+		try {
+			stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while(rs.next()){
+				users.add(new User(rs.getString("navn")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return users;
 	}
 }

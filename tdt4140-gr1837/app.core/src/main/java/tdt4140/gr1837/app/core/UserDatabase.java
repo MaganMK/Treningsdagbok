@@ -1,5 +1,6 @@
 package tdt4140.gr1837.app.core;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,7 +15,7 @@ public class UserDatabase {
 	}
 	
 	private void initialize() {
-		User user1 = new User("Sindre");
+		/*User user1 = new User("Sindre");
 		User user2 = new User("Harald");
 		User user3 = new User("Stian");
 		User user4 = new User("Simon");
@@ -22,7 +23,8 @@ public class UserDatabase {
 		User user6 = new User("Sigmund");
 		User user7 = new User("Sina");
 		users.add(user1); users.add(user2); users.add(user3); users.add(user4);
-		users.add(user5);users.add(user6);users.add(user7);
+		users.add(user5);users.add(user6);users.add(user7);users.add(user8);*/
+		users=SQLConnector.getUsers();
 	}
 	
 	public User getUser(String name) {
