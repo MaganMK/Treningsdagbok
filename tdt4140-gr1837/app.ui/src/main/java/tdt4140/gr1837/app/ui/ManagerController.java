@@ -7,26 +7,26 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import tdt4140.gr1837.app.core.User;
 
-//Generell controller til hele managersiden
+// Generell controller til hele managersiden
 public class ManagerController {
 	
-	//Instansierer controllers for alle tabs, for kommunikasjon
+	// Instansierer controllers for alle tabs, for kommunikasjon
 	@FXML public ProfileTabController profileTabController;
 	@FXML public SearchTabController searchTabController;
 	@FXML public StrengthTabController strengthTabController;
 	@FXML public StaminaTabController staminaTabController;
 	
-	//Tabs som brukes til å skifte mellom tabs
+	// Tabs som brukes til a skifte mellom tabs
 	@FXML TabPane tabPane;
 	@FXML Tab profileTab1;
 	@FXML Tab searchTab1;
 	@FXML Tab strengthTab1;
 	@FXML Tab staminaTab1;
 	
-	//Mapper Streng til tab for å kunne skifte tab med metode
+	// Mapper Streng til tab for a kunne skifte tab med metode
 	HashMap<String,Tab> tabMap;
 	
-	//Initialiserer controllers med seg selv som hovedcontroller
+	// Initialiserer controllers med seg selv som hovedcontroller
 	@FXML public void initialize() {
 		profileTabController.init(this);
 		searchTabController.init(this);
@@ -41,14 +41,14 @@ public class ManagerController {
 		tabMap.put("staminaTab", staminaTab1);
 	}
 	
-	//Får profilsiden til å vise bruker
+	// Far profilsiden til a vise bruker
 	public void showUser(User user) {
 		profileTabController.setUser(user);
 		//strengthTabController.setUser(user);
 		//staminaTabController.setUser(user);
 	}
 
-	//Endrer tab til angitt tab
+	// Endrer tab til angitt tab
 	public void switchTab(String tab) {
 		try {
 			tabPane.getSelectionModel().select(tabMap.get(tab));
