@@ -20,6 +20,7 @@ public class UserDatabase {
 		offlineUserDatabase.add(new User("Sigmund", "44111111", 104, "Kunne gå på skitur med oldebarna", 6));
 		offlineUserDatabase.add(new User("Sina", "11111188", 20, "Bikinisesongen", 7));
 	}
+
 	public static void initialize() {
 		if(users.isEmpty()) {
 			users = SQLConnector.getUsers();

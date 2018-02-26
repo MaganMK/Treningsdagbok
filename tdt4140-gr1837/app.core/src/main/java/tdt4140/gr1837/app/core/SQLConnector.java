@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class SQLConnector {
 	private static String url = "jdbc:mysql://mysql.stud.ntnu.no/didris_test1";
 	private static String username = "didris_test";
