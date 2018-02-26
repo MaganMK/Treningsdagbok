@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<<<<<<< HEAD
 <?import javafx.scene.Group?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
@@ -9,9 +10,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<!--<?import org.controlsfx.control.CheckComboBox?> -->
-
 <AnchorPane xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.StrengthTabController">
+
    <children>
       <Pane fx:id="pane" prefHeight="650" prefWidth="800">
          <children>
@@ -20,6 +20,7 @@
                   <Font size="37.0" />
                </font>
             </Text>
+
             <ImageView fx:id="fullFigur" fitHeight="305.0" fitWidth="338.0" layoutX="365.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@MuscleMan.png" />
