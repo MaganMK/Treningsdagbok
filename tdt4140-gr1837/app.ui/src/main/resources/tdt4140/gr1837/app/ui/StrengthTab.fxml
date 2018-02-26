@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.LineChart?>
-<?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import org.controlsfx.control.CheckComboBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.StrengthTabController">
+<!-- <?import org.controlsfx.control.CheckComboBox?> -->
+
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.StrengthTabController">
    <children>
       <Pane fx:id="pane" prefHeight="650" prefWidth="800">
          <children>
@@ -21,6 +18,11 @@
                   <Font size="37.0" />
                </font>
             </Text>
+            <ImageView fitHeight="357.0" fitWidth="292.0" layoutX="453.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@MuscleMan.png" fx:id = "muscleManImage"/>
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </children>
