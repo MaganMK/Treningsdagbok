@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TreeTableColumn?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -22,16 +22,14 @@
             </Text>
             <ScrollPane fx:id="scrollPane" layoutX="47.0" layoutY="185.0" prefHeight="281.0" prefWidth="582.0">
                <content>
-                  <TableView fx:id="exerciseTable" prefHeight="321.0" prefWidth="569.0">
-                    <columns>
-                      <TableColumn fx:id="colExercise" prefWidth="75.0" text="Øvelse" />
-                      <TableColumn fx:id="colSet1" prefWidth="75.0" text="Set" />
-                        <TableColumn fx:id="colSet2" prefWidth="75.0" text="Set" />
-                        <TableColumn fx:id="colSet3" prefWidth="75.0" text="Set" />
-                        <TableColumn fx:id="colSet4" prefWidth="75.0" text="Set" />
-                        <TableColumn fx:id="colSet5" prefWidth="75.0" text="Set" />
-                    </columns>
-                  </TableView>
+                  <JFXTreeTableView prefHeight="302.0" prefWidth="563.0">
+                     <columns>
+                        <TreeTableColumn prefWidth="75.0" text="Øvelse" />
+                        <TreeTableColumn prefWidth="75.0" text="Set" />
+                        <TreeTableColumn prefWidth="75.0" text="Set" />
+                        <TreeTableColumn prefWidth="75.0" text="Set" />
+                     </columns>
+                  </JFXTreeTableView>
                </content>
             </ScrollPane>
             <ImageView fx:id="profilePicture" fitHeight="100.0" fitWidth="100.0" layoutX="47.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">

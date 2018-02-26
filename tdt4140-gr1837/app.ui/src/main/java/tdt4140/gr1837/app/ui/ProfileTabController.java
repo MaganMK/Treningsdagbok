@@ -1,11 +1,11 @@
 package tdt4140.gr1837.app.ui;
 
+import com.jfoenix.controls.JFXTreeTableView;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.image.Image;
+import javafx.scene.control.TreeTableColumn;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import tdt4140.gr1837.app.core.User;
@@ -18,9 +18,9 @@ public class ProfileTabController {
 	@FXML ImageView profilePicture;
 	
 	//Elementer til tabellen over siste øvelser
-	@FXML TableView exerciseTable;
+	@FXML JFXTreeTableView<?> exerciseTable;
 	@FXML ScrollPane scrollPane;
-	@FXML TableColumn colExercise, colSet1, colSet2, colSet3, colSet4, colSet5;
+	@FXML TreeTableColumn<String,String> colExercise, colSet1, colSet2, colSet3;
 	
 	
 	//ManagerController for kommunikasjon med andre controllers
