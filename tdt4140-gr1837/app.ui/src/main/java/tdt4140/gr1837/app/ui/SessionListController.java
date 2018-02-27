@@ -11,4 +11,5 @@ public class SessionListController {
 	
 	public void init() {
 	}
+
 }
