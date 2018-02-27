@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
@@ -9,19 +10,27 @@
 
 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="550" prefWidth="680" stylesheets="@style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.SearchTabController">
    <children>
-      <Text fx:id="errorMessage" fill="RED" layoutX="112.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="301.3333282470703" />
-      <TextField fx:id="autocompleteField" layoutX="112.0" layoutY="123.0" onKeyTyped="#removeErrorMessage" prefHeight="29.0" prefWidth="375.0" promptText="Navn" stylesheets="@style.css">
+      <Text fx:id="errorMessage" fill="RED" layoutX="112.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="301.3333282470703" />
+      <TextField fx:id="autocompleteField" layoutX="111.0" layoutY="93.0" onKeyTyped="#removeErrorMessage" prefHeight="29.0" prefWidth="375.0" promptText="Navn" stylesheets="@style.css">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor>
       </TextField>
-      <Button layoutX="493.0" layoutY="123.0" mnemonicParsing="false" onAction="#searchForUser" prefHeight="27.0" prefWidth="77.0">
+      <Button layoutX="493.0" layoutY="123.0" mnemonicParsing="false" onAction="#searchForUser" opacity="0.0" prefHeight="27.0" prefWidth="77.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
          <graphic>
             <Glyph fontFamily="FontAwesome" icon="SEARCH" />
-          </graphic>
+         </graphic>
       </Button>
+      <JFXButton layoutX="492.0" layoutY="93.0" onAction="#searchForUser" prefHeight="28.5" prefWidth="77.0">
+      	<graphic>
+            <Glyph fontFamily="FontAwesome" icon="SEARCH" />
+        </graphic>
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+      </JFXButton>
    </children>
 </AnchorPane>
