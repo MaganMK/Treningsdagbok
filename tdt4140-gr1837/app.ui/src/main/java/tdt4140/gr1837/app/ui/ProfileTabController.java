@@ -1,9 +1,9 @@
 package tdt4140.gr1837.app.ui;
 
+import com.jfoenix.controls.JFXScrollPane;
 import com.jfoenix.controls.JFXTreeTableView;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.image.ImageView;
@@ -19,7 +19,7 @@ public class ProfileTabController {
 	
 	//Elementer til tabellen over siste øvelser
 	@FXML JFXTreeTableView<?> exerciseTable;
-	@FXML ScrollPane scrollPane;
+	@FXML JFXScrollPane scrollPane;
 	@FXML TreeTableColumn<String,String> colExercise, colSet1, colSet2, colSet3;
 	
 	
