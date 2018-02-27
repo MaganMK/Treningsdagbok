@@ -152,7 +152,6 @@ public class SQLConnector {
 							musclesTrained.put(rs3.getString("muscle_name"), rs2.getInt("degree"));
 						}
 				}
-
 			}
 			return musclesTrained;
 		} catch (SQLException e1) {
