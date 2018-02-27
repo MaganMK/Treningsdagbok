@@ -1,7 +1,10 @@
 package tdt4140.gr1837.app.ui;
 
+import java.util.Random;
+
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import tdt4140.gr1837.app.core.MuscleImage;
@@ -17,7 +20,8 @@ public class StrengthTabController {
 	@FXML Text clientName;
 
 	//Muskelgruppene 
-	@FXML Image muscleManImage;
+	@FXML ImageView muscleManImage;
+	@FXML ImageView underarmer;
 	private MuscleImage muscleMan;
 	
 	// Managercontroller for kommunikasjon mellom controllers
@@ -30,10 +34,11 @@ public class StrengthTabController {
 	}
 	
 	
-	private void setMuscleMan()
-	{
-		
+	private void setMuscleMan() {
+		Random r = new Random();
+		underarmer.setOpacity(1.0);
 	}
+	
 	// Setter user som skrives i sokefeltet
 	public void setUser(User user) {
 			clientName.setText(user.getName());
