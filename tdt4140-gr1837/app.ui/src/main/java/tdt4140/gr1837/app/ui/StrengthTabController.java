@@ -22,6 +22,16 @@ public class StrengthTabController {
 	//Muskelgruppene 
 	@FXML ImageView muscleManImage;
 	@FXML ImageView underarmer;
+	@FXML ImageView abs;
+	@FXML ImageView triceps;
+	@FXML ImageView teres;
+	@FXML ImageView postDelts;
+	@FXML ImageView obliques;
+	@FXML ImageView lats;
+	@FXML ImageView frontDelts;
+	@FXML ImageView erector;
+	@FXML ImageView calves;
+	@FXML ImageView biceps;
 	private MuscleImage muscleMan;
 	
 	// Managercontroller for kommunikasjon mellom controllers
