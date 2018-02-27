@@ -2,7 +2,9 @@ package tdt4140.gr1837.app.ui;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javafx.fxml.FXML;
@@ -44,7 +46,7 @@ public class StrengthTabController {
 	
 	private MuscleImage muscleMan;
 	
-	private List<ImageView> muscles ;
+	private Map<String, ImageView> muscles = new HashMap<>();
 	
 	// Managercontroller for kommunikasjon mellom controllers
 	public ManagerController managerController;
@@ -52,16 +54,31 @@ public class StrengthTabController {
 	// Setter managerController
 	public void init(ManagerController managerController) {
 		this.managerController = managerController;
-		muscles = Arrays.asList(underarmer, abs, 
-				triceps, teres, postDelts, obliques, lats, frontDelts, erector,
-				calves, biceps, quads, rumpe, traps, hofteUt, bryst, hamstring, hofteIn);
+		muscleMan = new MuscleImage();
+		muscles.put("underarmer", underarmer);
+		muscles.put("abs", abs);
+		muscles.put("triceps", triceps);
+		muscles.put("teres", teres);
+		muscles.put("postDelts", postDelts);
+		muscles.put("obliques", obliques);
+		muscles.put("lats", lats);
+		muscles.put("frontDelts", frontDelts);
+		muscles.put("erector", erector);
+		muscles.put("calves", calves);
+		muscles.put("biceps", biceps);
+		muscles.put("quads", quads);
+		muscles.put("rumpe", rumpe);
+		muscles.put("traps", traps);
+		muscles.put("hofteUt", hofteUt);
+		muscles.put("bryst", bryst);
+		muscles.put("hamstring", hamstring);
+		muscles.put("hofteIn", hofteIn);
 	}
 	
-	//Setter musklene til tilfeldig grad av rødfarge
-	public void random() {
-		Random r = new Random();
-		for (ImageView muscle : muscles){
-			muscle.setOpacity(r.nextDouble());
+	//Setter musklene til grad av rødfarge
+	public void updateMuscles() {
+		for (String name : muscleMan.getMuscles().keySet()){
+			muscles.get(name).setOpacity(muscleMan.getMuscles().get(name));
 		}
 	}
 	
