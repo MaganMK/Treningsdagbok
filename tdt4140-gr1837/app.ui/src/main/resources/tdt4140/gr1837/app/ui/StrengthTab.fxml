@@ -19,7 +19,7 @@
                   <Font size="37.0" />
                </font>
             </Text>
-            <ImageView fx:id="fullFigur" fitHeight="305.0" fitWidth="338.0" layoutX="365.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="muscleManImage" fitHeight="305.0" fitWidth="338.0" layoutX="365.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@MuscleMan.png" />
                </image>
@@ -30,7 +30,7 @@
                   <Image url="@Underarmer.png" />
                </image>
                <effect>
-                  <Glow level="0.0" />
+                  <Glow level="1.0" />
                </effect>
             </ImageView>
          </children>
