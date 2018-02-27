@@ -7,76 +7,115 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.StrengthTabController">
+<AnchorPane prefHeight="498.0" prefWidth="693.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.StrengthTabController">
 
    <children>
-      <Pane fx:id="pane" prefHeight="650" prefWidth="800">
+      <Pane fx:id="pane" prefHeight="498.0" prefWidth="801.0">
          <children>
          	<Text fx:id="clientName" layoutX="360" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="719.4700813293457">
                <font>
                   <Font size="37.0" />
                </font>
             </Text>
-            <ImageView fx:id="muscleManImage" fitHeight="305.0" fitWidth="338.0" layoutX="365.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../Images/Muscles/MuscleMan.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="underarmer" fitHeight="489.0" fitWidth="583.0" layoutX="298.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../Images/Muscles/Underarmer.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="abs" fitHeight="429.0" fitWidth="566.0" layoutX="304.0" layoutY="42.0" opacity="1.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../Images/Muscles/Abs.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="triceps" fitHeight="437.0" fitWidth="588.0" layoutX="299.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../Images/Muscles/Triceps.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="teres" fitHeight="433.0" fitWidth="593.0" layoutX="301.0" layoutY="39.0" opacity="1.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../Images/Muscles/Teres.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="postDelts" fitHeight="446.0" fitWidth="592.0" layoutX="293.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../Images/Muscles/PostDelts.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="obliques" fitHeight="434.0" fitWidth="581.0" layoutX="300.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../Images/Muscles/Obliques.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="lats" fitHeight="437.0" fitWidth="579.0" layoutX="300.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../Images/Muscles/Lats.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="frontDelts" fitHeight="467.0" fitWidth="595.0" layoutX="295.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../Images/Muscles/FrontDelts.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="erector" fitHeight="412.0" fitWidth="553.0" layoutX="316.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../Images/Muscles/Erector.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="calves" fitHeight="432.0" fitWidth="582.0" layoutX="301.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../Images/Muscles/Calves.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="biceps" fitHeight="425.0" fitWidth="571.0" layoutX="303.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../Images/Muscles/Biceps.png" />
-               </image>
-            </ImageView>
+            <Pane layoutX="360.0" layoutY="43.0" onMouseClicked="#random" prefHeight="321.0" prefWidth="335.0">
+               <children>
+                  <ImageView fx:id="muscleManImage" fitHeight="305.0" fitWidth="338.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Muscles/MuscleMan.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="rumpe" fitHeight="416.0" fitWidth="550.0" layoutX="-49.0" layoutY="-56.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Muscles/Rumpe.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="lats" fitHeight="437.0" fitWidth="579.0" layoutX="-65.0" layoutY="-68.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Muscles/Lats.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="traps" fitHeight="476.0" fitWidth="600.0" layoutX="-76.0" layoutY="-70.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Muscles/Traps.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="hofteUt" fitHeight="421.0" fitWidth="579.0" layoutX="-61.0" layoutY="-62.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Muscles/UtsideHofte.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="abs" fitHeight="429.0" fitWidth="566.0" layoutX="-62.0" layoutY="-64.0" opacity="1.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Muscles/Abs.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="teres" fitHeight="433.0" fitWidth="593.0" layoutX="-63.0" layoutY="-67.0" opacity="1.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Muscles/Teres.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="obliques" fitHeight="434.0" fitWidth="581.0" layoutX="-65.0" layoutY="-66.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Muscles/Obliques.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="erector" fitHeight="412.0" fitWidth="553.0" layoutX="-49.0" layoutY="-56.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Muscles/Erector.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="calves" fitHeight="434.0" fitWidth="579.0" layoutX="-65.0" layoutY="-66.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Muscles/Calves.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="biceps" fitHeight="431.0" fitWidth="574.0" layoutX="-64.0" layoutY="-65.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Muscles/Biceps.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="quads" fitHeight="431.0" fitWidth="574.0" layoutX="-63.0" layoutY="-66.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Muscles/Quads.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="frontDelts" fitHeight="467.0" fitWidth="595.0" layoutX="-69.0" layoutY="-70.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Muscles/FrontDelts.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="postDelts" fitHeight="431.0" fitWidth="574.0" layoutX="-62.0" layoutY="-66.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Muscles/PostDelts.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="triceps" fitHeight="437.0" fitWidth="588.0" layoutX="-67.0" layoutY="-67.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Muscles/Triceps.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="underarmer" fitHeight="489.0" fitWidth="583.0" layoutX="-66.0" layoutY="-67.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Muscles/Underarmer.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="bryst" fitHeight="432.0" fitWidth="647.0" layoutX="-64.0" layoutY="-66.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Muscles/Bryst.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="hamstring" fitHeight="448.0" fitWidth="585.0" layoutX="-68.0" layoutY="-70.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Muscles/Hamstrings.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="hofteIn" fitHeight="432.0" fitWidth="580.0" layoutX="-63.0" layoutY="-65.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Muscles/InnsideHofte.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
          </children>
       </Pane>
    </children>
