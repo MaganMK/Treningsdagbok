@@ -55,6 +55,7 @@ public class SQLConnector {
 		}
 		return null;
 	}
+	
 	public static List<User> getUsers()
 	{
 		Connection connection;
@@ -85,5 +86,35 @@ public class SQLConnector {
 			e.printStackTrace();
 		}
 		return users;
+	}
+	
+	public static List<Session> getSessions(int id)
+	{
+		Connection connection;
+		try {
+			connection = SQLConnector.getConnection();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			return new ArrayList<Session>();
+		}
+		List<Session> sessions=new ArrayList<>();
+		String query = "SELECT * FROM Økt WHERE K_ID="+id;
+		Statement stmt;
+		try {
+			stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while(rs.next()){
+				Session session= new Session(rs.getString("Notat"), 
+									rs.getString("Dato"), 
+									rs.getInt("O_ID")
+				);
+				sessions.add(session);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return sessions;
 	}
 }

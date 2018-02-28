@@ -50,6 +50,12 @@ public class UserDatabase {
 				return users.get(i);
 			}
 		}
+		for (int i = 0; i < users.size(); i++) {
+			String userName = users.get(i).getName().toLowerCase();
+			if (userName.contains(name)) {
+				return users.get(i);
+			}
+		}
 		return null;
 	}
 	
