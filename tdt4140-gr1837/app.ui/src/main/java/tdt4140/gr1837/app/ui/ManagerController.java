@@ -1,6 +1,7 @@
 package tdt4140.gr1837.app.ui;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
@@ -46,8 +47,8 @@ public class ManagerController {
 	}
 	
 	// Far profilsiden til a vise bruker
-	public void showUser(User user) {
-		profileTabController.setUser(user);
+	public void showUser(User user, List<User> users) {
+		profileTabController.setUser(user, users);
 		strengthTabController.setUser(user);
 		//staminaTabController.setUser(user);
 	}

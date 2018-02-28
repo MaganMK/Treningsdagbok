@@ -1,6 +1,10 @@
 package tdt4140.gr1837.app.ui;
 
+import java.util.List;
+
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.text.Text;
 import tdt4140.gr1837.app.core.User;
@@ -10,6 +14,7 @@ public class ProfileTabController {
 	// Elementer i ProfileTab.fxml
 	@FXML Tab profileTab;
 	@FXML Text clientName;
+	@FXML ListView<User> TrainingList1;
 	
 	// ManagerController for kommunikasjon med andre controllers
 	public ManagerController managerController;
@@ -22,8 +27,9 @@ public class ProfileTabController {
 	}
 
 	// Setter user som skrives i sokefeltet
-	public void setUser(User user) {
+	public void setUser(User user, List<User> users) {
 		clientName.setText(user.getName());
+		TrainingList1.setItems(FXCollections.observableArrayList(users));
 	}
 		
 
