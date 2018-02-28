@@ -4,18 +4,18 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane styleClass="backgroundPane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.ManagerController">
+<AnchorPane styleClass="backgroundPane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.ManagerController">
    <children>
       <JFXTabPane fx:id="tabPane" prefHeight="550" prefWidth="680" stylesheets="@style.css" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="searchTab1" text="Søk">
-             <fx:include fx:id="searchTab" source="SearchTab.fxml" />
+           <fx:include fx:id="searchTab" source="SearchTab.fxml" />           
           </Tab>
           <Tab fx:id="profileTab1" text="Profil">
-          	 <fx:include fx:id="profileTab" source="ProfileTab.fxml" />
+           	 <fx:include fx:id="profileTab" source="ProfileTab.fxml" />               
           </Tab>
           <Tab fx:id="strengthTab1" text="Styrketrening">
-          	 <fx:include fx:id="strengthTab" source="StrengthTab.fxml" />
+           	 <fx:include fx:id="strengthTab" source="StrengthTab.fxml" />              
           </Tab>
           <Tab fx:id="staminaTab1" text="Kondisjon">
           	 <fx:include fx:id="staminaTab" source="StaminaTab.fxml" />

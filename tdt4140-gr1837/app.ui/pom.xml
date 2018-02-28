@@ -54,6 +54,11 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+		  <groupId>com.google.guava</groupId>
+		  <artifactId>guava</artifactId>
+		  <version>24.0-jre</version>
+		</dependency>
+		<dependency>
 			<groupId>org.testfx</groupId>
 			<artifactId>testfx-junit</artifactId>
 			<version>4.0.10-alpha</version>
@@ -73,7 +78,6 @@
     		<artifactId>jfoenix</artifactId>
     		<version>8.0.1</version>
 		</dependency>
-		
 		
 	</dependencies>
 
