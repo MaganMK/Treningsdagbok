@@ -13,7 +13,7 @@ public class SQLConnector {
 	private static String username = "didris_test";
 	private static String password = "1234";
 	private static Connection connection;
-	public static Connection getConnection(){
+	public static Connection getConnection() throws SQLException{
 		if(connection==null){
 			try {
 				System.out.println("Connecting database...");
@@ -22,7 +22,7 @@ public class SQLConnector {
 			}
 			catch(SQLException e) {
 				System.out.println("Could not connect to database");
-				return null;
+				throw e;
 			}
 		}
 		return connection;
@@ -57,7 +57,14 @@ public class SQLConnector {
 	}
 	public static List<User> getUsers()
 	{
-		Connection connection = SQLConnector.getConnection();
+		Connection connection;
+		try {
+			connection = SQLConnector.getConnection();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			return UserDatabase.getOfflineUserDatabase();
+		}
 		List<User> users=new ArrayList<>();
 		String query = "SELECT * FROM Klient";
 		Statement stmt;
