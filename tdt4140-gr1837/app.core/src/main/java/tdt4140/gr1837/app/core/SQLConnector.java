@@ -72,7 +72,12 @@ public class SQLConnector {
 			stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while(rs.next()){
-				User user= new User(rs.getString("navn"), rs.getString("tlf"), rs.getInt("alder"), rs.getString("motivasjon"), rs.getInt("K_ID"));
+				User user= new User(rs.getString("navn"), 
+									rs.getString("tlf"), 
+									rs.getInt("alder"), 
+									rs.getString("motivasjon"), 
+									rs.getInt("K_ID")
+				);
 				users.add(user);
 			}
 		} catch (SQLException e) {
