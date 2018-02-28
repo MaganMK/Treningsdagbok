@@ -16,7 +16,7 @@ public class SQLConnector {
 	private static String username = "didris_test";
 	private static String password = "1234";
 	private static Connection connection;
-	
+
 	// Metode for aa hente en SQL connection
 	public static Connection getConnection() throws SQLException {
 		if(connection == null) {
@@ -54,14 +54,7 @@ public class SQLConnector {
 			e1.printStackTrace();
 			throw e1;
 		}
-		Statement stmt;
-		try {
-			stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(query);
-			return rs;
-		} catch(SQLException e) {
-			throw e;
-		}
+		return null;
 	}
 	
 	// Metode for aa hente klientene

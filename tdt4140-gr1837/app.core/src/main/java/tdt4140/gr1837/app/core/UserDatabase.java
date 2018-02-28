@@ -32,7 +32,11 @@ public class UserDatabase {
 		}
 		return offlineUserDatabase;
 	}
-	
+
+	public UserDatabase() {
+		initialize();
+	}
+
 	public static User getUser(String name) {
 		name = name.toLowerCase();
 		for (int i = 0; i < users.size(); i++) {
