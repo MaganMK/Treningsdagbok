@@ -67,7 +67,6 @@ public class ProfileTabController {
 		
 		TableColumn vekt = new TableColumn("Vekt");
 		vekt.setCellValueFactory(new PropertyValueFactory<Exercise, String>("vekt"));*/
-		
 	}
 		
 
