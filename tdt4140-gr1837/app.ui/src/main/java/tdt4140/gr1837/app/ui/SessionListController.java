@@ -7,9 +7,8 @@ public class SessionListController {
 	
 	@FXML
 	ListView SessionList;
-	
-	@FXML
 	TableView ExerciseList;
 	
-	
+	public void init() {
+	}
 }
