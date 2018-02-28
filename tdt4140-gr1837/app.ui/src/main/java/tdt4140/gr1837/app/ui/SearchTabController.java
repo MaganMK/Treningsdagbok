@@ -40,7 +40,4 @@ public class SearchTabController {
 	@FXML public void enterPressed() {
 		searchForUser();
 	}
-	
-	
-
 }
