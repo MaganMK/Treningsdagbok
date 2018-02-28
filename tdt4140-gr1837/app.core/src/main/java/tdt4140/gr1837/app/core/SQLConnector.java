@@ -15,10 +15,15 @@ public class SQLConnector {
 	private static String username = "didris_test";
 	private static String password = "1234";
 	private static Connection connection;
+<<<<<<< 4effd36b317e7be2f8acca96cc5042b168dd1ffd
 	
 	// Metode for aa hente en SQL connection
 	public static Connection getConnection() throws SQLException {
 		if(connection == null) {
+=======
+	public static Connection getConnection() throws SQLException{
+		if(connection==null){
+>>>>>>> La til offfline database i tilfelle man får SQLException når man kobler seg opp mot databasen
 			try {
 				System.out.println("Connecting database...");
 				connection = DriverManager.getConnection(url, username, password);
