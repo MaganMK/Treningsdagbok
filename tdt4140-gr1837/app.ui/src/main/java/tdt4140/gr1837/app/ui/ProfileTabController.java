@@ -29,6 +29,7 @@ public class ProfileTabController {
 	@FXML TableColumn<Exercise, Integer> sett;
 	@FXML TableColumn<Exercise, Integer> repetisjoner;
 	@FXML TableColumn<Exercise, Integer> vekt;
+
 	
 	// ManagerController for kommunikasjon med andre controllers
 	public ManagerController managerController;
@@ -75,7 +76,7 @@ public class ProfileTabController {
 		vekt.setCellValueFactory(new PropertyValueFactory<Exercise, String>("vekt"));*/
 	}
 	
-	// Users i denne metoden må endres til øvelser, bruker users for å teste
+	// Users i denne metoden mï¿½ endres til ï¿½velser, bruker users for ï¿½ teste
 	private void addTableView(List<User> users) {
 		// TableView<Exercise> ExerciseList = new TableView<Exercise>();
 		
