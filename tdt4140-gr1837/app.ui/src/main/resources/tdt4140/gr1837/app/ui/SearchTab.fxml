@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.glyphfont.Glyph?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="550" prefWidth="680" stylesheets="@style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.SearchTabController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="550" prefWidth="680" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.SearchTabController">
    <children>
       <Text fx:id="errorMessage" fill="RED" layoutX="112.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="301.3333282470703" />
       <TextField fx:id="autocompleteField" layoutX="111.0" layoutY="93.0" onKeyTyped="#removeErrorMessage" prefHeight="29.0" prefWidth="375.0" promptText="Navn" stylesheets="@style.css">
