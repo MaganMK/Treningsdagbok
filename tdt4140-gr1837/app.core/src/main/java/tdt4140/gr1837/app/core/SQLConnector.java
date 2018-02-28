@@ -58,7 +58,16 @@ public class SQLConnector {
 	}
 	
 	// Metode for aa hente klientene
-	public static List<User> getUsers() {
+	public static List<User> getUsers()
+	{
+		Connection connection;
+		try {
+			connection = SQLConnector.getConnection();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			return UserDatabase.getOfflineUserDatabase();
+		}
 		try {
 			ResultSet rs = getResultSet("SELECT * FROM Client");
 			List<User> users = new ArrayList<>();
