@@ -74,8 +74,7 @@ public class SQLConnector {
 			throw e;
 		}
 	}
-	public static List<User> getUsers()
-	{
+	public static List<User> getUsers() {
 		try {
 			ResultSet rs = getResultSet("SELECT * FROM Klient");
 			List<User> users=new ArrayList<>();
@@ -95,8 +94,7 @@ public class SQLConnector {
 		}
 	}
 	
-	public static List<Session> getSessions(int id)
-	{
+	public static List<Session> getSessions(int id) {
 		try {
 			List<Session> sessions=new ArrayList<>();
 			ResultSet rs =getResultSet("SELECT * FROM Økt WHERE K_ID="+id);
@@ -114,4 +112,30 @@ public class SQLConnector {
 			return new ArrayList<Session>();
 		}
 	}
+	
+	public static List<Trainer> getTrainers() {
+		try {
+			List<Trainer> trainers=new ArrayList<>();
+			ResultSet rs = getResultSet("SELECT * FROM Trener");
+			while(rs.next()){
+				Trainer trainer= new Trainer(rs.getString("navn"), 
+									rs.getString("adresse"), 
+									rs.getString("tlf"),
+									rs.getString("mail"),
+									rs.getInt("T_ID")
+				);
+				trainers.add(trainer);
+				ResultSet clientsRS = getResultSet("SELECT * FROM PT WHERE T_id="+trainer.getId());
+				while(clientsRS.next()){
+					trainer.addClient(clientsRS.getInt("K_ID"));
+				}
+			}
+			return trainers;
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			return new ArrayList<Trainer>();
+		}
+	}
+	
 }
