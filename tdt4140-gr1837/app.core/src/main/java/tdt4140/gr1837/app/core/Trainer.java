@@ -6,20 +6,39 @@ import java.util.List;
 public class Trainer {
 	private String name;
 	private String adress;
-	private String tlf;
+	private String phoneNumber;
 	private String mail;
 	private List<User> clients = new ArrayList<>();
 	
-	public Trainer(String name, String adress, String tlf, String mail) {
+	public Trainer(String name, String adress, String phoneNumber, String mail) {
 		this.name=name;
 		this.adress=adress;
-		this.tlf=tlf;
+		this.phoneNumber=phoneNumber;
 		this.mail=mail;
 	}
 	
 	public void addClient(int id) {
-		//UserDatabase
+		User user=UserDatabase.getUserById(id);
+		clients.add(user);
+		user.setTrainer(this);
 	}
+	
+	public String name(){
+		return name;
+	}
+	
+	public String adress() {
+		return adress;
+	}
+	
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+	
+	public String getMail() {
+		return mail;
+	}
+	
 	@Override
 	public String toString() {
 		return name;
