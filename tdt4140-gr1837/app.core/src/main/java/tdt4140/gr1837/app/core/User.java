@@ -13,13 +13,13 @@ public class User {
 	public User(String name, String phoneNumber, int age, String motivation, int id) {
 		this.name = name;
 		this.phoneNumber = phoneNumber;
-		this.age=age;
-		this.motivation=motivation;
-		this.id=id;
+		this.age = age;
+		this.motivation = motivation;
+		this.id = id;
 	}
 	
 	public void setTrainer(Trainer trainer) {
-		this.trainer=trainer;
+		this.trainer = trainer;
 	}
 	
 	public int getId() {

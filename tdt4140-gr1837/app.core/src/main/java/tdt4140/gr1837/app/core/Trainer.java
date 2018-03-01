@@ -12,15 +12,15 @@ public class Trainer {
 	private List<User> clients = new ArrayList<>();
 	
 	public Trainer(String name, String adress, String phoneNumber, String mail, int id) {
-		this.name=name;
-		this.adress=adress;
-		this.phoneNumber=phoneNumber;
-		this.mail=mail;
-		this.id=id;
+		this.name = name;
+		this.adress = adress;
+		this.phoneNumber = phoneNumber;
+		this.mail = mail;
+		this.id = id;
 	}
 	
 	public void addClient(int id) {
-		User user=UserDatabase.getUserById(id);
+		User user = UserDatabase.getUserById(id);
 		clients.add(user);
 		user.setTrainer(this);
 	}

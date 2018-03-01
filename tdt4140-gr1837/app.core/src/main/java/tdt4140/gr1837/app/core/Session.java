@@ -6,9 +6,9 @@ public class Session {
 	private String date;
 	
 	public Session(String note, String date, int id) {
-		this.note=note;
-		this.date=date;
-		this.id=id;
+		this.note = note;
+		this.date = date;
+		this.id = id;
 	}
 	
 	public String getNote() {

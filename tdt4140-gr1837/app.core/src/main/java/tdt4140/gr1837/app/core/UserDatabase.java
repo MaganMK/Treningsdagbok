@@ -11,8 +11,7 @@ public class UserDatabase {
 	private static List<User> users = new ArrayList<>();
 	private static List<User> offlineUserDatabase = new ArrayList<>();
 
-	private static void initializeOfflineDatabase()
-	{
+	private static void initializeOfflineDatabase() {
 		offlineUserDatabase.add(new User("Sindre", "11111111", 23, "Bli svær", 1));
 		offlineUserDatabase.add(new User("Harald", "11122111", 21, "Bli fit", 2));
 		offlineUserDatabase.add(new User("Stian", "11114111", 20, "Sommerkroppen 2k18", 3));
@@ -23,11 +22,10 @@ public class UserDatabase {
 	}
 	public static void initialize() {
 		if(users.isEmpty()) {
-			users=SQLConnector.getUsers();
+			users = SQLConnector.getUsers();
 		}
 	}
-	public static List<User> getOfflineUserDatabase()
-	{
+	public static List<User> getOfflineUserDatabase() {
 		if(offlineUserDatabase.isEmpty()) {
 			initializeOfflineDatabase();
 		}

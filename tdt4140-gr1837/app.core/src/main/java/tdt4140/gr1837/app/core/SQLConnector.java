@@ -13,8 +13,10 @@ public class SQLConnector {
 	private static String username = "didris_test";
 	private static String password = "1234";
 	private static Connection connection;
-	public static Connection getConnection() throws SQLException{
-		if(connection==null){
+	
+	// Metode for å hente en SQL connection
+	public static Connection getConnection() throws SQLException {
+		if(connection == null) {
 			try {
 				System.out.println("Connecting database...");
 				connection = DriverManager.getConnection(url, username, password);
@@ -27,8 +29,10 @@ public class SQLConnector {
 		}
 		return connection;
 	}
+	
+	// Metode for å lukke en SQL connection
 	public static void closeConnection() {
-		if(connection!=null) {
+		if(connection != null) {
 			try {
 				connection.close();
 				System.out.println("Connection closed");
@@ -37,31 +41,13 @@ public class SQLConnector {
 			}
 		}
 	}
-	public static void main(String args[]) throws SQLException {
-		for(int i =1; i < 100; i++) {
-			String[] user = getUser(i);
-			System.out.println(String.format("%s, %s %s %s %s",i, user[0],user[1],user[2],user[3]));
-		}
-		//insert_client(connection, "\"Per Pålsen\"", 41010101, 20, "\"msakmdmkm\"");
-	}
-	public static String[] getUser(int id) throws SQLException {
-		Connection connection = SQLConnector.getConnection();
-		String query = "SELECT * FROM Klient WHERE K_ID="+id;
-		Statement stmt = connection.createStatement();
-		ResultSet rs = stmt.executeQuery(query);
-		while (rs.next()){
-			String[] arr= {rs.getString("navn"), rs.getString("tlf"), rs.getString("alder"), rs.getString("motivasjon")};
-			return arr;
-		}
-		return null;
-	}
 	
+	// Metode for å hente ut resultatet fra en SQL spørring
 	public static ResultSet getResultSet(String query) throws SQLException {
 		Connection connection;
 		try {
 			connection = SQLConnector.getConnection();
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 			throw e1;
 		}
@@ -74,12 +60,14 @@ public class SQLConnector {
 			throw e;
 		}
 	}
+	
+	// Metode for å hente klientene
 	public static List<User> getUsers() {
 		try {
 			ResultSet rs = getResultSet("SELECT * FROM Klient");
-			List<User> users=new ArrayList<>();
-			while(rs.next()){
-				User user= new User(rs.getString("navn"), 
+			List<User> users = new ArrayList<>();
+			while(rs.next()) {
+				User user = new User(rs.getString("navn"), 
 									rs.getString("tlf"), 
 									rs.getInt("alder"), 
 									rs.getString("motivasjon"), 
@@ -94,12 +82,13 @@ public class SQLConnector {
 		}
 	}
 	
+	// Metode for å hente øktene
 	public static List<Session> getSessions(int id) {
 		try {
-			List<Session> sessions=new ArrayList<>();
-			ResultSet rs =getResultSet("SELECT * FROM Økt WHERE K_ID="+id);
-			while(rs.next()){
-				Session session= new Session(rs.getString("Notat"), 
+			List<Session> sessions = new ArrayList<>();
+			ResultSet rs = getResultSet("SELECT * FROM Økt WHERE K_ID="+id);
+			while(rs.next()) {
+				Session session = new Session(rs.getString("Notat"), 
 									rs.getString("Dato"), 
 									rs.getInt("O_ID")
 				);
@@ -107,18 +96,18 @@ public class SQLConnector {
 			}
 			return sessions;
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 			return new ArrayList<Session>();
 		}
 	}
 	
+	// Metode for å hente trenere
 	public static List<Trainer> getTrainers() {
 		try {
-			List<Trainer> trainers=new ArrayList<>();
+			List<Trainer> trainers = new ArrayList<>();
 			ResultSet rs = getResultSet("SELECT * FROM Trener");
-			while(rs.next()){
-				Trainer trainer= new Trainer(rs.getString("navn"), 
+			while(rs.next()) {
+				Trainer trainer = new Trainer(rs.getString("navn"), 
 									rs.getString("adresse"), 
 									rs.getString("tlf"),
 									rs.getString("mail"),
@@ -132,7 +121,6 @@ public class SQLConnector {
 			}
 			return trainers;
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 			return new ArrayList<Trainer>();
 		}
