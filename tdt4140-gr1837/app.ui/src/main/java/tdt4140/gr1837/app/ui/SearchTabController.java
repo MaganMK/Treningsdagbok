@@ -16,9 +16,6 @@ public class SearchTabController {
 	@FXML public TextField autocompleteField;
 	@FXML CustomTextField testField;
 	
-	// Midlertidig database med brukere
-	public UserDatabase users = new UserDatabase();
-	
 	// Managercontroller for kommunikasjon mellom controllers
 	public ManagerController managerController;
 	
@@ -31,7 +28,7 @@ public class SearchTabController {
 	// Utvides til faktisk sokefunksjonalitet med autocomplete-forslag i sprint 2
 	@FXML public void searchForUser() {
 		String userName = autocompleteField.getText();
-		User user = users.getUser(userName);
+		User user = UserDatabase.getUser(userName);
 		if (user != null) {
 			managerController.showUser(user);
 			managerController.switchTab("profileTab");
