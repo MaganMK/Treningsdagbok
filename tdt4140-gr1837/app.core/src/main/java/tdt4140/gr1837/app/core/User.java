@@ -26,14 +26,6 @@ public class User {
 		return id;
 	}
 	
-	public void setTrainer(Trainer trainer) {
-		this.trainer=trainer;
-	}
-	
-	public int getId() {
-		return id;
-	}
-	
 	public String getName() {
 		return this.name;
 	}
