@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import tdt4140.gr1837.app.core.User;
+import tdt4140.gr1837.app.core.UserDatabase;
 
 // Generell controller til hele managersiden
 public class ManagerController {
@@ -28,6 +29,7 @@ public class ManagerController {
 	
 	// Initialiserer controllers med seg selv som hovedcontroller
 	@FXML public void initialize() {
+		UserDatabase.initialize();
 		profileTabController.init(this);
 		searchTabController.init(this);
 		strengthTabController.init(this);

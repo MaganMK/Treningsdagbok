@@ -8,6 +8,7 @@ public class User {
 	private int age;
 	private String motivation;
 	private int id;
+	private Trainer trainer;
 	
 	public User(String name, String phone_number, int age, String motivation, int id) {
 		this.name = name;
@@ -15,6 +16,14 @@ public class User {
 		this.age=age;
 		this.motivation=motivation;
 		this.id=id;
+	}
+	
+	public void setTrainer(Trainer trainer) {
+		this.trainer=trainer;
+	}
+	
+	public int getId() {
+		return id;
 	}
 	
 	public String getName() {
