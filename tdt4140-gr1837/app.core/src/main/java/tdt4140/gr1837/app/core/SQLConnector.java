@@ -10,13 +10,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 public class SQLConnector {
 	private static String url = "jdbc:mysql://mysql.stud.ntnu.no/didris_test1";
 	private static String username = "didris_test";
 	private static String password = "1234";
 	private static Connection connection;
-
+	
 	// Metode for aa hente en SQL connection
 	public static Connection getConnection() throws SQLException {
 		if(connection == null) {
@@ -54,20 +53,18 @@ public class SQLConnector {
 			e1.printStackTrace();
 			throw e1;
 		}
-		return null;
+		Statement stmt;
+		try {
+			stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			return rs;
+		} catch(SQLException e) {
+			throw e;
+		}
 	}
 	
 	// Metode for aa hente klientene
-	public static List<User> getUsers()
-	{
-		Connection connection;
-		try {
-			connection = SQLConnector.getConnection();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			return UserDatabase.getOfflineUserDatabase();
-		}
+	public static List<User> getUsers() {
 		try {
 			ResultSet rs = getResultSet("SELECT * FROM Client");
 			List<User> users = new ArrayList<>();
@@ -154,6 +151,7 @@ public class SQLConnector {
 							musclesTrained.put(rs3.getString("muscle_name"), rs2.getInt("degree"));
 						}
 				}
+
 			}
 			return musclesTrained;
 		} catch (SQLException e1) {
