@@ -114,4 +114,28 @@ public class SQLConnector {
 			return new ArrayList<Session>();
 		}
 	}
+	
+	
+	public static List<String> getMusclesTrained(int sessionID){
+		try {
+			
+			List<String> musclesTrained = new ArrayList<>();
+			ResultSet rs1 = getResultSet("SELECT * FROM Klient_styrke WHERE O_ID="+sessionID);
+			while(rs1.next()){
+					ResultSet rs2 = getResultSet("SELECT * FROM Muskel_trent WHERE Ø_ID="+ rs1.getInt("Ø_ID"));	
+					while(rs2.next()){
+						ResultSet rs3 = getResultSet("SELECT * FROM Muskel WHERE M_ID="+ rs2.getInt("M_ID"));	
+						while(rs3.next()){
+							musclesTrained.add(rs3.getString("M_navn"));
+						}
+				}
+
+			}
+			return musclesTrained;
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			return new ArrayList<String>();
+		}
+	}
 }

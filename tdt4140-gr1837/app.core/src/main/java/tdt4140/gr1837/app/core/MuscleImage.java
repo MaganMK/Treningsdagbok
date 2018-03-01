@@ -7,100 +7,69 @@ import java.util.Map;
 
 // Klasse for aa haandtere "muskelmannen"
 public class MuscleImage {
-	
-	public static List<String> names = new ArrayList<>();
-	public static List<Integer> values = new ArrayList<>();
 
 	/*
 	 *  Ved aa bruke hashmap kan man refferere til riktig muskel ved navn.
 	 *  Slik at det blir lettere aa oppdatere med navn fra databasen.
 	 */
-	private Map<String, Double> muscles = new HashMap<>();
+	private Map<String, Integer> muscles = new HashMap<>();
+	private User user;
 	
 	// Totalt antall verdier som er gitt, slik at vi kan regne prosent
 	private int totalValue = 0;
 	
 
-	public MuscleImage(){
-		muscles.put("underarmer", 0.0);
-		muscles.put("abs", 0.0);
-		muscles.put("triceps", 0.0);
-		muscles.put("teres", 0.0);
-		muscles.put("postDelts", 0.0);
-		muscles.put("obliques", 0.0);
-		muscles.put("lats", 0.0);
-		muscles.put("frontDelts", 0.0);
-		muscles.put("erector", 0.0);
-		muscles.put("calves", 0.0);
-		muscles.put("biceps", 0.0);
-		muscles.put("quads", 0.0);
-		muscles.put("rumpe", 0.0);
-		muscles.put("traps", 0.0);
-		muscles.put("hofteUt", 0.0);
-		muscles.put("bryst", 0.0);
-		muscles.put("hamstring", 0.0);
-		muscles.put("hofteIn", 0.0);
+	public MuscleImage(User user){
+		this.user = user;
+		muscles.put("underarmer", 0);
+		muscles.put("abs", 0);
+		muscles.put("triceps", 0);
+		muscles.put("teres", 0);
+		muscles.put("postDelts", 0);
+		muscles.put("obliques", 0);
+		muscles.put("lats", 0);
+		muscles.put("frontDelts", 0);
+		muscles.put("erector", 0);
+		muscles.put("calves", 0);
+		muscles.put("biceps", 0);
+		muscles.put("quads", 0);
+		muscles.put("rumpe", 0);
+		muscles.put("traps", 0);
+		muscles.put("hofteUt", 0);
+		muscles.put("bryst", 0);
+		muscles.put("hamstring", 0);
+		muscles.put("hofteIn", 0);
 		
-		
-		// Dummy data --- Trent jevnt bryst, abs og quads
-		
-		
-		names.add("bryst");
-		values.add(10);
-		names.add("abs");
-		values.add(10);
-		names.add("quads");
-		values.add(10);
-		
-		
-		// Dummy data --- Trent masse bryst og biceps og litt quads
-		/*
-		names.add("bryst");
-		values.add(50);
-		names.add("biceps");
-		values.add(50);
-		names.add("quads");
-		values.add(10);
-		*/
-		
-		// Dummy data --- Trent masse triceps og ørlite traps (I forhold til hverandre)
-		/*
-		names.add("triceps");
-		values.add(10);
-		names.add("traps");
-		values.add(2);
-		*/
-		
-		// Denne skal oppdatere verdiene naar applikasjonen launcher m/ data fra databasen
-		updateBody(names, values);
+		// Denne skal oppdatere verdiene m/ data fra databasen
+		updateBody(SQLConnector.getSessions(this.user.getId()));
 	}
 	
-	public Map<String, Double> getMuscles(){
-		return muscles;
-	}
-	
-	// Her maa vi sende inn verdier fra databasen 
-	public void updateBody(List<String> names, List<Integer> values)
-	{
-		// Oppdaterer totalValue
-		for (int value : values)
-		{
-			totalValue += value;
+	public Map<String, Double> getMusclesWithPrecentages(){
+		
+		Map<String, Double> musclesWithPrecentage = new HashMap<>();
+		
+		for (String name : muscles.keySet()){
+			double precentage = Double.valueOf(muscles.get(name))/Double.valueOf(totalValue);
+			musclesWithPrecentage.put(name, precentage);
 		}
 		
-		
-		for (int i = 0; i<names.size(); i++)
-		{
-			updateMuscle(names.get(i), values.get(i));
+		return musclesWithPrecentage;
+	}
+	
+	// Her sender vi alle okter fra databasen
+	public void updateBody(List<Session> sessions){
+		for (Session session : sessions){
+			List<String> musclesEachSession = SQLConnector.getMusclesTrained(session.getId());
+			for(String muscle : musclesEachSession){
+				totalValue += 1;
+				updateMuscle(muscle, 1); 
+			}
 		}
 	}
 	
 
 	public void updateMuscle(String name, int value){
-		double precent = Double.valueOf(value)/Double.valueOf(totalValue);
-		
-		//Legger til 0.1 fordi mange muskelgrupper = alt er trent jevnt blir relativt lav prosent pr muskel
-		muscles.put(name, precent + 0.1); 
+		muscles.put(name, muscles.get(name) + value); 
 	}
 	
 }

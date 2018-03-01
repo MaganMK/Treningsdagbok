@@ -33,6 +33,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/tdt4140-gr1837/lib/controlsfx-8.40.14.jar"/>
-	<classpathentry kind="lib" path="/37/tdt4140-gr1837/lib/mysql-connector-java-5.1.45-bin.jar"/>
+	<classpathentry kind="lib" path="/tdt4140-gr1837/lib/mysql-connector-java-5.1.45-bin.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
