@@ -56,22 +56,29 @@ public class SQLConnector {
 		return null;
 	}
 	
-	public static List<User> getUsers()
-	{
+	public static ResultSet getResultSet(String query) throws SQLException {
 		Connection connection;
 		try {
 			connection = SQLConnector.getConnection();
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-			return UserDatabase.getOfflineUserDatabase();
+			throw e1;
 		}
-		List<User> users=new ArrayList<>();
-		String query = "SELECT * FROM Klient";
 		Statement stmt;
 		try {
 			stmt = connection.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
+			return rs;
+		} catch(SQLException e) {
+			throw e;
+		}
+	}
+	public static List<User> getUsers()
+	{
+		try {
+			ResultSet rs = getResultSet("SELECT * FROM Klient");
+			List<User> users=new ArrayList<>();
 			while(rs.next()){
 				User user= new User(rs.getString("navn"), 
 									rs.getString("tlf"), 
@@ -81,29 +88,18 @@ public class SQLConnector {
 				);
 				users.add(user);
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return users;
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			return UserDatabase.getOfflineUserDatabase();
 		}
-		return users;
 	}
 	
 	public static List<Session> getSessions(int id)
 	{
-		Connection connection;
 		try {
-			connection = SQLConnector.getConnection();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			return new ArrayList<Session>();
-		}
-		List<Session> sessions=new ArrayList<>();
-		String query = "SELECT * FROM Økt WHERE K_ID="+id;
-		Statement stmt;
-		try {
-			stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(query);
+			List<Session> sessions=new ArrayList<>();
+			ResultSet rs =getResultSet("SELECT * FROM Økt WHERE K_ID="+id);
 			while(rs.next()){
 				Session session= new Session(rs.getString("Notat"), 
 									rs.getString("Dato"), 
@@ -111,10 +107,11 @@ public class SQLConnector {
 				);
 				sessions.add(session);
 			}
-		} catch (SQLException e) {
+			return sessions;
+		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e1.printStackTrace();
+			return new ArrayList<Session>();
 		}
-		return sessions;
 	}
 }
