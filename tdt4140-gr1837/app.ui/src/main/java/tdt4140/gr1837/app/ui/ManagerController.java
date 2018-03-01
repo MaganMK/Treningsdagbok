@@ -49,7 +49,7 @@ public class ManagerController {
 	public void showUser(User user) {
 		profileTabController.setUser(user);
 		strengthTabController.setUser(user);
-		staminaTabController.setUser(user);
+		//staminaTabController.setUser(user);
 	}
 
 	// Endrer tab til angitt tab
