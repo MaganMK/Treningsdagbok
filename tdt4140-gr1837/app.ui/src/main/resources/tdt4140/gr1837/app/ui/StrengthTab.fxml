@@ -17,7 +17,7 @@
                   <Font size="37.0" />
                </font>
             </Text>
-            <Pane layoutX="360.0" layoutY="43.0" onMouseClicked="#updateMuscles" prefHeight="321.0" prefWidth="335.0">
+            <Pane layoutX="360.0" layoutY="43.0" prefHeight="321.0" prefWidth="335.0">
                <children>
                   <ImageView fx:id="muscleManImage" fitHeight="305.0" fitWidth="338.0" pickOnBounds="true" preserveRatio="true">
                      <image>

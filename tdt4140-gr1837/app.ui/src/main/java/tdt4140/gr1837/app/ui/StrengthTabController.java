@@ -54,7 +54,26 @@ public class StrengthTabController {
 	// Setter managerController
 	public void init(ManagerController managerController) {
 		this.managerController = managerController;
-		muscleMan = new MuscleImage();
+	}
+	
+	//Setter musklene til grad av rødfarge
+	public void updateMuscles() {
+		Map<String, Double> musclesWithPrecentage = muscleMan.getMusclesWithPrecentages();
+		
+		for (String name : musclesWithPrecentage.keySet()){
+			muscles.get(name).setOpacity(musclesWithPrecentage.get(name));
+		}
+	}
+	
+	// Setter user som skrives i sokefeltet
+	public void setUser(User user) {
+			clientName.setText(user.getName());
+			muscleMan = new MuscleImage(user);
+			initMuscleMap();
+			updateMuscles();
+		}
+
+	private void initMuscleMap(){
 		muscles.put("underarmer", underarmer);
 		muscles.put("abs", abs);
 		muscles.put("triceps", triceps);
@@ -74,17 +93,4 @@ public class StrengthTabController {
 		muscles.put("hamstring", hamstring);
 		muscles.put("hofteIn", hofteIn);
 	}
-	
-	//Setter musklene til grad av rødfarge
-	public void updateMuscles() {
-		for (String name : muscleMan.getMuscles().keySet()){
-			muscles.get(name).setOpacity(muscleMan.getMuscles().get(name));
-		}
-	}
-	
-	// Setter user som skrives i sokefeltet
-	public void setUser(User user) {
-			clientName.setText(user.getName());
-		}
-
 }
