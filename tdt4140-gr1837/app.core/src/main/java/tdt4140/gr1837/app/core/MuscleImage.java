@@ -50,7 +50,7 @@ public class MuscleImage {
 		
 		for (String name : muscles.keySet()){
 			double precentage = Double.valueOf(muscles.get(name))/Double.valueOf(totalValue);
-			musclesWithPrecentage.put(name, precentage);
+			musclesWithPrecentage.put(name, precentage*2);
 		}
 		
 		return musclesWithPrecentage;
