@@ -31,7 +31,7 @@ public class UserDatabase {
 		}
 		return offlineUserDatabase;
 	}
-	public List<User> getUsers() {
+	public static List<User> getUsers() {
 		return users;
 	}
 	
