@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXTabPane?>
 <?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.ManagerController">
+<AnchorPane styleClass="backgroundPane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.ManagerController">
    <children>
-      <TabPane fx:id = "tabPane" prefHeight="600" prefWidth="800" stylesheets="@style.css" tabClosingPolicy="UNAVAILABLE">
+      <JFXTabPane fx:id="tabPane" prefHeight="600" prefWidth="800" stylesheets="@style.css" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="searchTab1" text="Søk">
              <fx:include fx:id="searchTab" source="SearchTab.fxml" />
@@ -18,9 +18,9 @@
           	 <fx:include fx:id="strengthTab" source="StrengthTab.fxml" />
           </Tab>
           <Tab fx:id="staminaTab1" text="Kondisjon">
-          	 <fx:include fx:id = "staminaTab" source = "StaminaTab.fxml" />
+          	 <fx:include fx:id="staminaTab" source="StaminaTab.fxml" />
           </Tab>
         </tabs>
-      </TabPane>
+      </JFXTabPane>
    </children>
 </AnchorPane>

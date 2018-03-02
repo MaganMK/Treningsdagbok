@@ -1,20 +1,51 @@
-/*Endrer tabstørrelsen slik at alle er like*/
-.tab {
+/*
+ * Hovedfarge elementer: #1a67a3
+ * Hoverfarge elementer: #1d75ba
+ */
 
-    -fx-pref-width: 100;
+/*Tab*/
+.tab {
+    -fx-pref-width: 167.2;
 } 
+
 .tab-header-background {
-    -fx-background-color:transparent;
+    -fx-background-color: #1a67a3;
 }
 
 #autoField {
-	-fx-background-color: #FF99FF;
+    -fx-background-color: #1a67a3;
 }
 
+.tab:hover {
+	-fx-background-color: #1d75ba;
+	-fx-cursor: hand;
+}
+
+
+/*Button*/
 .button{
-    -fx-background-color: lightblue;
+    -fx-background-color: #1a67a3;
 }
 
 .button:hover {
-	-fx-background-color: lightgray;
+	-fx-background-color: #1d75ba;
+	-fx-cursor: hand;
+}
+
+
+/*Bakgrunn */
+.backgroundPane {
+	-fx-background-color: white;
+}
+
+
+/*Tekstfelt - gjør om til bare en linje */
+.text-field {
+    -fx-background-color: -fx-text-box-border, white ;
+    -fx-background-insets: 0, 0 0 1.5 0 ;
+    -fx-background-radius: 0 ;
+    -fx-padding: 0;
+}
+.text-field:focused {
+    -fx-background-color: #1a67a3, white ;
 }
