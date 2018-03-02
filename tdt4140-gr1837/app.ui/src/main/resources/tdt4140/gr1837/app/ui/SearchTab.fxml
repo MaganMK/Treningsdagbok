@@ -10,8 +10,8 @@
 
 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="550" prefWidth="680" stylesheets="@style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.SearchTabController">
    <children>
-      <Text fx:id="errorMessage" fill="RED" layoutX="112.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="301.3333282470703" />
-      <TextField fx:id="autocompleteField" layoutX="111.0" layoutY="93.0" onKeyTyped="#removeErrorMessage" prefHeight="29.0" prefWidth="375.0" promptText="Navn" stylesheets="@style.css">
+      <Text fx:id="errorMessage" fill="RED" layoutX="102.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="301.3333282470703" />
+      <TextField fx:id="autocompleteField" layoutX="102.0" layoutY="93.0" onKeyTyped="#removeErrorMessage" prefHeight="29.0" prefWidth="375.0" promptText="Navn" stylesheets="@style.css">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor>
@@ -24,9 +24,9 @@
             <Glyph fontFamily="FontAwesome" icon="SEARCH" />
          </graphic>
       </Button>
-      <JFXButton layoutX="492.0" layoutY="93.0" onAction="#searchForUser" prefHeight="28.5" prefWidth="77.0">
+      <JFXButton layoutX="501.0" layoutY="94.0" onAction="#searchForUser" prefHeight="28.5" prefWidth="77.0" textFill="WHITE">
       	<graphic>
-            <Glyph fontFamily="FontAwesome" icon="SEARCH" />
+            <Glyph fontFamily="FontAwesome" icon="SEARCH" textFill="WHITE" />
         </graphic>
         <cursor>
             <Cursor fx:constant="HAND" />

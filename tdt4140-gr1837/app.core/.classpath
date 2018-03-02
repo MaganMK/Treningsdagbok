@@ -32,7 +32,5 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/tdt4140-gr1837/lib/controlsfx-8.40.14.jar"/>
-	<classpathentry kind="lib" path="/tdt4140-gr1837/lib/jfoenix-8.0.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
