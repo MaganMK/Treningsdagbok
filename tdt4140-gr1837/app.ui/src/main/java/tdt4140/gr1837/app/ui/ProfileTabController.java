@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.text.Text;
@@ -21,7 +22,7 @@ public class ProfileTabController {
 	@FXML ListView<User> TrainingList1;
 	@FXML TableView<Exercise> ExerciseList;
 	@FXML TableColumn<Exercise, String> type;
-	@FXML TableColumn<Exercise, String> notat;
+	@FXML TextArea notat;
 	@FXML TableColumn<Exercise, Integer> sett;
 	@FXML TableColumn<Exercise, Integer> repetisjoner;
 	@FXML TableColumn<Exercise, Integer> vekt;
@@ -37,22 +38,24 @@ public class ProfileTabController {
 	}
 
 	// Setter user som skrives i sokefeltet
-	public void setUser(User user, List<User> users) {
+	public void setUser(User user, List<User> users, List<Exercise> exercise) {
 		clientName.setText(user.getName());
 		TrainingList1.setItems(FXCollections.observableArrayList(users));
+		this.addTableView(exercise);
 	}
 	
 	// Users i denne metoden må endres til øvelser, bruker users for å teste
-	private void addTableView(List<User> users) {
+	private void addTableView(List<Exercise> exercise) {
 		// TableView<Exercise> ExerciseList = new TableView<Exercise>();
 		
 		type.setCellValueFactory(new PropertyValueFactory<>("type"));
-		notat.setCellValueFactory(new PropertyValueFactory<>("notat"));
 		sett.setCellValueFactory(new PropertyValueFactory<>("sett"));
 		repetisjoner.setCellValueFactory(new PropertyValueFactory<>("repetisjoner"));
 		vekt.setCellValueFactory(new PropertyValueFactory<>("vekt"));
 		
-		ExerciseList.setItems(FXCollections.observableArrayList());
+		ExerciseList.setItems(FXCollections.observableArrayList(exercise));
+		ExerciseList.getColumns().addAll(type, sett, repetisjoner, vekt);	
+		
 		
 		
 		
