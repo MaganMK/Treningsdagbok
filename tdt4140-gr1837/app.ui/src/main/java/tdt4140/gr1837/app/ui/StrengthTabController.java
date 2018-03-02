@@ -20,7 +20,7 @@ public class StrengthTabController {
 	// Bakgrunn
 	@FXML Pane pane;
 	
-	// Klientnavn
+	//Klientnavn
 	@FXML Text clientName;
 
 	//Muskelgruppene 
@@ -56,6 +56,7 @@ public class StrengthTabController {
 		this.managerController = managerController;
 	}
 	
+
 	//Setter musklene til grad av rødfarge
 	public void updateMuscles() {
 		Map<String, Double> musclesWithPrecentage = muscleMan.getMusclesWithPrecentages();

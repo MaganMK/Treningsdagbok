@@ -15,13 +15,8 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller = "tdt4140.gr1837.app.ui.StaminaTabController">
 	<children>
-      <Pane fx:id="pane" prefHeight="650" prefWidth="800">
+      <Pane fx:id="pane" prefHeight="550" prefWidth="680">
          <children>
-         	<Text fx:id="clientName" layoutX="360" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="719.4700813293457">
-               <font>
-                  <Font size="37.0" />
-               </font>
-            </Text>
          </children>
       </Pane>
    </children>

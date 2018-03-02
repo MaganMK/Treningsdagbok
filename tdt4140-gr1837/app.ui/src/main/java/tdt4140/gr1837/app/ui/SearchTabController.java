@@ -5,7 +5,6 @@ import org.controlsfx.control.textfield.CustomTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-
 import tdt4140.gr1837.app.core.User;
 import tdt4140.gr1837.app.core.UserDatabase;
 
@@ -24,7 +23,6 @@ public class SearchTabController {
 		this.managerController = managerController;
 	}
 	
-	// Finner bruker nar man trykker g?
 	// Utvides til faktisk sokefunksjonalitet med autocomplete-forslag i sprint 2
 	@FXML public void searchForUser() {
 		String userName = autocompleteField.getText();
@@ -37,6 +35,10 @@ public class SearchTabController {
 		}
 	}
 	
+	// Fjerner feilmelding nar sokefeltet blir endret
+	@FXML public void removeErrorMessage() {
+		errorMessage.setText("");
+	}
 	
 
 }

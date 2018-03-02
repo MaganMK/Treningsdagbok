@@ -9,25 +9,27 @@ public class Trainer {
 	private String phoneNumber;
 	private String mail;
 	private List<User> clients = new ArrayList<>();
+	private int id;
 	
-	public Trainer(String name, String adress, String phoneNumber, String mail) {
-		this.name=name;
-		this.adress=adress;
-		this.phoneNumber=phoneNumber;
-		this.mail=mail;
+	public Trainer(String name, String adress, String phoneNumber, String mail, int id) {
+		this.name = name;
+		this.adress = adress;
+		this.phoneNumber = phoneNumber;
+		this.mail = mail;
+		this.id = id;
 	}
 	
 	public void addClient(int id) {
-		User user=UserDatabase.getUserById(id);
+		User user = UserDatabase.getUserById(id);
 		clients.add(user);
 		user.setTrainer(this);
 	}
 	
-	public String name(){
+	public String getName(){
 		return name;
 	}
 	
-	public String adress() {
+	public String getAdress() {
 		return adress;
 	}
 	
@@ -37,6 +39,14 @@ public class Trainer {
 	
 	public String getMail() {
 		return mail;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public List<User> getClients() {
+		return clients;
 	}
 	
 	@Override
