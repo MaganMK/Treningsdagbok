@@ -29,7 +29,6 @@ public class ProfileTabController {
 	@FXML TableColumn<Exercise, Integer> sett;
 	@FXML TableColumn<Exercise, Integer> repetisjoner;
 	@FXML TableColumn<Exercise, Integer> vekt;
-
 	
 	// ManagerController for kommunikasjon med andre controllers
 	public ManagerController managerController;
