@@ -30,10 +30,11 @@ public class SearchTabController {
 		String userName = autocompleteField.getText();
 		User user = UserDatabase.getUser(userName);
 		if (user != null) {
+			errorMessage.setText("");
 			managerController.showUser(user);
 			managerController.switchTab("profileTab");
 		} else {
-			errorMessage.setText("Fant ikke bruker");
+			errorMessage.setText("Fant ikke " + userName);
 		}
 	}
 	
