@@ -40,10 +40,10 @@
 	                                 <children>
 	                                    <TableView prefHeight="420.0" prefWidth="488.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 	                                      <columns>
-	                                        <TableColumn prefWidth="150.0" text="Type" />
-	                                        <TableColumn minWidth="0.0" prefWidth="124.0" text="Sett" />
-	                                          <TableColumn prefWidth="108.0" text="Repetisjoner" />
-	                                          <TableColumn prefWidth="105.0" text="Vekt" />
+	                                        <TableColumn fx:id="type" prefWidth="150.0" text="Type" />
+	                                        <TableColumn fx:id="sett" minWidth="0.0" prefWidth="124.0" text="Sett" />
+	                                          <TableColumn fx:id="repetisjoner" prefWidth="108.0" text="Repetisjoner" />
+	                                          <TableColumn fx:id="vekt" prefWidth="105.0" text="Vekt" />
 	                                      </columns>
 	                                    </TableView>
 	                                 </children>
