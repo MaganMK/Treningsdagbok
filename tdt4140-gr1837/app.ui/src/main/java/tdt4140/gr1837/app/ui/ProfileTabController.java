@@ -7,10 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableView;
-<<<<<<< HEAD
 import javafx.scene.control.TextArea;
-=======
->>>>>>> ForsÃ¸k pÃ¥ Ã¥ fÃ¥ informasjon fra database til tabell, #8
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.text.Text;
@@ -47,7 +44,7 @@ public class ProfileTabController {
 		this.addTableView(exercise);
 	}
 	
-	// Users i denne metoden må endres til øvelser, bruker users for å teste
+	// Users i denne metoden maa endres til ovelser, bruker users for aa teste
 	private void addTableView(List<Exercise> exercise) {
 		// TableView<Exercise> ExerciseList = new TableView<Exercise>();
 		
@@ -59,33 +56,6 @@ public class ProfileTabController {
 		ExerciseList.setItems(FXCollections.observableArrayList(exercise));
 		ExerciseList.getColumns().addAll(type, sett, repetisjoner, vekt);	
 		
-		
-		
-		
-		/*TableColumn type = new TableColumn("Type");
-		type.setCellValueFactory(new PropertyValueFactory<Exercise, String>("type"));
-		
-		TableColumn sett = new TableColumn("Sett");
-		sett.setCellValueFactory(new PropertyValueFactory<Exercise, String>("sett"));
-		
-		TableColumn repetisjoner = new TableColumn("Repetisjoner");
-		type.setCellValueFactory(new PropertyValueFactory<Exercise, String>("Type"));
-		
-		TableColumn vekt = new TableColumn("Vekt");
-		vekt.setCellValueFactory(new PropertyValueFactory<Exercise, String>("vekt"));*/
-	}
-	
-	// Users i denne metoden mï¿½ endres til ï¿½velser, bruker users for ï¿½ teste
-	private void addTableView(List<User> users) {
-		// TableView<Exercise> ExerciseList = new TableView<Exercise>();
-		
-		type.setCellValueFactory(new PropertyValueFactory<>("type"));
-		notat.setCellValueFactory(new PropertyValueFactory<>("notat"));
-		sett.setCellValueFactory(new PropertyValueFactory<>("sett"));
-		repetisjoner.setCellValueFactory(new PropertyValueFactory<>("repetisjoner"));
-		vekt.setCellValueFactory(new PropertyValueFactory<>("vekt"));
-		
-		ExerciseList.setItems(FXCollections.observableArrayList());
 		
 		
 		

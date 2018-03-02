@@ -1,7 +1,6 @@
 package tdt4140.gr1837.app.ui;
 
 import com.jfoenix.controls.JFXButton;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;

@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
-<?import org.controlsfx.glyphfont.Glyph?>
+<!-- <?import org.controlsfx.glyphfont.Glyph?>  -->
 
 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600" prefWidth="800" stylesheets="@style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.SearchTabController">
    <children>
@@ -18,7 +18,7 @@
       </TextField>
       <Button layoutX="722.0" layoutY="572.0" mnemonicParsing="false" opacity="0.0" prefHeight="27.0" prefWidth="77.0">
          <graphic>
-            <Glyph fontFamily="FontAwesome" icon="SEARCH" />
+<!--             <Glyph fontFamily="FontAwesome" icon="SEARCH" /> -->
           </graphic>
       </Button>
       <JFXButton layoutX="579.0" layoutY="132.0" onAction="#searchForUser" prefHeight="28.0" prefWidth="28.0" stylesheets="@style.css" textAlignment="CENTER">
