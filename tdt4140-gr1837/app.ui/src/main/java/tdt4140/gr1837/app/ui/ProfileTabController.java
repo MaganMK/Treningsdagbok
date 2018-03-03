@@ -12,14 +12,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.text.Text;
 import tdt4140.gr1837.app.core.Exercise;
+import tdt4140.gr1837.app.core.SQLConnector;
 import tdt4140.gr1837.app.core.User;
+import tdt4140.gr1837.app.core.Session;
 
 public class ProfileTabController {
 	
 	// Elementer i ProfileTab.fxml
 	@FXML Tab profileTab;
 	@FXML Text clientName;
-	@FXML ListView<User> TrainingList1;
+	@FXML ListView<Session> TrainingList1;
 	@FXML TableView<Exercise> ExerciseList;
 	@FXML TableColumn<Exercise, String> type;
 	@FXML TextArea notat;
@@ -38,10 +40,12 @@ public class ProfileTabController {
 	}
 
 	// Setter user som skrives i sokefeltet
-	public void setUser(User user, List<User> users, List<Exercise> exercise) {
+	public void setUser(User user) {
 		clientName.setText(user.getName());
-		TrainingList1.setItems(FXCollections.observableArrayList(users));
-		this.addTableView(exercise);
+		int id = user.getId();
+		List<Session> sessions = SQLConnector.getSessions(id);
+		TrainingList1.setItems(FXCollections.observableArrayList(sessions));
+		// this.addTableView(exercise);
 	}
 	
 	// Users i denne metoden maa endres til ovelser, bruker users for aa teste
