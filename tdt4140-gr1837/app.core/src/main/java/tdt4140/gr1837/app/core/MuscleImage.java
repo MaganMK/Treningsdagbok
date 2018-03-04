@@ -49,7 +49,10 @@ public class MuscleImage {
 		Map<String, Double> musclesWithPrecentage = new HashMap<>();
 		
 		for (String name : muscles.keySet()){
-			double precentage = Double.valueOf(muscles.get(name))/Double.valueOf(totalValue);
+			double precentage = 0.0;
+			if (Double.valueOf(totalValue) != 0.0) {
+				precentage = Double.valueOf(muscles.get(name))/Double.valueOf(totalValue);
+			}
 			musclesWithPrecentage.put(name, precentage);
 		}
 		
@@ -61,12 +64,18 @@ public class MuscleImage {
 		for (Session session : sessions){
 			Map<String, Integer> musclesEachSession = SQLConnector.getMusclesTrained(session.getId());
 			for(String muscle : musclesEachSession.keySet()){
-				totalValue += musclesEachSession.get(muscle);
+				increaseTotalValue(musclesEachSession.get(muscle));
 				updateMuscle(muscle, musclesEachSession.get(muscle)); 
 			}
 		}
 	}
 
+
+	// Trenger denne til JUnit-testing
+	public void increaseTotalValue(int amount)
+	{
+		totalValue += amount;
+	}
 	
 
 	public void updateMuscle(String name, int value){
