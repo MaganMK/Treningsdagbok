@@ -15,7 +15,8 @@ public class SQLConnector {
 	private static String username = "didris_test";
 	private static String password = "1234";
 	private static Connection connection;
-	// Metode for å hente en SQL connection
+	
+	// Metode for aa hente en SQL connection
 	public static Connection getConnection() throws SQLException {
 		if(connection == null) {
 			try {
@@ -31,7 +32,7 @@ public class SQLConnector {
 		return connection;
 	}
 	
-	// Metode for å lukke en SQL connection
+	// Metode for aa lukke en SQL connection
 	public static void closeConnection() {
 		if(connection != null) {
 			try {
@@ -43,7 +44,7 @@ public class SQLConnector {
 		}
 	}
 	
-	// Metode for å hente ut resultatet fra en SQL spørring
+	// Metode for aa hente ut resultatet fra en SQL spoerring
 	public static ResultSet getResultSet(String query) throws SQLException {
 		Connection connection;
 		try {
@@ -62,17 +63,17 @@ public class SQLConnector {
 		}
 	}
 	
-	// Metode for å hente klientene
+	// Metode for aa hente klientene
 	public static List<User> getUsers() {
 		try {
-			ResultSet rs = getResultSet("SELECT * FROM Klient");
+			ResultSet rs = getResultSet("SELECT * FROM Client");
 			List<User> users = new ArrayList<>();
 			while(rs.next()) {
-				User user = new User(rs.getString("navn"), 
-									rs.getString("tlf"), 
-									rs.getInt("alder"), 
-									rs.getString("motivasjon"), 
-									rs.getInt("K_ID")
+				User user = new User(rs.getString("name"), 
+									rs.getString("phone"), 
+									rs.getInt("age"), 
+									rs.getString("motivation"), 
+									rs.getInt("client_id")
 				);
 				users.add(user);
 			}
@@ -83,15 +84,50 @@ public class SQLConnector {
 		}
 	}
 	
-	// Metode for å hente øktene
+	// Metode for aa hente ovelser til spesifikk okt
+	public static List<Exercise> getAllExercises(int sessionId) {
+		List<Exercise> exercises = new ArrayList<>();
+		exercises.addAll(getStrengthExercises(sessionId));
+		exercises.addAll(getEnduranceExercises(sessionId));
+		return exercises;
+	}
+	
+	// Metode for aa hente styrkeovelser til spesifikk okt
+	private static List<Exercise> getStrengthExercises(int sessionId) {
+		try {
+			List<Exercise> strengthExercises = new ArrayList<>();
+			ResultSet rs = getResultSet("SELECT reps, set, weight, note, client_navn FROM Client_styrke NATURAL JOIN Excerise WHERE O_ID="+					                         sessionId);
+			while(rs.next()) {
+				Exercise strengthExercise = new StrengthExercise(rs.getString("client_name"),
+																 rs.getString("note"),
+																 rs.getInt("set"),
+																 rs.getInt("reps"),
+																 rs.getInt("weight")
+				);
+				strengthExercises.add(strengthExercise);
+			}
+			return strengthExercises;
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			return new ArrayList<Exercise>();
+		}
+	}
+	
+	// Metode for aa hente utholdenhetsovelser, implementeres i senere sprint
+	private static List<Exercise> getEnduranceExercises(int sessionId) {
+		return new ArrayList<Exercise>();
+	}
+	
+	
+	// Metode for aa hente oktene
 	public static List<Session> getSessions(int id) {
 		try {
 			List<Session> sessions = new ArrayList<>();
-			ResultSet rs = getResultSet("SELECT * FROM Økt WHERE K_ID="+id);
+			ResultSet rs = getResultSet("SELECT * FROM Session WHERE client_id="+id);
 			while(rs.next()) {
-				Session session = new Session(rs.getString("Notat"), 
-									rs.getString("Dato"), 
-									rs.getInt("O_ID")
+				Session session = new Session(rs.getString("note"), 
+									rs.getString("date"), 
+									rs.getInt("session_id")
 				);
 				sessions.add(session);
 			}
@@ -106,13 +142,13 @@ public class SQLConnector {
 		try {
 			
 			Map<String, Integer> musclesTrained = new HashMap<>();
-			ResultSet rs1 = getResultSet("SELECT * FROM Klient_styrke WHERE O_ID="+sessionID);
+			ResultSet rs1 = getResultSet("SELECT * FROM Strength_Session WHERE session_id="+sessionID);
 			while(rs1.next()){
-					ResultSet rs2 = getResultSet("SELECT * FROM Muskel_trent WHERE Ø_ID="+ rs1.getInt("Ø_ID"));	
+					ResultSet rs2 = getResultSet("SELECT * FROM Muscle_Trained WHERE exercise_id="+ rs1.getInt("exercise_id"));	
 					while(rs2.next()){
-						ResultSet rs3 = getResultSet("SELECT * FROM Muskel WHERE M_ID="+ rs2.getInt("M_ID"));	
+						ResultSet rs3 = getResultSet("SELECT * FROM Muscle WHERE muscle_id="+ rs2.getInt("muscle_id"));	
 						while(rs3.next()){
-							musclesTrained.put(rs3.getString("M_navn"), rs2.getInt("Grad"));
+							musclesTrained.put(rs3.getString("muscle_name"), rs2.getInt("degree"));
 						}
 				}
 
@@ -125,24 +161,22 @@ public class SQLConnector {
 		}
 	}
 
-
-	
-	// Metode for å hente trenere
+	// Metode for aa hente trenere
 	public static List<Trainer> getTrainers() {
 		try {
 			List<Trainer> trainers = new ArrayList<>();
-			ResultSet rs = getResultSet("SELECT * FROM Trener");
+			ResultSet rs = getResultSet("SELECT * FROM Trainer");
 			while(rs.next()) {
-				Trainer trainer = new Trainer(rs.getString("navn"), 
-									rs.getString("adresse"), 
-									rs.getString("tlf"),
+				Trainer trainer = new Trainer(rs.getString("name"), 
+									rs.getString("adress"), 
+									rs.getString("phone"),
 									rs.getString("mail"),
-									rs.getInt("T_ID")
+									rs.getInt("trainer_id")
 				);
 				trainers.add(trainer);
-				ResultSet clientsRS = getResultSet("SELECT * FROM PT WHERE T_id="+trainer.getId());
+				ResultSet clientsRS = getResultSet("SELECT * FROM Personal_Trainer WHERE trainer_id="+trainer.getId());
 				while(clientsRS.next()){
-					trainer.addClient(clientsRS.getInt("K_ID"));
+					trainer.addClient(clientsRS.getInt("client_id"));
 				}
 			}
 			return trainers;
