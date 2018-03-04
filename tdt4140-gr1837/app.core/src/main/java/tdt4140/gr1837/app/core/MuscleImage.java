@@ -50,7 +50,7 @@ public class MuscleImage {
 		
 		for (String name : muscles.keySet()){
 			double precentage = Double.valueOf(muscles.get(name))/Double.valueOf(totalValue);
-			musclesWithPrecentage.put(name, precentage*2);
+			musclesWithPrecentage.put(name, precentage);
 		}
 		
 		return musclesWithPrecentage;
@@ -59,13 +59,14 @@ public class MuscleImage {
 	// Her sender vi alle okter fra databasen
 	public void updateBody(List<Session> sessions){
 		for (Session session : sessions){
-			List<String> musclesEachSession = SQLConnector.getMusclesTrained(session.getId());
-			for(String muscle : musclesEachSession){
-				totalValue += 1;
-				updateMuscle(muscle, 1); 
+			Map<String, Integer> musclesEachSession = SQLConnector.getMusclesTrained(session.getId());
+			for(String muscle : musclesEachSession.keySet()){
+				totalValue += musclesEachSession.get(muscle);
+				updateMuscle(muscle, musclesEachSession.get(muscle)); 
 			}
 		}
 	}
+
 	
 
 	public void updateMuscle(String name, int value){
