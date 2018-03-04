@@ -43,7 +43,7 @@ public class SQLConnector {
 			}
 		}
 	}
-	
+
 	// Metode for aa hente ut resultatet fra en SQL spoerring
 	public static ResultSet getResultSet(String query) throws SQLException {
 		Connection connection;

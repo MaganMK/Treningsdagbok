@@ -1,7 +1,6 @@
 package tdt4140.gr1837.app.ui;
 
 import java.util.List;
-
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
@@ -22,12 +21,12 @@ public class ProfileTabController {
 	@FXML Tab profileTab;
 	@FXML Text clientName;
 	@FXML ListView<Session> TrainingList1;
-	@FXML TableView<Exercise> ExerciseList;
+	@FXML TableView<Exercise> exerciseList;
 	@FXML TableColumn<Exercise, String> type;
-	@FXML TextArea notat;
-	@FXML TableColumn<Exercise, Integer> sett;
-	@FXML TableColumn<Exercise, Integer> repetisjoner;
-	@FXML TableColumn<Exercise, Integer> vekt;
+	@FXML TextArea note;
+	@FXML TableColumn<Exercise, Integer> set;
+	@FXML TableColumn<Exercise, Integer> repetitions;
+	@FXML TableColumn<Exercise, Integer> weight;
 	
 	// ManagerController for kommunikasjon med andre controllers
 	public ManagerController managerController;
@@ -45,37 +44,17 @@ public class ProfileTabController {
 		int id = user.getId();
 		List<Session> sessions = SQLConnector.getSessions(id);
 		TrainingList1.setItems(FXCollections.observableArrayList(sessions));
-		// this.addTableView(exercise);
+		
+		List<Exercise> exercises = SQLConnector.getAllExercises(2);
+		this.addTableView(exercises);
 	}
 	
-	// Users i denne metoden maa endres til ovelser, bruker users for aa teste
-	private void addTableView(List<Exercise> exercise) {
-		// TableView<Exercise> ExerciseList = new TableView<Exercise>();
+	private void addTableView(List<Exercise> exercises) {
+		type.setCellValueFactory(new PropertyValueFactory<Exercise, String>("name"));
+		set.setCellValueFactory(new PropertyValueFactory<Exercise, Integer>("set"));
+		repetitions.setCellValueFactory(new PropertyValueFactory<Exercise, Integer>("repetitions"));
+		weight.setCellValueFactory(new PropertyValueFactory<Exercise, Integer>("weight"));
 		
-		type.setCellValueFactory(new PropertyValueFactory<>("type"));
-		sett.setCellValueFactory(new PropertyValueFactory<>("sett"));
-		repetisjoner.setCellValueFactory(new PropertyValueFactory<>("repetisjoner"));
-		vekt.setCellValueFactory(new PropertyValueFactory<>("vekt"));
-		
-		ExerciseList.setItems(FXCollections.observableArrayList(exercise));
-		ExerciseList.getColumns().addAll(type, sett, repetisjoner, vekt);	
-		
-		
-		
-		
-		/*TableColumn type = new TableColumn("Type");
-		type.setCellValueFactory(new PropertyValueFactory<Exercise, String>("type"));
-		
-		TableColumn sett = new TableColumn("Sett");
-		sett.setCellValueFactory(new PropertyValueFactory<Exercise, String>("sett"));
-		
-		TableColumn repetisjoner = new TableColumn("Repetisjoner");
-		type.setCellValueFactory(new PropertyValueFactory<Exercise, String>("Type"));
-		
-		TableColumn vekt = new TableColumn("Vekt");
-		vekt.setCellValueFactory(new PropertyValueFactory<Exercise, String>("vekt"));*/
-		
+		exerciseList.getItems().setAll(exercises);
 	}
-		
-
 }
