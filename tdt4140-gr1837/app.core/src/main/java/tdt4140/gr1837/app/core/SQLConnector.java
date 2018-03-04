@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SQLConnector {
 	private static String url = "jdbc:mysql://mysql.stud.ntnu.no/didris_test1";
@@ -100,17 +102,17 @@ public class SQLConnector {
 		}
 	}
 	
-	public static List<String> getMusclesTrained(int sessionID){
+	public static Map<String, Integer> getMusclesTrained(int sessionID){
 		try {
 			
-			List<String> musclesTrained = new ArrayList<>();
+			Map<String, Integer> musclesTrained = new HashMap<>();
 			ResultSet rs1 = getResultSet("SELECT * FROM Klient_styrke WHERE O_ID="+sessionID);
 			while(rs1.next()){
 					ResultSet rs2 = getResultSet("SELECT * FROM Muskel_trent WHERE Ø_ID="+ rs1.getInt("Ø_ID"));	
 					while(rs2.next()){
 						ResultSet rs3 = getResultSet("SELECT * FROM Muskel WHERE M_ID="+ rs2.getInt("M_ID"));	
 						while(rs3.next()){
-							musclesTrained.add(rs3.getString("M_navn"));
+							musclesTrained.put(rs3.getString("M_navn"), rs2.getInt("Grad"));
 						}
 				}
 
@@ -119,9 +121,11 @@ public class SQLConnector {
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-			return new ArrayList<String>();
+			return new HashMap<String, Integer>();
 		}
 	}
+
+
 	
 	// Metode for å hente trenere
 	public static List<Trainer> getTrainers() {

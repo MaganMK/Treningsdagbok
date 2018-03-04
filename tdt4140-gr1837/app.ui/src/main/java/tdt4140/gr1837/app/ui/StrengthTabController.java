@@ -62,7 +62,7 @@ public class StrengthTabController {
 		Map<String, Double> musclesWithPrecentage = muscleMan.getMusclesWithPrecentages();
 		
 		for (String name : musclesWithPrecentage.keySet()){
-			muscles.get(name).setOpacity(musclesWithPrecentage.get(name));
+			muscles.get(name).setOpacity(musclesWithPrecentage.get(name)*5); //ganger med 5 for sterkere rødfarge
 		}
 	}
 	
