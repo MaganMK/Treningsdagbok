@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 // Klasse for a kjore manager.fxml
@@ -17,7 +18,10 @@ public class ManagerLauncher extends Application {
         
         stage.setTitle("Treningsdagbok");
         stage.setScene(scene);
+        stage.getIcons().add(new Image("file:../../../img/logo2.png"));
         stage.show();
+        
+        
     }
 
     public static void main(String[] args) {
