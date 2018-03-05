@@ -12,8 +12,7 @@ public class SearchTabController {
 	
 	// Definerer sokefelt og feilmelding
 	@FXML public Text errorMessage;
-	@FXML public TextField autocompleteField;
-	@FXML public JFXButton searchButton;
+	@FXML public TextField searchField;
 	
 	// Managercontroller for kommunikasjon mellom controllers
 	public ManagerController managerController;
@@ -26,7 +25,7 @@ public class SearchTabController {
 	// Finner bruker nar man trykker pa sokeknappen
 	// Utvides til faktisk sokefunksjonalitet med autocomplete-forslag i sprint 2
 	@FXML public void searchForUser() {
-		String userName = autocompleteField.getText();
+		String userName = searchField.getText();
 		User user = UserDatabase.getUser(userName);
 		if (user != null) {
 			errorMessage.setText("");
