@@ -8,8 +8,8 @@ public class Trainer {
 	private String adress;
 	private String phoneNumber;
 	private String mail;
-	private int id;
 	private List<User> clients = new ArrayList<>();
+	private int id;
 	
 	public Trainer(String name, String adress, String phoneNumber, String mail, int id) {
 		this.name = name;
@@ -40,7 +40,7 @@ public class Trainer {
 	public String getMail() {
 		return mail;
 	}
-
+	
 	public int getId() {
 		return id;
 	}
@@ -48,8 +48,11 @@ public class Trainer {
 	public List<User> getClients() {
 		return clients;
 	}
+	
 	@Override
 	public String toString() {
 		return name;
 	}
 }
+
+
