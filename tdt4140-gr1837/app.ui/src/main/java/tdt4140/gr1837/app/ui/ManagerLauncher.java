@@ -18,7 +18,7 @@ public class ManagerLauncher extends Application {
         
         stage.setTitle("Treningsdagbok");
         stage.setScene(scene);
-        stage.getIcons().add(new Image("file:../../../img/logo2.png"));
+        stage.getIcons().add(new Image("file:../../Images/Div/icon.png"));
         stage.show();
         
         
