@@ -43,7 +43,7 @@ public class SQLConnector {
 			}
 		}
 	}
-	
+
 	// Metode for aa hente ut resultatet fra en SQL spoerring
 	public static ResultSet getResultSet(String query) throws SQLException {
 		Connection connection;
@@ -96,11 +96,11 @@ public class SQLConnector {
 	private static List<Exercise> getStrengthExercises(int sessionId) {
 		try {
 			List<Exercise> strengthExercises = new ArrayList<>();
-			ResultSet rs = getResultSet("SELECT reps, set, weight, note, client_name FROM Strength_Session NATURAL JOIN Exercise WHERE session_id="+					                         sessionId);
+			ResultSet rs = getResultSet("SELECT * FROM Strength_Session NATURAL JOIN Exercise WHERE session_id="+sessionId);
 			while(rs.next()) {
-				Exercise strengthExercise = new StrengthExercise(rs.getString("client_name"),
+				Exercise strengthExercise = new StrengthExercise(rs.getString("exercise_name"),
 																 rs.getString("note"),
-																 rs.getInt("set"),
+																 rs.getInt("sett"),
 																 rs.getInt("reps"),
 																 rs.getInt("weight")
 				);
@@ -155,7 +155,6 @@ public class SQLConnector {
 			}
 			return musclesTrained;
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 			return new HashMap<String, Integer>();
 		}

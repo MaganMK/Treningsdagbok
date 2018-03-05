@@ -31,6 +31,9 @@ public class UserDatabase {
 		}
 		return offlineUserDatabase;
 	}
+	public static List<User> getUsers() {
+		return users;
+	}
 	
 	public static User getUser(String name) {
 		name = name.toLowerCase();

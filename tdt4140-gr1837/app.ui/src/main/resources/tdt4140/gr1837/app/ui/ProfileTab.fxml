@@ -1,20 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.ProfileTabController">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.ProfileTabController">
    <children>
-      <Pane prefHeight="600" prefWidth="800">
-         <children>
-            <Text fx:id="clientName" layoutX="360" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="719.4700813293457">
-               <font>
-                  <Font size="37.0" />
-               </font>
-            </Text>
-         </children>
-      </Pane>
+      <SplitPane dividerPositions="0.2725752508361204" orientation="VERTICAL" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <Text fx:id="clientName" layoutX="58.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="719.4700813293457">
+                     <font>
+                        <Font size="37.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+         <AnchorPane fx:id="OurTestPane" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+	         <children>
+	            <SplitPane dividerPositions="0.38220551378446116" layoutX="292.0" layoutY="155.0" prefHeight="415.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+	              <items>
+	                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="178.0" prefWidth="107.0">
+	                     <children>
+	                        <ListView fx:id="trainingList" onMouseClicked="#handleMouseClickSession" layoutX="50.0" layoutY="95.0" prefHeight="420.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+	                     </children>
+	                </AnchorPane>
+	                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+	                     <children>
+	                        <SplitPane dividerPositions="0.75" orientation="VERTICAL" prefHeight="598.0" prefWidth="489.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+	                          <items>
+	                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+	                                 <children>
+	                                    <TableView fx:id="exerciseList" onMouseClicked="#handleMouseClickExercise" prefHeight="420.0" prefWidth="488.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+	                                      <columns>
+	                                        <TableColumn fx:id="type" prefWidth="150.0" text="Type" />
+	                                        <TableColumn fx:id="set" minWidth="0.0" prefWidth="124.0" text="Sett" />
+	                                        <TableColumn fx:id="repetitions" prefWidth="108.0" text="Repetisjoner" />
+	                                        <TableColumn fx:id="weight" prefWidth="105.0" text="Vekt" />
+	                                      </columns>
+	                                    </TableView>
+	                                 </children>
+	                              </AnchorPane>
+	                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+	                                 <children>
+	                                    <SplitPane dividerPositions="0.6893004115226338" prefHeight="145.0" prefWidth="487.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+	                                      <items>
+	                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                   <children>
+                                                      <Label prefHeight="20.0" prefWidth="46.0" text="Notat" textAlignment="CENTER">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <TextArea fx:id="note" layoutX="-4.0" layoutY="22.0" prefHeight="82.0" prefWidth="338.0" />
+                                                   </children></AnchorPane>
+	                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+	                                      </items>
+	                                    </SplitPane>
+	                                 </children>
+	                              </AnchorPane>
+	                          </items>
+	                        </SplitPane>
+	                     </children>
+	                  </AnchorPane>
+	              </items>
+	            </SplitPane>
+	         </children>
+          </AnchorPane>
+        </items>
+      </SplitPane>
    </children>
 </AnchorPane>

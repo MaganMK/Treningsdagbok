@@ -43,5 +43,4 @@ public class StrengthExercise extends Exercise {
 	public void setWeight(Integer weight) {
 		this.weight = weight;
 	}
-
 }

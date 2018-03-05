@@ -32,13 +32,6 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
-		<dependency>
-   			<groupId>org.controlsfx</groupId>
-    		<artifactId>controlsfx</artifactId>
-    		<version>8.40.14</version>
-		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
@@ -46,5 +39,6 @@
 		    <artifactId>mysql-connector-java</artifactId>
 		    <version>5.1.6</version>
 		</dependency>
+		
 	</dependencies>
 </project>

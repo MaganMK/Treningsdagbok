@@ -23,7 +23,7 @@
       </Button>
       <JFXButton layoutX="579.0" layoutY="132.0" onAction="#searchForUser" prefHeight="28.0" prefWidth="28.0" stylesheets="@style.css" textAlignment="CENTER">
       	<graphic>
-            <Glyph id="glyph" fontFamily="FontAwesome" fontSize="20.0" icon="SEARCH" textFill="BLACK" />
+              <Glyph id="glyph" fontFamily="FontAwesome" fontSize="20.0" icon="SEARCH" textFill="BLACK" />
         </graphic>
       </JFXButton>
    </children>
