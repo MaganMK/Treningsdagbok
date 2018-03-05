@@ -5,7 +5,6 @@ import org.controlsfx.control.textfield.CustomTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-
 import tdt4140.gr1837.app.core.User;
 import tdt4140.gr1837.app.core.UserDatabase;
 
