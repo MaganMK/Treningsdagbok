@@ -58,3 +58,66 @@
 .text-field:focused {
     -fx-background-color: #1a67a3, white ;
 }
+
+
+/*Table og list i profiletab */
+
+ .table-view, .table-view:focused, .list-view, .list-view:focused{
+   -fx-background-color: transparent;
+}
+
+.table-row-cell:selected:hover, .list-cell:selected:hover {
+    -fx-background-color: gray;
+}
+
+.table-row-cell:hover, .list-cell:hover {
+	-fx-background-color:  rgba(0,0,0,0.1);
+	-fx-cursor: hand;
+}
+
+.table-view .column-header {
+	-fx-background-color: #1a67a3;
+	-fx-background-insets: 0.2;
+	-fx-text-fill: white;
+}
+
+.table-view .column-header-background .label{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.table-view .column-header{
+    -fx-pref-height: 32px;
+}
+
+.table-view .table-row-cell {
+	-fx-pref-height: 32px;
+}
+
+.table-view .table-column {
+  -fx-alignment: CENTER;
+}
+
+/*Tekstfelt med notat: fjerner kanter */
+.text-area {
+    -fx-background-insets: 0;
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+.text-area .content {
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+.text-area:focused .content {
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+.text-area:focused {
+    -fx-highlight-fill: #7ecfff;
+}
+
+.text-area .content {
+    -fx-padding: 10px;
+    -fx-text-fill: gray;
+    -fx-highlight-fill: #7ecfff;
+}

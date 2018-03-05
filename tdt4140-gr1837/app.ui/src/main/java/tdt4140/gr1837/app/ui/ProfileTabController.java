@@ -1,6 +1,11 @@
 package tdt4140.gr1837.app.ui;
 
+import java.util.Collections;
 import java.util.List;
+
+import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXTreeTableView;
+
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
@@ -20,8 +25,8 @@ public class ProfileTabController {
 	
 	// Elementer i ProfileTab.fxml
 	@FXML Tab profileTab;
-	@FXML Text clientName;
-	@FXML ListView<Session> trainingList;
+	@FXML Text clientName, ageField, phoneNumberField;
+	@FXML JFXListView<Session> trainingList;
 	@FXML TableView<Exercise> exerciseList;
 	@FXML TableColumn<Exercise, String> type;
 	@FXML TextArea note;
@@ -36,29 +41,42 @@ public class ProfileTabController {
 	// Initialiserer managerController for a fa riktig controller pga fx:include
 	public void init(ManagerController managerController) {
 		this.managerController = managerController;
-		
 	}
 
 	// Setter user som skrives i sokefeltet
 	public void setUser(User user) {
 		clientName.setText(user.getName());
+		ageField.setText("Alder: " + Integer.toString(user.getAge()));
+		phoneNumberField.setText("Telefonnummer: " + user.getPhoneNumber());
 		int id = user.getId();
 		List<Session> sessions = SQLConnector.getSessions(id);
-		trainingList.setItems(FXCollections.observableArrayList(sessions));
+		List<Session> sessionsReverse = sessions.subList(0, sessions.size());
+		Collections.reverse(sessionsReverse);
+		trainingList.setItems(FXCollections.observableArrayList(sessionsReverse));
 	}
 	
 	// Handler for museklikk paa okter, henter ovelsene til okta og displayer dem i tabellen, setter notatfeltet
 	@FXML public void handleMouseClickSession(MouseEvent arg0) {
-	    Session session = trainingList.getSelectionModel().getSelectedItem();
-	    List<Exercise> exercises = SQLConnector.getAllExercises(session.getId());
-		this.addTableView(exercises);
-		this.addNoteView(session.getNote());
+		try {
+			Session session = trainingList.getSelectionModel().getSelectedItem();
+		    List<Exercise> exercises = SQLConnector.getAllExercises(session.getId());
+			this.addTableView(exercises);
+			this.addNoteView(session.getNote());
+		} catch (NullPointerException e) {
+			//Handterer unntak nar man trykker på exercisetabellen, men ikke trykker på en note.
+		}
+	    
 	}
 	
 	// Handler for museklikk paa overlser, setter notat-feltet til riktig notat
 	@FXML public void handleMouseClickExercise(MouseEvent arg0) {
-	    Exercise exercise = exerciseList.getSelectionModel().getSelectedItem();
-		this.addNoteView(exercise.getNote());
+		try {
+			Exercise exercise = exerciseList.getSelectionModel().getSelectedItem();
+			this.addNoteView(exercise.getNote());
+		} catch (NullPointerException e) {
+			//Handterer unntak nar man trykker på exercisetabellen, men ikke trykker på en note.
+		}
+	    
 	}
 	
 	// Setter verdier i tabellen med ovelser

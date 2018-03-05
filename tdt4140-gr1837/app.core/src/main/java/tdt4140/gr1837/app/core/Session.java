@@ -24,6 +24,8 @@ public class Session {
 	
 	@Override
 	public String toString() {
-		return id + " " + date;
+		String reversedDate = "";
+		reversedDate = date.substring(8) + '/' + date.substring(5,7) + "-" + date.substring(0,4);
+		return reversedDate;
 	}
 }
