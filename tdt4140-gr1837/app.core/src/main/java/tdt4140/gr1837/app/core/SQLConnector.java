@@ -98,9 +98,9 @@ public class SQLConnector {
 			List<Exercise> strengthExercises = new ArrayList<>();
 			ResultSet rs = getResultSet("SELECT * FROM Strength_Session NATURAL JOIN Exercise WHERE session_id="+sessionId);
 			while(rs.next()) {
-				Exercise strengthExercise = new StrengthExercise(rs.getString("session_name"),
+				Exercise strengthExercise = new StrengthExercise(rs.getString("exercise_name"),
 																 rs.getString("note"),
-																 rs.getInt("set"),
+																 rs.getInt("sett"),
 																 rs.getInt("reps"),
 																 rs.getInt("weight")
 				);

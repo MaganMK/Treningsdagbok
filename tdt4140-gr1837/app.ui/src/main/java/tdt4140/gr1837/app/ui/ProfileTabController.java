@@ -21,7 +21,7 @@ public class ProfileTabController {
 	// Elementer i ProfileTab.fxml
 	@FXML Tab profileTab;
 	@FXML Text clientName;
-	@FXML ListView<Session> TrainingList1;
+	@FXML ListView<Session> trainingList;
 	@FXML TableView<Exercise> exerciseList;
 	@FXML TableColumn<Exercise, String> type;
 	@FXML TextArea note;
@@ -44,16 +44,24 @@ public class ProfileTabController {
 		clientName.setText(user.getName());
 		int id = user.getId();
 		List<Session> sessions = SQLConnector.getSessions(id);
-		TrainingList1.setItems(FXCollections.observableArrayList(sessions));
+		trainingList.setItems(FXCollections.observableArrayList(sessions));
 	}
 	
+	// Handler for museklikk paa okter, henter ovelsene til okta og displayer dem i tabellen, setter notatfeltet
 	@FXML public void handleMouseClickSession(MouseEvent arg0) {
-	    Session s = TrainingList1.getSelectionModel().getSelectedItem();
-	    List<Exercise> exercises = SQLConnector.getAllExercises(s.getId());
+	    Session session = trainingList.getSelectionModel().getSelectedItem();
+	    List<Exercise> exercises = SQLConnector.getAllExercises(session.getId());
 		this.addTableView(exercises);
-		this.addNoteView(s.getNote());
+		this.addNoteView(session.getNote());
 	}
 	
+	// Handler for museklikk paa overlser, setter notat-feltet til riktig notat
+	@FXML public void handleMouseClickExercise(MouseEvent arg0) {
+	    Exercise exercise = exerciseList.getSelectionModel().getSelectedItem();
+		this.addNoteView(exercise.getNote());
+	}
+	
+	// Setter verdier i tabellen med ovelser
 	private void addTableView(List<Exercise> exercises) {
 		type.setCellValueFactory(new PropertyValueFactory<Exercise, String>("name"));
 		set.setCellValueFactory(new PropertyValueFactory<Exercise, Integer>("set"));
@@ -63,6 +71,7 @@ public class ProfileTabController {
 		exerciseList.getItems().setAll(exercises);
 	}
 	
+	// Setter notatfeltet
 	private void addNoteView(String note) {
 		this.note.setText(note);
 	}
