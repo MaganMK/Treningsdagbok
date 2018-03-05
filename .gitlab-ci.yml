@@ -28,15 +28,15 @@ unittest-job:
     - "cat tdt4140-gr1837/app.core/target/site/jacoco/index.html"
   artifacts:
     paths:
-      - "tdt4140-gr1837/app.core/target/site/jacoco/"
+      - tdt4140-gr1837/app.core/target/site/jacoco/
       
 pages:
   stage: deploy
   dependencies:
     - test
   script:
-   - "mkdir public"
-   - "mv tdt4140-gr1837/app.core/target/site/jacoco/test/html/* public"
+   - mkdir public
+   - mv tdt4140-gr1837/app.core/target/site/jacoco/test/html/* public
   artifacts:
     paths:
       - public
