@@ -53,6 +53,7 @@ public class ProfileTabController {
 		List<Session> sessionsReverse = sessions.subList(0, sessions.size());
 		Collections.reverse(sessionsReverse);
 		trainingList.setItems(FXCollections.observableArrayList(sessionsReverse));
+		showFirstExercise();
 	}
 	
 	// Handler for museklikk paa okter, henter ovelsene til okta og displayer dem i tabellen, setter notatfeltet
@@ -65,7 +66,6 @@ public class ProfileTabController {
 		} catch (NullPointerException e) {
 			// Handterer unntak nar man trykker paa exercisetabellen, men ikke trykker paa en note.
 		}
-	    
 	}
 	
 	// Handler for museklikk paa overlser, setter notat-feltet til riktig notat
@@ -76,6 +76,13 @@ public class ProfileTabController {
 		} catch (NullPointerException e) {
 			// Handterer unntak nar man trykker paa exercisetabellen, men ikke trykker paa en note.
 		} 
+	}
+	
+	private void showFirstExercise() {
+		Session session = trainingList.getItems().get(0);
+		setExercises(session);
+		trainingList.getSelectionModel().select(0);
+		trainingList.getFocusModel().focus(0);
 	}
 	
 	// Setter verdier i tabellen med ovelser
@@ -90,5 +97,6 @@ public class ProfileTabController {
 	// Setter notatfeltet
 	private void addNoteView(String note) {
 		this.note.setText(note);
+		this.note.setEditable(false);
 	}
 }
