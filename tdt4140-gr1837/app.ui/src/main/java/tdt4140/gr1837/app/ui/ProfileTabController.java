@@ -60,9 +60,7 @@ public class ProfileTabController {
 	@FXML public void handleMouseClickSession(MouseEvent arg0) {
 		try {
 			Session session = trainingList.getSelectionModel().getSelectedItem();
-		    List<Exercise> exercises = SQLConnector.getAllExercises(session.getId());
-			this.addTableView(exercises);
-			this.addNoteView(session.getNote());
+			setExercises(session);
 		} catch (NullPointerException e) {
 			// Handterer unntak nar man trykker paa exercisetabellen, men ikke trykker paa en note.
 		}
@@ -80,9 +78,15 @@ public class ProfileTabController {
 	
 	private void showFirstExercise() {
 		Session session = trainingList.getItems().get(0);
-		setExercises(session);
 		trainingList.getSelectionModel().select(0);
 		trainingList.getFocusModel().focus(0);
+		setExercises(session);
+	}
+	
+	private void setExercises(Session session) {
+		List<Exercise> exercises = SQLConnector.getAllExercises(session.getId());
+		this.addTableView(exercises);
+		this.addNoteView(session.getNote());
 	}
 	
 	// Setter verdier i tabellen med ovelser
