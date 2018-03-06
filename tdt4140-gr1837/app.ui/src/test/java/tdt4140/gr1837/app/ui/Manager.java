@@ -17,7 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class ManagerTest extends ApplicationTest {
+public class Manager extends ApplicationTest {
 
     @BeforeClass
     public static void headless() {
