@@ -14,6 +14,9 @@ import javafx.scene.control.TextField;
 
 public class SearchTabAction extends GuiTest {
 
+	public SearchTabAction() {
+		getRootNode();
+	}
 
 	@Override
 	protected Parent getRootNode() {
@@ -27,7 +30,7 @@ public class SearchTabAction extends GuiTest {
         return parent;
 	}
 	
-	//Tester når man skriver inn snow og trykker på knappen, men burde endres
+	//Tester naar man skriver inn snow og trykker paa knappen, men burde endres
 	@Test
     public void testSearchAction() {
         TextField textField = find("#searchField");
