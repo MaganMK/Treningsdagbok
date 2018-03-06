@@ -53,19 +53,17 @@ public class ProfileTabController {
 		List<Session> sessionsReverse = sessions.subList(0, sessions.size());
 		Collections.reverse(sessionsReverse);
 		trainingList.setItems(FXCollections.observableArrayList(sessionsReverse));
+		showFirstExercise();
 	}
 	
 	// Handler for museklikk paa okter, henter ovelsene til okta og displayer dem i tabellen, setter notatfeltet
 	@FXML public void handleMouseClickSession(MouseEvent arg0) {
 		try {
 			Session session = trainingList.getSelectionModel().getSelectedItem();
-		    List<Exercise> exercises = SQLConnector.getAllExercises(session.getId());
-			this.addTableView(exercises);
-			this.addNoteView(session.getNote());
+			setExercises(session);
 		} catch (NullPointerException e) {
 			// Handterer unntak nar man trykker paa exercisetabellen, men ikke trykker paa en note.
 		}
-	    
 	}
 	
 	// Handler for museklikk paa overlser, setter notat-feltet til riktig notat
@@ -76,6 +74,19 @@ public class ProfileTabController {
 		} catch (NullPointerException e) {
 			// Handterer unntak nar man trykker paa exercisetabellen, men ikke trykker paa en note.
 		} 
+	}
+	
+	private void showFirstExercise() {
+		Session session = trainingList.getItems().get(0);
+		trainingList.getSelectionModel().select(0);
+		trainingList.getFocusModel().focus(0);
+		setExercises(session);
+	}
+	
+	private void setExercises(Session session) {
+		List<Exercise> exercises = SQLConnector.getAllExercises(session.getId());
+		this.addTableView(exercises);
+		this.addNoteView(session.getNote());
 	}
 	
 	// Setter verdier i tabellen med ovelser
@@ -90,5 +101,6 @@ public class ProfileTabController {
 	// Setter notatfeltet
 	private void addNoteView(String note) {
 		this.note.setText(note);
+		this.note.setEditable(false);
 	}
 }
