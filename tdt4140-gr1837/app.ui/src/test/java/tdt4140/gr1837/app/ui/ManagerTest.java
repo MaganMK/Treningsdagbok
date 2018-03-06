@@ -17,8 +17,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class Manager extends ApplicationTest {
+public class ManagerTest extends ApplicationTest {
 
+	Parent root;
+	
     @BeforeClass
     public static void headless() {
     		if (Boolean.valueOf(System.getProperty("gitlab-ci", "false"))) {
@@ -31,6 +33,7 @@ public class Manager extends ApplicationTest {
         Parent root = FXMLLoader.load(getClass().getResource("Manager.fxml"));
         
         Scene scene = new Scene(root);
+        this.root = scene.getRoot();
         
         stage.setTitle("JavaFX and Maven");
         stage.setScene(scene);
@@ -39,27 +42,26 @@ public class Manager extends ApplicationTest {
 
     @Test
     public void allTabsExists() {
-    		Node searchTab = lookup("#searchTab1").query();
-    		Node profileTab = lookup("#profileTab1").query();
-    		Node strengthTab = lookup("#strengthTab1").query();
-    		Node staminaTab = lookup("#staminaTab1").query();
+    		Node searchTab = from(root).lookup("#searchTab1").query();
+    		Node profileTab = from(root).lookup("#profileTab1").query();
+    		Node strengthTab = from(root).lookup("#strengthTab1").query();
+    		Node staminaTab = from(root).lookup("#staminaTab1").query();
     		List<Node> tabs = new ArrayList<>(Arrays.asList(searchTab,profileTab,strengthTab,staminaTab));
     		boolean exists = true;
-    		for (Node tab : tabs) {
+    		for (Node tab : tabs) { 
     			if (tab == null) {
     				exists = false;
     			}
     		}
     		Assert.assertTrue(exists);
     }
-    
-    /* Funket ikke i gitlab
+
     @Test
     public void tabPaneExists() {
-    		Node tabPane = lookup("#tabPane").query();
+    		Node tabPane = from(root).lookup("#tabPane").query();
     		Assert.assertTrue(tabPane instanceof JFXTabPane);
     }
-    */
+  
     
     
     
