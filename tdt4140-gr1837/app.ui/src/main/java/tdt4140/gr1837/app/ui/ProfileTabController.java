@@ -63,7 +63,7 @@ public class ProfileTabController {
 			this.addTableView(exercises);
 			this.addNoteView(session.getNote());
 		} catch (NullPointerException e) {
-			//Handterer unntak nar man trykker på exercisetabellen, men ikke trykker på en note.
+			// Handterer unntak nar man trykker paa exercisetabellen, men ikke trykker paa en note.
 		}
 	    
 	}
@@ -74,9 +74,8 @@ public class ProfileTabController {
 			Exercise exercise = exerciseList.getSelectionModel().getSelectedItem();
 			this.addNoteView(exercise.getNote());
 		} catch (NullPointerException e) {
-			//Handterer unntak nar man trykker på exercisetabellen, men ikke trykker på en note.
-		}
-	    
+			// Handterer unntak nar man trykker paa exercisetabellen, men ikke trykker paa en note.
+		} 
 	}
 	
 	// Setter verdier i tabellen med ovelser
@@ -85,7 +84,6 @@ public class ProfileTabController {
 		set.setCellValueFactory(new PropertyValueFactory<Exercise, Integer>("set"));
 		repetitions.setCellValueFactory(new PropertyValueFactory<Exercise, Integer>("repetitions"));
 		weight.setCellValueFactory(new PropertyValueFactory<Exercise, Integer>("weight"));
-		
 		exerciseList.getItems().setAll(exercises);
 	}
 	
