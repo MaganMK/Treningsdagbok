@@ -11,7 +11,7 @@ public class TrainerDatabase {
 	private static List<Trainer> trainers = new ArrayList<>();
 	private static List<Trainer> offlineTrainerDatabase = new ArrayList<>();
 
-	private static void initializeOfflineDatabase() {
+	public static void initializeOfflineDatabase() {
 		offlineTrainerDatabase.add(new Trainer("Lars", "Box1", "44444444","eksempel@google.no", 1));
 		offlineTrainerDatabase.add(new Trainer("Harald", "Box2", "11122111", "aa@aa.a", 2));
 		offlineTrainerDatabase.add(new Trainer("Martin", "Box3", "11114111", "Sommerkroppen@2k18.no", 3));
