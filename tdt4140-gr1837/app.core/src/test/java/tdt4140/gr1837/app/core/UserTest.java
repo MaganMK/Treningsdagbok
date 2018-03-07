@@ -1,9 +1,10 @@
 package tdt4140.gr1837.app.core;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import junit.framework.Assert;
 
 public class UserTest {
 	
@@ -17,12 +18,17 @@ public class UserTest {
 	
 	@Test
 	public void testGetters() {
-		Assert.assertEquals("Mons", user.getName());
-		Assert.assertEquals("112", user.getPhoneNumber());
-		Assert.assertEquals(9, user.getAge());
-		Assert.assertEquals("damer", user.getMotivation());
-		Assert.assertEquals(2, user.getId());
-		Assert.assertEquals(user.getTrainer().getName(), "Jarle");
+		assertEquals("Mons", user.getName());
+		assertEquals("112", user.getPhoneNumber());
+		assertEquals(9, user.getAge());
+		assertEquals("damer", user.getMotivation());
+		assertEquals(2, user.getId());
+		assertEquals(user.getTrainer().getName(), "Jarle");
+	}
+	
+	@Test
+	public void testToString() {
+		assertEquals("Mons",user.toString());
 	}
 	
 
