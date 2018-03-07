@@ -13,7 +13,9 @@ import org.testfx.matcher.base.NodeMatchers;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class SearchTabAction extends GuiTest {
 	public SearchTabAction() {
@@ -38,13 +40,13 @@ public class SearchTabAction extends GuiTest {
 	//Tester naar man skriver inn snow og trykker paa knappen, men burde endres
 	@Test
     public void testSearchAction() {
-		GitlabCISupport.headless();
-		TextField textField = find("#searchField");
-        String text = "skau";
+        TextField textField = find("#searchField");
+        String text = "snow";
         click(textField).type(text);
         click("#searchButton");
-        assertEquals("skau", textField.getText());
-
+        assertEquals("snow", textField.getText());
     }
+
+
 
 }
