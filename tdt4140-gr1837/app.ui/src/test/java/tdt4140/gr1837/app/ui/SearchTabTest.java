@@ -2,6 +2,7 @@ package tdt4140.gr1837.app.ui;
 
 import static org.junit.Assert.assertEquals;
 
+import org.hamcrest.Matcher;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -67,14 +68,13 @@ public class SearchTabTest extends ApplicationTest {
     
     // Denne funker visst ikke i gitlab, ma finne en annen losning
     
-    /*
     @Test
     public void testSearchAction() {
-    		SearchTabAction actionTest = new SearchTabAction();
-    		actionTest.testSearchAction();
+    		clickOn("#searchField");
+    		write("skau");
+    		clickOn("#searchButton");
+    		verifyThat("#searchField", NodeMatchers.hasText("skau"));
     }
-    */
-
     
     
 }
