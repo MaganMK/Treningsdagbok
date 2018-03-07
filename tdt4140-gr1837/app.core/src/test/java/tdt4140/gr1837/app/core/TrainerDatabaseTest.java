@@ -12,7 +12,6 @@ public class TrainerDatabaseTest {
 	public void init() {
 		UserDatabase.initialize();
 		TrainerDatabase.initialize();
-
 	}
 	
 	@Test
@@ -24,5 +23,11 @@ public class TrainerDatabaseTest {
 	public void testGetTrainerById() {
 		Assert.assertEquals(TrainerDatabase.getTrainerById(1).getName(), "Barclay Graves");
 	}
+	
+	@Test
+	public void testGetTrainersByName() {
+		Assert.assertEquals(TrainerDatabase.getTrainersWithName().get(0), "Barclay Graves");
+	}
+	
 
 }

@@ -56,11 +56,13 @@ public class ManagerTest extends ApplicationTest {
     		Assert.assertTrue(exists);
     }
 
+    
     @Test
     public void tabPaneExists() {
     		Node tabPane = from(root).lookup("#tabPane").query();
     		Assert.assertTrue(tabPane instanceof JFXTabPane);
     }
+    
   
     
     
