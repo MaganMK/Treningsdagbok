@@ -1,11 +1,18 @@
 package tdt4140.gr1837.app.ui;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.testfx.api.FxRobot;
 import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.matcher.base.NodeMatchers;
 
 import com.jfoenix.controls.JFXButton;
+import static org.testfx.api.FxAssert.verifyThat;
+
+import java.io.IOException;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -57,11 +64,13 @@ public class SearchTabTest extends ApplicationTest {
     }
     
     // Denne funker visst ikke i gitlab, ma finne en annen losning
-    /*
+    
     @Test
     public void testSearchAction() {
     		SearchTabAction actionTest = new SearchTabAction();
     		actionTest.testSearchAction();
+ 
     }
-    */
+    
+    
 }
