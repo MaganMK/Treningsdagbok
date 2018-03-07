@@ -28,3 +28,8 @@ Dersom det er innen for vår tidsramme vil vi utvidde med "manager"-funksjonalit
     for så å inneholde en presis melding om hva som commites
 - Koden følger i stor grad konvensjonene gitt av oracle (se: http://www.oracle.com/technetwork/java/codeconventions-150003.pdf)
     f.eks. brukes K&R-stilen
+
+#### Database 
+> https://mysqladmin.stud.ntnu.no/index.php?db=&token=38a7fdfd5b38012b12cf4bfc29e510cb&old_usr=didris_test
+
+
