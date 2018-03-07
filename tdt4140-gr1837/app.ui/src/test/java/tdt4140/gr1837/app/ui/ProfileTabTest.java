@@ -1,23 +1,30 @@
 package tdt4140.gr1837.app.ui;
 
+import static org.junit.Assert.assertEquals;
+
+import org.hamcrest.Matcher;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.testfx.api.FxRobot;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.matcher.base.NodeMatchers;
 
 import com.jfoenix.controls.JFXButton;
 import static org.testfx.api.FxAssert.verifyThat;
 
+import java.io.IOException;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class SearchTabTest extends ApplicationTest {
+public class ProfileTabTest extends ApplicationTest {
 
 	Parent root;
 	Stage stage;
@@ -32,7 +39,7 @@ public class SearchTabTest extends ApplicationTest {
 	@Override
     public void start(Stage stage) throws Exception {
 		this.stage = stage;
-        Parent root = FXMLLoader.load(getClass().getResource("SearchTab.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("ProfileTab.fxml"));
         
         Scene scene = new Scene(root);
         this.root = scene.getRoot();
@@ -43,31 +50,19 @@ public class SearchTabTest extends ApplicationTest {
     }
 
     @Test
-    public void testErrorFieldExists() {
-    		Node field = from(root).lookup("#errorMessage").query();
+    public void testElementsExist() {
+    		Node field = from(root).lookup("#clientName").query();
     		Assert.assertTrue(field instanceof Text);
+    		Node list = from(root).lookup("#exerciseList").query();
+    		Assert.assertTrue(list instanceof TableView);
     }
     
     @Test
-    public void testSearchFieldExists() {
-    		Node field = from(root).lookup("#searchField").query();
-    		Assert.assertTrue(field instanceof TextField);
-    }
-    
-    @Test
-    public void testSearchButtonExists() {
-    		Node button = from(root).lookup("#searchButton").query();
-    		Assert.assertTrue(button instanceof JFXButton);
-    }
-    
-    // Denne funker visst ikke i gitlab, ma finne en annen losning
-    
-    @Test
-    public void testSearchAction() {
-    		clickOn("#searchField");
-    		write("skau");
-    		clickOn("#searchButton");
-    		verifyThat("#searchField", NodeMatchers.hasText("skau"));
+    public void testTableAction() {
+    		clickOn("#type");
+    		clickOn("#set");
+    		clickOn("#repetitions");
+    		clickOn("#weight");
     }
     
     
