@@ -58,6 +58,13 @@ public class ProfileTabTest extends ApplicationTest {
     }
     
     @Test
+    public void testMotivation() {
+    		Text motivation = from(root).lookup("#motivationField").query();
+    		assertEquals(motivation.getText(), "Motivasjon: ");
+    }
+    
+    
+    @Test
     public void testTableAction() {
     		clickOn("#type");
     		clickOn("#set");
