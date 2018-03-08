@@ -1,8 +1,9 @@
 package tdt4140.gr1837.app.ui;
 
-import com.jfoenix.controls.JFXButton;
+import org.controlsfx.control.textfield.CustomTextField;
+import org.controlsfx.control.textfield.TextFields;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import tdt4140.gr1837.app.core.User;
 import tdt4140.gr1837.app.core.UserDatabase;
@@ -11,7 +12,7 @@ public class SearchTabController {
 	
 	// Definerer sokefelt og feilmelding
 	@FXML public Text errorMessage;
-	@FXML public TextField searchField;
+	@FXML public CustomTextField searchField;
 	
 	// Managercontroller for kommunikasjon mellom controllers
 	public ManagerController managerController;
@@ -19,6 +20,7 @@ public class SearchTabController {
 	// Initialiserer userController for a fa riktig controller ifht fx:include
 	public void init(ManagerController managerController) {
 		this.managerController = managerController;
+		bindAutocomplete();
 	}
 	
 	// Finner bruker nar man trykker pa sokeknappen
@@ -38,5 +40,10 @@ public class SearchTabController {
 	//Soker på bruker nar man skriver i sokefeltet og trykker enter
 	@FXML public void enterPressed() {
 		searchForUser();
+	}
+	
+	//Fester brukerlista til søkefeltet, slik at den kan komme med forslag ved inntasting
+	public void bindAutocomplete() {
+		TextFields.bindAutoCompletion(searchField, UserDatabase.getUsers());
 	}
 }

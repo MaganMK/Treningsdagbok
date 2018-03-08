@@ -9,6 +9,8 @@ import org.testfx.matcher.base.NodeMatchers;
 import com.jfoenix.controls.JFXButton;
 import static org.testfx.api.FxAssert.verifyThat;
 
+import org.controlsfx.control.textfield.CustomTextField;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -51,7 +53,7 @@ public class SearchTabTest extends ApplicationTest {
     @Test
     public void testSearchFieldExists() {
     		Node field = from(root).lookup("#searchField").query();
-    		Assert.assertTrue(field instanceof TextField);
+    		Assert.assertTrue(field instanceof CustomTextField);
     }
     
     @Test
