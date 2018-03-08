@@ -27,6 +27,10 @@ public class SearchTabController {
 	// Utvides til faktisk sokefunksjonalitet med autocomplete-forslag i sprint 2
 	@FXML public void searchForUser() {
 		String userName = searchField.getText();
+		if(userName.length() == 0) {
+			errorMessage.setText("Tomt sÃ¸kefelt");
+			return;
+		}
 		User user = UserDatabase.getUser(userName);
 		if (user != null) {
 			errorMessage.setText("");
@@ -37,12 +41,12 @@ public class SearchTabController {
 		}
 	}
 	
-	//Soker på bruker nar man skriver i sokefeltet og trykker enter
+	//Soker pï¿½ bruker nar man skriver i sokefeltet og trykker enter
 	@FXML public void enterPressed() {
 		searchForUser();
 	}
 	
-	//Fester brukerlista til søkefeltet, slik at den kan komme med forslag ved inntasting
+	//Fester brukerlista til sï¿½kefeltet, slik at den kan komme med forslag ved inntasting
 	public void bindAutocomplete() {
 		TextFields.bindAutoCompletion(searchField, UserDatabase.getUsers());
 	}

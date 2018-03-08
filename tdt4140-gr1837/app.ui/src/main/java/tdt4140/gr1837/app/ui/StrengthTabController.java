@@ -14,6 +14,7 @@ import org.controlsfx.control.PopOver;
 import com.jfoenix.controls.JFXListView;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.scene.Cursor;
@@ -116,7 +117,6 @@ public class StrengthTabController {
 			List<Session> sessions = SQLConnector.getSessions(id);
 			List<Session> sessionsReverse = sessions.subList(0, sessions.size());
 			Collections.reverse(sessionsReverse);
-			trainingList.setItems(FXCollections.observableArrayList(sessionsReverse));
 			initMuscleMap();
 			updateMuscles();
 		}
@@ -180,10 +180,10 @@ public class StrengthTabController {
 	
 	//Setter inn testdata i grafen som erstatning for database
 	public void setTestData() {
-		strengthChart.getXAxis().setLabel("Økt");
+		strengthChart.getXAxis().setLabel("ï¿½kt");
 		strengthChart.getYAxis().setLabel("Vekt");
 		
-		//Legger en series inn i charten (feks en sekvens for en øvelse)
+		//Legger en series inn i charten (feks en sekvens for en ï¿½velse)
 		XYChart.Series<Number, Number> series1 = new XYChart.Series<>();
 	    series1.setName("Benkpress");
 	    series1.getData().add(new XYChart.Data<>(1, 70));
@@ -194,6 +194,21 @@ public class StrengthTabController {
 	    series1.getData().add(new XYChart.Data<>(6, 82));
 	    strengthChart.getData().add(series1);
 	    setSeriesNodeControls(series1);
+	    
+	    ObservableList<String> testData = FXCollections.observableArrayList();
+	    testData.add("Benkpress");
+	    testData.add("Squats");
+	    testData.add("Skulderpress");
+	    
+	    setCheckboxes(testData);
+	    
+	}
+	
+	public void setCheckboxes(ObservableList<String> muscles) {
+		checkList.getItems().removeAll();
+		checkList.getItems().addAll(muscles);
+		
+		
 	}
 	
 	// Gjor nodene til en serie i grafen klikkbare
@@ -223,7 +238,7 @@ public class StrengthTabController {
 				scene.setCursor(Cursor.HAND);
 			});
 			
-			//Setter cursoren til default når den er ute av noden
+			//Setter cursoren til default nï¿½r den er ute av noden
 			series.getData().get(i).getNode().setOnMouseExited(e -> {
 				Scene scene = series.getData().get(j).getNode().getScene();
 				scene.setCursor(Cursor.DEFAULT);

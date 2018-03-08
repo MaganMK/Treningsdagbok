@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.RadioButton?>
@@ -40,7 +39,7 @@
                                     <ToggleGroup fx:id="dataRepresentation" />
                                  </toggleGroup>
                               </RadioButton>
-                              <LineChart fx:id = "strengthChart" layoutX="55.0" layoutY="45.0" prefHeight="380.0" prefWidth="421.0">
+                              <LineChart fx:id="strengthChart" layoutX="111.0" layoutY="45.0" prefHeight="380.0" prefWidth="365.0">
                                 <xAxis>
                                   <NumberAxis side="BOTTOM" />
                                 </xAxis>
@@ -48,7 +47,7 @@
                                   <NumberAxis side="LEFT" />
                                 </yAxis>
                               </LineChart>
-                              <CheckListView fx:id = "checkList" layoutY="56.0" prefHeight="347.0" prefWidth="69.0" />
+                              <CheckListView fx:id="checkList" layoutY="56.0" prefHeight="347.0" prefWidth="119.0" />
                               <RadioButton fx:id="vektvolumRadioButton" layoutX="69.0" layoutY="23.0" mnemonicParsing="false" text="Vektvolum" toggleGroup="$dataRepresentation" />
                            </children>
                         </AnchorPane>
