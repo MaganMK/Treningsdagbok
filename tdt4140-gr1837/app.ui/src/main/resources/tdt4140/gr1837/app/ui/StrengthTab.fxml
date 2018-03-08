@@ -40,15 +40,15 @@
                                     <ToggleGroup fx:id="dataRepresentation" />
                                  </toggleGroup>
                               </RadioButton>
-                              <LineChart layoutX="55.0" layoutY="45.0" prefHeight="380.0" prefWidth="421.0">
+                              <LineChart fx:id = "strengthChart" layoutX="55.0" layoutY="45.0" prefHeight="380.0" prefWidth="421.0">
                                 <xAxis>
-                                  <CategoryAxis side="BOTTOM" />
+                                  <NumberAxis side="BOTTOM" />
                                 </xAxis>
                                 <yAxis>
                                   <NumberAxis side="LEFT" />
                                 </yAxis>
                               </LineChart>
-                              <CheckListView layoutY="56.0" prefHeight="347.0" prefWidth="69.0" />
+                              <CheckListView fx:id = "checkList" layoutY="56.0" prefHeight="347.0" prefWidth="69.0" />
                               <RadioButton fx:id="vektvolumRadioButton" layoutX="69.0" layoutY="23.0" mnemonicParsing="false" text="Vektvolum" toggleGroup="$dataRepresentation" />
                            </children>
                         </AnchorPane>
