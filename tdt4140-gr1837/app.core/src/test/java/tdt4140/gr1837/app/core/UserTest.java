@@ -14,6 +14,8 @@ public class UserTest {
 	@Before
 	public void init() {
 		user.setTrainer(trainer);
+		UserDatabase.initialize();
+		TrainerDatabase.initialize();
 	}
 	
 	@Test
@@ -29,6 +31,12 @@ public class UserTest {
 	@Test
 	public void testToString() {
 		assertEquals("Mons",user.toString());
+	}
+	
+	@Test
+	public void testGetExercises() {
+		UserDatabase.getUser("Test User");
+		assertEquals(user.getExercises().size(), 0);
 	}
 	
 
