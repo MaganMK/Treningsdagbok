@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import org.controlsfx.control.CheckListView?>
 
 <!-- <?import org.controlsfx.control.CheckComboBox?> -->
 
@@ -27,7 +33,25 @@
                <children>
                   <SplitPane dividerPositions="0.603" layoutY="1.0" minHeight="0.0" minWidth="0.0" prefHeight="497.0" prefWidth="798.0">
                     <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="476.0" SplitPane.resizableWithParent="false" />
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="522.0" SplitPane.resizableWithParent="false">
+                           <children>
+                              <RadioButton fx:id="rmRadioButton" layoutX="5.0" layoutY="23.0" mnemonicParsing="false" text="1RM">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="dataRepresentation" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <LineChart layoutX="55.0" layoutY="45.0" prefHeight="380.0" prefWidth="421.0">
+                                <xAxis>
+                                  <CategoryAxis side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis side="LEFT" />
+                                </yAxis>
+                              </LineChart>
+                              <CheckListView layoutY="56.0" prefHeight="347.0" prefWidth="69.0" />
+                              <RadioButton fx:id="vektvolumRadioButton" layoutX="69.0" layoutY="23.0" mnemonicParsing="false" text="Vektvolum" toggleGroup="$dataRepresentation" />
+                           </children>
+                        </AnchorPane>
                       <AnchorPane fx:id="musclemanPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
                               <Pane layoutX="-11.0" layoutY="87.0" prefHeight="321.0" prefWidth="335.0">
