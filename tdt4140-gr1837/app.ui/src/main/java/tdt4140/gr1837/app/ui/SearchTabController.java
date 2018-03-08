@@ -28,7 +28,7 @@ public class SearchTabController {
 	@FXML public void searchForUser() {
 		String userName = searchField.getText();
 		if(userName.length() == 0) {
-			errorMessage.setText("Tomt søkefelt");
+			errorMessage.setText("Tomt felt");
 			return;
 		}
 		User user = UserDatabase.getUser(userName);
@@ -41,12 +41,12 @@ public class SearchTabController {
 		}
 	}
 	
-	//Soker p� bruker nar man skriver i sokefeltet og trykker enter
+	//Soker paa bruker nar man skriver i sokefeltet og trykker enter
 	@FXML public void enterPressed() {
 		searchForUser();
 	}
 	
-	//Fester brukerlista til s�kefeltet, slik at den kan komme med forslag ved inntasting
+	//Fester brukerlista til sokefeltet, slik at den kan komme med forslag ved inntasting
 	public void bindAutocomplete() {
 		TextFields.bindAutoCompletion(searchField, UserDatabase.getUsers());
 	}
