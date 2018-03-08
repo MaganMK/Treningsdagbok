@@ -14,6 +14,7 @@ import org.controlsfx.control.PopOver;
 import com.jfoenix.controls.JFXListView;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
@@ -180,7 +181,7 @@ public class StrengthTabController {
 	
 	//Setter inn testdata i grafen som erstatning for database
 	public void setTestData() {
-		strengthChart.getXAxis().setLabel("�kt");
+		strengthChart.getXAxis().setLabel("Session");
 		strengthChart.getYAxis().setLabel("Vekt");
 		
 		//Legger en series inn i charten (feks en sekvens for en �velse)
@@ -204,10 +205,18 @@ public class StrengthTabController {
 	    
 	}
 	
-	public void setCheckboxes(ObservableList<String> muscles) {
+	//Tar inn ovelser, og oppretter checkboxes inn i checklisten. Gjor checkboxene observerbare.
+	public void setCheckboxes(ObservableList<String> exercises) {
 		checkList.getItems().removeAll();
-		checkList.getItems().addAll(muscles);
+		checkList.getItems().addAll(exercises);
 		
+		checkList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
+		     public void onChanged(ListChangeListener.Change<? extends String> c) {
+		         System.out.println(checkList.getCheckModel().getCheckedItems());
+		         //TODO
+		         //Her kan man si hva som skal skje med lista over ovelser som er trykket pa, altsa vise dem i grafen
+		     }
+		 });
 		
 	}
 	
