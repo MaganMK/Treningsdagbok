@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.controlsfx.control.CheckListView;
 import org.controlsfx.control.PopOver;
@@ -38,10 +39,16 @@ import tdt4140.gr1837.app.core.Exercise;
 import tdt4140.gr1837.app.core.MuscleImage;
 import tdt4140.gr1837.app.core.SQLConnector;
 import tdt4140.gr1837.app.core.Session;
+import tdt4140.gr1837.app.core.StrengthExercise;
 import tdt4140.gr1837.app.core.User;
 
 // Styrketab som viser graf for styrkeovelser samt checkboxes som velger hva som skal vises
 public class StrengthTabController {
+	
+	User user;
+	
+	List<String> graphedExercises = new ArrayList<>();
+	
 	
 	// Bakgrunn
 	@FXML Pane pane;
@@ -98,7 +105,6 @@ public class StrengthTabController {
 	// Setter managerController
 	public void init(ManagerController managerController) {
 		this.managerController = managerController;
-		setTestData();
 	}
 	
 	//Setter musklene til grad av rødfarge
@@ -112,15 +118,14 @@ public class StrengthTabController {
 	
 	// Setter user som skrives i sokefeltet
 	public void setUser(User user) {
+			this.user = user;
 			clientName.setText(user.getName());
 			muscleMan = new MuscleImage(user);
-			int id = user.getId();
-			List<Session> sessions = SQLConnector.getSessions(id);
-			List<Session> sessionsReverse = sessions.subList(0, sessions.size());
-			Collections.reverse(sessionsReverse);
 			initMuscleMap();
 			updateMuscles();
+			setCheckboxes();
 		}
+	
 
 	private void initMuscleMap(){
 		muscles.put("underarmer", underarmer);
@@ -180,44 +185,48 @@ public class StrengthTabController {
 	}
 	
 	//Setter inn testdata i grafen som erstatning for database
-	public void setTestData() {
+	public void setGraph(List<String> exercises) {	
+		
+		
 		strengthChart.getXAxis().setLabel("Session");
 		strengthChart.getYAxis().setLabel("Vekt");
 		
-		//Legger en series inn i charten (feks en sekvens for en �velse)
-		XYChart.Series<Number, Number> series1 = new XYChart.Series<>();
-	    series1.setName("Benkpress");
-	    series1.getData().add(new XYChart.Data<>(1, 70));
-	    series1.getData().add(new XYChart.Data<>(2, 72.4));
-	    series1.getData().add(new XYChart.Data<>(3, 80));
-	    series1.getData().add(new XYChart.Data<>(4, 75));
-	    series1.getData().add(new XYChart.Data<>(5, 70));
-	    series1.getData().add(new XYChart.Data<>(6, 82));
-	    strengthChart.getData().add(series1);
-	    setSeriesNodeControls(series1);
-	    
-	    ObservableList<String> testData = FXCollections.observableArrayList();
-	    testData.add("Benkpress");
-	    testData.add("Squats");
-	    testData.add("Skulderpress");
-	    
-	    setCheckboxes(testData);
-	    
+		
+		for(String name : exercises){
+			if(!graphedExercises.contains(name)){
+				List<StrengthExercise> exerciseType = user.getStrengthExercise(name);
+				XYChart.Series<Number, Number> series = new XYChart.Series<>();
+				series.setName(name);
+				int counter = 0;
+				//Legger en series inn i charten (feks en sekvens for en ovelse)
+				for (StrengthExercise current : exerciseType) {
+					// TODO isteden for current.getWeight skal dataene representeres utifra RadioButtons
+					series.getData().add(new XYChart.Data<>(counter++, current.getWeight()));
+				}
+				strengthChart.getData().add(series);
+				 setSeriesNodeControls(series);
+			}
+			updateGraphedExercises(exercises);
+		} 
 	}
 	
-	//Tar inn ovelser, og oppretter checkboxes inn i checklisten. Gjor checkboxene observerbare.
-	public void setCheckboxes(ObservableList<String> exercises) {
-		checkList.getItems().removeAll();
-		checkList.getItems().addAll(exercises);
+	private void updateGraphedExercises(List<String> names) {
+		graphedExercises.addAll(names);
+	}
+	
+	public void setCheckboxes() {
 		
-		checkList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
+		List<String> exercisesName = user.getExercises().stream().map(ex -> ex.getName()).distinct().collect(Collectors.toList());
+		checkList.getItems().removeAll();
+		checkList.getItems().addAll(exercisesName);
+		
+		 checkList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
 		     public void onChanged(ListChangeListener.Change<? extends String> c) {
 		         System.out.println(checkList.getCheckModel().getCheckedItems());
-		         //TODO
-		         //Her kan man si hva som skal skje med lista over ovelser som er trykket pa, altsa vise dem i grafen
+		         
+		         setGraph(checkList.getCheckModel().getCheckedItems().stream().collect(Collectors.toList()));
 		     }
 		 });
-		
 	}
 	
 	// Gjor nodene til en serie i grafen klikkbare
