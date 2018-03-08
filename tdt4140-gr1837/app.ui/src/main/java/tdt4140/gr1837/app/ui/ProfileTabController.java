@@ -77,10 +77,14 @@ public class ProfileTabController {
 	}
 	
 	private void showFirstExercise() {
-		Session session = trainingList.getItems().get(0);
-		trainingList.getSelectionModel().select(0);
-		trainingList.getFocusModel().focus(0);
-		setExercises(session);
+		try {
+			Session session = trainingList.getItems().get(0);
+			trainingList.getSelectionModel().select(0);
+			trainingList.getFocusModel().focus(0);
+			setExercises(session); }
+		catch (Exception e) {
+			//Får ingen feilmelding hvis man ikke finner noen treningsøkter
+		}
 	}
 	
 	private void setExercises(Session session) {

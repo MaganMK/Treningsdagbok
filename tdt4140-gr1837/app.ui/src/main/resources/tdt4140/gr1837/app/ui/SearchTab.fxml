@@ -3,25 +3,25 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
+<?import org.controlsfx.control.textfield.CustomTextField?>
 <?import org.controlsfx.glyphfont.Glyph?>
 
 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600" prefWidth="800" stylesheets="@style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.SearchTabController">
    <children>
       <Text fx:id="errorMessage" fill="RED" layoutX="193.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="375.3333210945129" />
-      <TextField fx:id="searchField" layoutX="193.0" layoutY="128.0" onAction="#enterPressed" prefHeight="28.0" prefWidth="375.0" promptText="Navn" stylesheets="@style.css">
+      <CustomTextField fx:id="searchField" layoutX="193.0" layoutY="128.0" onAction="#enterPressed" prefHeight="28.0" prefWidth="375.0" promptText="Navn" stylesheets="@style.css">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor>
-      </TextField>
+      </CustomTextField>
       <Button layoutX="722.0" layoutY="572.0" mnemonicParsing="false" opacity="0.0" prefHeight="27.0" prefWidth="77.0">
          <graphic>
             <Glyph fontFamily="FontAwesome" icon="SEARCH" />
           </graphic>
       </Button>
-      <JFXButton fx:id="searchButton" layoutX="579.0" layoutY="132.0" onAction="#searchForUser" prefHeight="28.0" prefWidth="28.0" stylesheets="@style.css" textAlignment="CENTER">
+      <JFXButton fx:id="searchButton" layoutX="579.0" layoutY="130.0" onAction="#searchForUser" prefHeight="32.0" prefWidth="32.0" stylesheets="@style.css" textAlignment="CENTER">
       	<graphic>
               <Glyph id="glyph" fontFamily="FontAwesome" fontSize="20.0" icon="SEARCH" textFill="BLACK" />
         </graphic>
