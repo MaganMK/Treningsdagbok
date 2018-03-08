@@ -56,7 +56,7 @@ public class User {
 	
 	
 	//Vi trenger:
-		//- Navn på øvelse
+		//- Navn pa ovelse
 		//- Vekt
 		//- Representasjon 1rm/vektvolum
 	
@@ -68,6 +68,10 @@ public class User {
 			exercises.addAll(SQLConnector.getAllExercises(session.getId()));
 		}
 		return exercises;
+	}
+	
+	public List<StrengthExercise> getStrengthExercise(String name){
+		return SQLConnector.getStrengthExercises(name);	
 	}
 
 }

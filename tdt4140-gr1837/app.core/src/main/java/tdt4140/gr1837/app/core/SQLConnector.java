@@ -93,7 +93,7 @@ public class SQLConnector {
 	}
 	
 	// Metode for aa hente styrkeovelser til spesifikk okt
-	private static List<Exercise> getStrengthExercises(int sessionId) {
+	public static List<Exercise> getStrengthExercises(int sessionId) {
 		try {
 			List<Exercise> strengthExercises = new ArrayList<>();
 			ResultSet rs = getResultSet("SELECT * FROM Strength_Session NATURAL JOIN Exercise WHERE session_id="+sessionId);
@@ -110,6 +110,26 @@ public class SQLConnector {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 			return new ArrayList<Exercise>();
+		}
+	}
+	
+	public static List<StrengthExercise> getStrengthExercises(String exerciseName) {
+		try {
+			List<StrengthExercise> strengthExercises = new ArrayList<>();
+			ResultSet rs = getResultSet("SELECT * FROM Exercise NATURAL JOIN Strength_Session WHERE exercise_name=" + "\"" +exerciseName+ "\"");
+			while(rs.next()) {
+				StrengthExercise strengthExercise = new StrengthExercise(rs.getString("exercise_name"),
+																 rs.getString("note"),
+																 rs.getInt("sett"),
+																 rs.getInt("reps"),
+																 rs.getInt("weight")
+				);
+				strengthExercises.add(strengthExercise);
+			}
+			return strengthExercises;
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			return new ArrayList<StrengthExercise>();
 		}
 	}
 	
