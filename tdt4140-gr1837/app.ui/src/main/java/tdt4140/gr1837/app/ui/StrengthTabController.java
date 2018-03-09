@@ -124,6 +124,7 @@ public class StrengthTabController {
 			initMuscleMap();
 			updateMuscles();
 			setCheckboxes();
+			dataRepresentation.selectToggle(rmRadioButton);
 		}
 	
 
@@ -199,7 +200,8 @@ public class StrengthTabController {
 					//Legger en series inn i charten (feks en sekvens for en ovelse)
 					for (StrengthExercise current : exerciseType) {
 						// TODO isteden for current.getWeight skal dataene representeres utifra RadioButtons
-						series.getData().add(new XYChart.Data<>(counter++, current.getWeight()));
+						Double data = getRepresentation(current);
+						series.getData().add(new XYChart.Data<>(counter++, data));
 					}
 					strengthChart.getData().add(series);
 					setSeriesNodeControls(series);
@@ -212,9 +214,28 @@ public class StrengthTabController {
 				XYChart.Series<Number, Number> serie = strengthChart.getData().stream().filter(s -> s.getName().equals(name)).collect(Collectors.toList()).get(0);
 				strengthChart.getData().remove(serie);
 				graphedExercises.remove(name);
-				
 			}
 		}
+	}
+	
+	private double getRepresentation(StrengthExercise exercise){
+		if(dataRepresentation.getSelectedToggle().equals(rmRadioButton)) {
+			return exercise.getOneRepMax();
+		}
+		else {
+			return exercise.getWeightVolume();
+		}
+	}
+	
+	public void handleRadioButtons() {
+		for (String item : checkList.getCheckModel().getCheckedItems()) {
+			XYChart.Series<Number, Number> serie = strengthChart.getData().stream().filter(s -> s.getName().equals(item)).collect(Collectors.toList()).get(0);
+			strengthChart.getData().remove(serie);
+			graphedExercises.remove(item);
+			
+		}
+		
+		setGraph(checkList.getCheckModel().getCheckedItems().stream().collect(Collectors.toList()));
 	}
 	
 	// Henter ovelser som en bruker har gjort og laget checkboxer
@@ -227,7 +248,6 @@ public class StrengthTabController {
 		 checkList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
 		     public void onChanged(ListChangeListener.Change<? extends String> c) {
 		    	 try {
-		    		 System.out.println(checkList.getCheckModel().getCheckedItems());
 		    		 setGraph(checkList.getCheckModel().getCheckedItems().stream().collect(Collectors.toList()));
 		    	 } catch (Exception e) {
 		    		 //TODO utloser en exception her, skjonner ikke hvorfor. men alt funker
