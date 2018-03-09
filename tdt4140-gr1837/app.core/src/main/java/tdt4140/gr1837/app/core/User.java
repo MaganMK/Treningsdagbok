@@ -71,7 +71,7 @@ public class User {
 	}
 	
 	public List<StrengthExercise> getStrengthExercise(String name){
-		return SQLConnector.getStrengthExercises(name);	
+		return SQLConnector.getStrengthExercises(name, this.id);	
 	}
 
 }

@@ -14,11 +14,7 @@ public class SQLConnectorTest {
 	@Test
 	public void testGetMuscles() {
 		Map<String, Integer> session1 = SQLConnector.getMusclesTrained(1);
-		
-		for (String muscle : session1.keySet()){
-			assertEquals("biceps", muscle);
-			assertTrue(4 == session1.get(muscle));
-		}
+		assertTrue(4 == session1.get("biceps"));
 	}
 	
 	// Hardkoder data, endres naar insert-metode er implementert

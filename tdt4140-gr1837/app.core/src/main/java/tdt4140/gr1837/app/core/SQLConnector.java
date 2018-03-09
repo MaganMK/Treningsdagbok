@@ -113,10 +113,10 @@ public class SQLConnector {
 		}
 	}
 	
-	public static List<StrengthExercise> getStrengthExercises(String exerciseName) {
+	public static List<StrengthExercise> getStrengthExercises(String exerciseName, int userID) {
 		try {
 			List<StrengthExercise> strengthExercises = new ArrayList<>();
-			ResultSet rs = getResultSet("SELECT * FROM Exercise NATURAL JOIN Strength_Session WHERE exercise_name=" + "\"" +exerciseName+ "\"");
+			ResultSet rs = getResultSet("SELECT * FROM `Strength_Session` NATURAL JOIN `Exercise` INNER JOIN `Session` ON (`Session`.`session_id` = Strength_Session.session_id) WHERE exercise_name =" + "\"" +exerciseName+ "\"" + "AND client_id=" + userID);
 			while(rs.next()) {
 				StrengthExercise strengthExercise = new StrengthExercise(rs.getString("exercise_name"),
 																 rs.getString("note"),
