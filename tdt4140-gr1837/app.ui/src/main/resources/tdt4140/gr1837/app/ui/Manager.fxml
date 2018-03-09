@@ -6,7 +6,7 @@
 
 <AnchorPane styleClass="backgroundPane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.ManagerController">
    <children>
-      <JFXTabPane fx:id="tabPane" prefHeight="600" prefWidth="800" stylesheets="@style.css" tabClosingPolicy="UNAVAILABLE">
+      <JFXTabPane fx:id="tabPane" prefHeight="600" prefWidth="1000" stylesheets="@style.css" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="searchTab1" text="Søk">
              <fx:include fx:id="searchTab" source="SearchTab.fxml" />

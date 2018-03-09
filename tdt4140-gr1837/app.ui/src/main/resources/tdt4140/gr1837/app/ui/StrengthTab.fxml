@@ -2,6 +2,7 @@
 
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -15,9 +16,9 @@
 
 <!-- <?import org.controlsfx.control.CheckComboBox?> -->
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.StrengthTabController">
+<AnchorPane xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.StrengthTabController">
    <children>
-      <SplitPane dividerPositions="0.16220735785953178" orientation="VERTICAL" prefHeight="600.0" prefWidth="800.0">
+      <SplitPane dividerPositions="0.08882521489971347" orientation="VERTICAL" prefHeight="700.0" prefWidth="1000.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
@@ -30,30 +31,32 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0">
                <children>
-                  <SplitPane dividerPositions="0.603" layoutY="1.0" minHeight="0.0" minWidth="0.0" prefHeight="497.0" prefWidth="798.0">
+                  <SplitPane dividerPositions="0.6693386773547094" layoutY="1.0" minHeight="0.0" minWidth="0.0" prefHeight="583.0" prefWidth="1000.0">
                     <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="522.0" SplitPane.resizableWithParent="false">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="665.0" SplitPane.resizableWithParent="false">
                            <children>
-                              <RadioButton fx:id="rmRadioButton" onAction = "#handleRadioButtons" layoutX="5.0" layoutY="23.0" mnemonicParsing="false" text="1RM">
+                              <RadioButton fx:id="rmRadioButton" layoutX="15.0" layoutY="76.0" mnemonicParsing="false" onAction="#handleRadioButtons" text="1RM">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="dataRepresentation" />
                                  </toggleGroup>
                               </RadioButton>
-                              <LineChart fx:id="strengthChart" layoutX="111.0" layoutY="45.0" prefHeight="380.0" prefWidth="365.0">
+                              <LineChart fx:id="strengthChart" layoutX="133.0" layoutY="48.0" prefHeight="473.0" prefWidth="515.0">
                                 <xAxis>
-                                  <NumberAxis side="BOTTOM" />
+                                  <NumberAxis prefWidth="456.0" side="BOTTOM" />
                                 </xAxis>
                                 <yAxis>
                                   <NumberAxis side="LEFT" />
                                 </yAxis>
                               </LineChart>
-                              <CheckListView fx:id="checkList" layoutY="56.0" prefHeight="347.0" prefWidth="119.0" />
-                              <RadioButton fx:id="vektvolumRadioButton" onAction = "#handleRadioButtons" layoutX="69.0" layoutY="23.0" mnemonicParsing="false" text="Vektvolum" toggleGroup="$dataRepresentation" />
+                              <CheckListView fx:id="checkList" layoutX="8.0" layoutY="150.0" prefHeight="287.0" prefWidth="119.0" style="-fx-background-color: transparent;" stylesheets="@style.css" />
+                              <RadioButton fx:id="vektvolumRadioButton" layoutX="15.0" layoutY="98.0" mnemonicParsing="false" onAction="#handleRadioButtons" text="Vektvolum" toggleGroup="$dataRepresentation" />
+                              <Label layoutX="15.0" layoutY="55.0" text="Datarepresentasjon" />
+                              <Label layoutX="17.0" layoutY="130.0" text="Exercise" />
                            </children>
                         </AnchorPane>
                       <AnchorPane fx:id="musclemanPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
-                              <Pane layoutX="-11.0" layoutY="87.0" prefHeight="321.0" prefWidth="335.0">
+                              <Pane layoutX="-11.0" layoutY="110.0" prefHeight="321.0" prefWidth="335.0">
                                  <children>
                                     <ImageView fx:id="muscleManImage" fitHeight="305.0" fitWidth="338.0" pickOnBounds="true" preserveRatio="true">
                                        <image>

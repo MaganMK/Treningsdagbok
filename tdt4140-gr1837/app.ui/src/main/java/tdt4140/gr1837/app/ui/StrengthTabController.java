@@ -123,10 +123,11 @@ public class StrengthTabController {
 			muscleMan = new MuscleImage(user);
 			initMuscleMap();
 			updateMuscles();
+			graphedExercises.clear();
+			strengthChart.getData().clear();
 			setCheckboxes();
 			dataRepresentation.selectToggle(rmRadioButton);
 		}
-	
 
 	private void initMuscleMap(){
 		muscles.put("underarmer", underarmer);
@@ -188,7 +189,9 @@ public class StrengthTabController {
 	//Setter inn testdata i grafen som erstatning for database
 	public void setGraph(List<String> exercises) {	
 		strengthChart.getXAxis().setLabel("Session");
-		strengthChart.getYAxis().setLabel("Vekt");
+		
+		String Ylabel = dataRepresentation.getSelectedToggle().equals(rmRadioButton) ? "1RM - kg" : "Vektvolum - kg";
+		strengthChart.getYAxis().setLabel(Ylabel);
 		
 		//strengthChart.getData().clear();
 		for(String name : exercises){
@@ -241,7 +244,8 @@ public class StrengthTabController {
 	// Henter ovelser som en bruker har gjort og laget checkboxer
 	public void setCheckboxes() {
 		List<String> exercisesName = user.getExercises().stream().map(ex -> ex.getName()).distinct().collect(Collectors.toList());
-		checkList.getItems().removeAll();
+		System.out.println(exercisesName);
+		checkList.getItems().clear();
 		checkList.getItems().addAll(exercisesName);
 		
 		//Klikk-lyttere
