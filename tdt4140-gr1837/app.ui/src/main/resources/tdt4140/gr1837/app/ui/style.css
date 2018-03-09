@@ -124,3 +124,24 @@
     -fx-text-fill: gray;
     -fx-highlight-fill: #7ecfff;
 }
+
+/*Checklistview */
+.list-view * {
+	-fx-background: transparent;
+	-fx-background-color: transparent;
+	-fx-text-fill: black;
+}
+
+.check-box .box {
+	-fx-background-color: white;
+	-fx-border-color:grey;
+	-fx-border-radius:3px; 
+}
+
+.check-box:selected .mark {
+	-fx-background-color: white;
+}
+
+.check-box:selected .box {
+ 	-fx-background-color: #28a3f4;
+}
