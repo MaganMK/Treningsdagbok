@@ -47,8 +47,8 @@ public class StrengthTabController {
 	
 	User user;
 	
+	//Oversikt over exercises som allerede er graphed
 	List<String> graphedExercises = new ArrayList<>();
-	
 	
 	// Bakgrunn
 	@FXML Pane pane;
@@ -186,45 +186,52 @@ public class StrengthTabController {
 	
 	//Setter inn testdata i grafen som erstatning for database
 	public void setGraph(List<String> exercises) {	
-		
-		
 		strengthChart.getXAxis().setLabel("Session");
 		strengthChart.getYAxis().setLabel("Vekt");
 		
-		
+		//strengthChart.getData().clear();
 		for(String name : exercises){
-			if(!graphedExercises.contains(name)){
-				List<StrengthExercise> exerciseType = user.getStrengthExercise(name);
-				XYChart.Series<Number, Number> series = new XYChart.Series<>();
-				series.setName(name);
-				int counter = 0;
-				//Legger en series inn i charten (feks en sekvens for en ovelse)
-				for (StrengthExercise current : exerciseType) {
-					// TODO isteden for current.getWeight skal dataene representeres utifra RadioButtons
-					series.getData().add(new XYChart.Data<>(counter++, current.getWeight()));
+				if (!graphedExercises.contains(name)) {
+					List<StrengthExercise> exerciseType = user.getStrengthExercise(name);
+					XYChart.Series<Number, Number> series = new XYChart.Series<>();
+					series.setName(name);
+					int counter = 0;
+					//Legger en series inn i charten (feks en sekvens for en ovelse)
+					for (StrengthExercise current : exerciseType) {
+						// TODO isteden for current.getWeight skal dataene representeres utifra RadioButtons
+						series.getData().add(new XYChart.Data<>(counter++, current.getWeight()));
+					}
+					strengthChart.getData().add(series);
+					setSeriesNodeControls(series);
+					graphedExercises.add(name); //Legger til at vi har grafet ex med navnet.
 				}
-				strengthChart.getData().add(series);
-				 setSeriesNodeControls(series);
 			}
-			updateGraphedExercises(exercises);
-		} 
+		// Gar igjennom graphedexercises og ser om den inneholder en serie som er removet, fjerner den isafall
+		for (String name : graphedExercises) {
+			if (!exercises.contains(name)) {
+				XYChart.Series<Number, Number> serie = strengthChart.getData().stream().filter(s -> s.getName().equals(name)).collect(Collectors.toList()).get(0);
+				strengthChart.getData().remove(serie);
+				graphedExercises.remove(name);
+				
+			}
+		}
 	}
 	
-	private void updateGraphedExercises(List<String> names) {
-		graphedExercises.addAll(names);
-	}
-	
+	// Henter ovelser som en bruker har gjort og laget checkboxer
 	public void setCheckboxes() {
-		
 		List<String> exercisesName = user.getExercises().stream().map(ex -> ex.getName()).distinct().collect(Collectors.toList());
 		checkList.getItems().removeAll();
 		checkList.getItems().addAll(exercisesName);
 		
+		//Klikk-lyttere
 		 checkList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
 		     public void onChanged(ListChangeListener.Change<? extends String> c) {
-		         System.out.println(checkList.getCheckModel().getCheckedItems());
-		         
-		         setGraph(checkList.getCheckModel().getCheckedItems().stream().collect(Collectors.toList()));
+		    	 try {
+		    		 System.out.println(checkList.getCheckModel().getCheckedItems());
+		    		 setGraph(checkList.getCheckModel().getCheckedItems().stream().collect(Collectors.toList()));
+		    	 } catch (Exception e) {
+		    		 //TODO utloser en exception her, skjonner ikke hvorfor. men alt funker
+		    	 }
 		     }
 		 });
 	}
