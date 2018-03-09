@@ -34,7 +34,7 @@
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="522.0" SplitPane.resizableWithParent="false">
                            <children>
-                              <RadioButton fx:id="rmRadioButton" layoutX="5.0" layoutY="23.0" mnemonicParsing="false" text="1RM">
+                              <RadioButton fx:id="rmRadioButton" onAction = "#handleRadioButtons" layoutX="5.0" layoutY="23.0" mnemonicParsing="false" text="1RM">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="dataRepresentation" />
                                  </toggleGroup>
@@ -48,7 +48,7 @@
                                 </yAxis>
                               </LineChart>
                               <CheckListView fx:id="checkList" layoutY="56.0" prefHeight="347.0" prefWidth="119.0" />
-                              <RadioButton fx:id="vektvolumRadioButton" layoutX="69.0" layoutY="23.0" mnemonicParsing="false" text="Vektvolum" toggleGroup="$dataRepresentation" />
+                              <RadioButton fx:id="vektvolumRadioButton" onAction = "#handleRadioButtons" layoutX="69.0" layoutY="23.0" mnemonicParsing="false" text="Vektvolum" toggleGroup="$dataRepresentation" />
                            </children>
                         </AnchorPane>
                       <AnchorPane fx:id="musclemanPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">

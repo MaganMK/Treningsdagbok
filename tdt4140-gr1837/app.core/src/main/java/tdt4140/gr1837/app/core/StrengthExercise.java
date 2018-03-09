@@ -43,4 +43,22 @@ public class StrengthExercise extends Exercise {
 	public void setWeight(Integer weight) {
 		this.weight = weight;
 	}
+
+	// Kalkulerer 1RM for en ovelse
+	public double getOneRepMax(){
+		return weight*(1+(repetitions/Double.valueOf(30)));
+	}
+	
+	// Kalkulerer vektvolum for en ovelse
+	public double getWeightVolume() {
+		return weight*repetitions;
+	}
+	
 }
+
+
+
+
+
+
+
