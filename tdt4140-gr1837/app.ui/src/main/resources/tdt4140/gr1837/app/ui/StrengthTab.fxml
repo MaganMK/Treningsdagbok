@@ -16,7 +16,7 @@
 
 <!-- <?import org.controlsfx.control.CheckComboBox?> -->
 
-<AnchorPane xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.StrengthTabController">
+<AnchorPane stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.StrengthTabController">
    <children>
       <SplitPane dividerPositions="0.08882521489971347" orientation="VERTICAL" prefHeight="700.0" prefWidth="1000.0">
         <items>
@@ -42,7 +42,7 @@
                               </RadioButton>
                               <LineChart fx:id="strengthChart" layoutX="133.0" layoutY="48.0" prefHeight="473.0" prefWidth="515.0">
                                 <xAxis>
-                                  <NumberAxis prefWidth="456.0" side="BOTTOM" />
+                                  <NumberAxis prefWidth="456.0" side="BOTTOM" fx:id="xAxis" />
                                 </xAxis>
                                 <yAxis>
                                   <NumberAxis side="LEFT" />

@@ -22,6 +22,7 @@ import javafx.geometry.Bounds;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
@@ -94,6 +95,7 @@ public class StrengthTabController {
 		
 	//Graf
 	@FXML LineChart<Number,Number> strengthChart;
+	@FXML NumberAxis xAxis;
 	
 	private MuscleImage muscleMan;
 	
@@ -127,6 +129,7 @@ public class StrengthTabController {
 			strengthChart.getData().clear();
 			setCheckboxes();
 			dataRepresentation.selectToggle(rmRadioButton);
+			xAxis.setTickLabelsVisible(false);
 		}
 
 	private void initMuscleMap(){
@@ -265,6 +268,7 @@ public class StrengthTabController {
 	    for (int i = 0; i <	series.getData().size(); i++) {
 			final int j = i;
 			// aapner popup-vindu til noden som trykkes paa
+			//Node node = series.getData().get(i).getNode();
 			series.getData().get(i).getNode().setOnMousePressed(e -> {
 				 
 				 PopOver pop = new PopOver();
@@ -285,9 +289,11 @@ public class StrengthTabController {
 			series.getData().get(i).getNode().setOnMouseMoved(e -> {
 				Scene scene = series.getData().get(j).getNode().getScene();
 				scene.setCursor(Cursor.HAND);
+				//series.getData().get(j).getNode().setStyle("-fx-background-color: blue;");
+				// TODO Sette stilen til nodene til noe fett
 			});
 			
-			//Setter cursoren til default n�r den er ute av noden
+			//Setter cursoren til default naar den er ute av noden
 			series.getData().get(i).getNode().setOnMouseExited(e -> {
 				Scene scene = series.getData().get(j).getNode().getScene();
 				scene.setCursor(Cursor.DEFAULT);
