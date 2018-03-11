@@ -19,6 +19,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
+import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
@@ -35,6 +36,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import tdt4140.gr1837.app.core.Exercise;
@@ -298,7 +300,7 @@ public class StrengthTabController {
 			repetitions.setCellValueFactory(new PropertyValueFactory<Exercise, Integer>("repetitions"));
 			weight.setCellValueFactory(new PropertyValueFactory<Exercise, Integer>("weight"));
 			set.setText("Set");
-			type.setText("Øvelse");
+			type.setText("Ã˜velse");
 			repetitions.setText("Repetisjoner");
 			weight.setText("Vekt");
 			
@@ -306,12 +308,18 @@ public class StrengthTabController {
 			exerciseList.getColumns().add(set);
 			exerciseList.getColumns().add(repetitions);
 			exerciseList.getColumns().add(weight);
-			exerciseList.setFixedCellSize(25);
 			
 			
 			exerciseList.getItems().setAll(SQLConnector.getAllExercises(session.getId()));
+			exerciseList.setMaxSize(288, 230);
 			pop.setContentNode(date);
-			pop.setContentNode(exerciseList);
+			VBox container = new VBox();
+			container.setPadding(new Insets(5,0,0,5));
+			container.getChildren().addAll(date,exerciseList);
+			pop.setContentNode(container);
+			
+			//pop.setContentNode(exerciseList);
+			//exerciseList.setPadding(new Insets(20,0,0,0));
 			
 			 
 			Bounds boundsInScreen = series.getData().get(i).getNode().localToScreen(series.getData().get(i).getNode().getBoundsInLocal());
