@@ -130,7 +130,18 @@ public class StrengthTabController {
 			setCheckboxes();
 			dataRepresentation.selectToggle(rmRadioButton);
 			xAxis.setTickLabelsVisible(false);
+			resetCheckBoxes();
+			
 		}
+	
+	private void resetCheckBoxes() {
+		List<String> exercisesName = user.getExercises().stream().map(ex -> ex.getName()).distinct().collect(Collectors.toList());
+		checkList.getItems().clear();
+		checkList.getItems().addAll(exercisesName);
+		checkList.getCheckModel().checkAll();
+		checkList.getCheckModel().clearChecks();
+
+	}
 
 	private void initMuscleMap(){
 		muscles.put("underarmer", underarmer);
@@ -212,6 +223,7 @@ public class StrengthTabController {
 					strengthChart.getData().add(series);
 					setSeriesNodeControls(series);
 					graphedExercises.add(name); //Legger til at vi har grafet ex med navnet.
+					System.out.println("Lagt til: " + name);
 				}
 			}
 		// Gar igjennom graphedexercises og ser om den inneholder en serie som er removet, fjerner den isafall
@@ -220,6 +232,7 @@ public class StrengthTabController {
 				XYChart.Series<Number, Number> serie = strengthChart.getData().stream().filter(s -> s.getName().equals(name)).collect(Collectors.toList()).get(0);
 				strengthChart.getData().remove(serie);
 				graphedExercises.remove(name);
+				System.out.println("Fjerner: " + name);
 			}
 		}
 	}
@@ -238,6 +251,7 @@ public class StrengthTabController {
 			XYChart.Series<Number, Number> serie = strengthChart.getData().stream().filter(s -> s.getName().equals(item)).collect(Collectors.toList()).get(0);
 			strengthChart.getData().remove(serie);
 			graphedExercises.remove(item);
+			System.out.println("Fjener 2: " + item);
 			
 		}
 		
@@ -247,21 +261,20 @@ public class StrengthTabController {
 	// Henter ovelser som en bruker har gjort og laget checkboxer
 	public void setCheckboxes() {
 		List<String> exercisesName = user.getExercises().stream().map(ex -> ex.getName()).distinct().collect(Collectors.toList());
-		System.out.println(exercisesName);
 		checkList.getItems().clear();
 		checkList.getItems().addAll(exercisesName);
-		
 		//Klikk-lyttere
-		 checkList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
+		checkList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
 		     public void onChanged(ListChangeListener.Change<? extends String> c) {
 		    	 try {
 		    		 setGraph(checkList.getCheckModel().getCheckedItems().stream().collect(Collectors.toList()));
 		    	 } catch (Exception e) {
-		    		 //TODO utloser en exception her, skjonner ikke hvorfor. men alt funker
+		    		// TODO Faar exception, men ting fungerer som de skal.. Trengs det aa fikses?
 		    	 }
 		     }
 		 });
 	}
+	
 	
 	// Gjor nodene til en serie i grafen klikkbare
 	public void setSeriesNodeControls(XYChart.Series<Number, Number> series) {
