@@ -26,6 +26,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -221,7 +222,7 @@ public class StrengthTabController {
 						series.getData().add(new XYChart.Data<>(counter++, data));
 					}
 					strengthChart.getData().add(series);
-					setSeriesNodeControls(series);
+					setSeriesNodeControls(series, exerciseType);
 					graphedExercises.add(name); //Legger til at vi har grafet ex med navnet.
 					System.out.println("Lagt til: " + name);
 				}
@@ -275,28 +276,62 @@ public class StrengthTabController {
 		 });
 	}
 	
+	private void createPopOver(XYChart.Series<Number, Number> series,List<StrengthExercise> strengthExercises, int i) {
+		series.getData().get(i).getNode().setOnMousePressed(e -> {
+			PopOver pop = new PopOver();
+			pop.setWidth(100);
+			pop.setHeight(100);
+			Session session = SQLConnector.getSessionByExercise(strengthExercises.get(i).getSessionId());
+			
+			Text date = new Text(String.valueOf(session.getDate()));
+			TableView<Exercise> exerciseList = new TableView<Exercise>();
+			TableColumn<Exercise, Integer> set = new TableColumn<Exercise,Integer>();
+			TableColumn<Exercise, Integer> weight = new TableColumn<Exercise,Integer>();
+			TableColumn<Exercise, Integer> repetitions = new TableColumn<Exercise,Integer>();
+			TableColumn<Exercise, String> type = new TableColumn<Exercise,String>();
+			//ScrollPane scrollPane = new ScrollPane();
+			//scrollPane.get
+			exerciseList.maxWidth(100);
+			exerciseList.maxHeight(100);
+			type.setCellValueFactory(new PropertyValueFactory<Exercise, String>("name"));
+			set.setCellValueFactory(new PropertyValueFactory<Exercise, Integer>("set"));
+			repetitions.setCellValueFactory(new PropertyValueFactory<Exercise, Integer>("repetitions"));
+			weight.setCellValueFactory(new PropertyValueFactory<Exercise, Integer>("weight"));
+			set.setText("Set");
+			type.setText("Øvelse");
+			repetitions.setText("Repetisjoner");
+			weight.setText("Vekt");
+			
+			exerciseList.getColumns().add(type);
+			exerciseList.getColumns().add(set);
+			exerciseList.getColumns().add(repetitions);
+			exerciseList.getColumns().add(weight);
+			exerciseList.setFixedCellSize(25);
+			
+			
+			exerciseList.getItems().setAll(SQLConnector.getAllExercises(session.getId()));
+			pop.setContentNode(date);
+			pop.setContentNode(exerciseList);
+			
+			 
+			Bounds boundsInScreen = series.getData().get(i).getNode().localToScreen(series.getData().get(i).getNode().getBoundsInLocal());
+			Double y = boundsInScreen.getMaxY() - 44;
+			Double x = boundsInScreen.getMinX() + 4;
+			 
+		    pop.setX(x);
+		    pop.setY(y);
+		     
+		    pop.setMinSize(300, 150);
+			pop.show((Stage)series.getData().get(i).getNode().getScene().getWindow());
+		});
+	}
+	
 	
 	// Gjor nodene til en serie i grafen klikkbare
-	public void setSeriesNodeControls(XYChart.Series<Number, Number> series) {
+	public void setSeriesNodeControls(XYChart.Series<Number, Number> series, List<StrengthExercise> strengthExercises) {
 	    for (int i = 0; i <	series.getData().size(); i++) {
 			final int j = i;
-			// aapner popup-vindu til noden som trykkes paa
-			//Node node = series.getData().get(i).getNode();
-			series.getData().get(i).getNode().setOnMousePressed(e -> {
-				 
-				 PopOver pop = new PopOver();
-				 
-				 Bounds boundsInScreen = series.getData().get(j).getNode().localToScreen(series.getData().get(j).getNode().getBoundsInLocal());
-				 Double y = boundsInScreen.getMaxY() - 44;
-				 Double x = boundsInScreen.getMinX() + 4;
-				 
-				 
-			     pop.setX(x);
-			     pop.setY(y);
-			     
-			     pop.setMinSize(300, 150);
-				 pop.show((Stage)series.getData().get(j).getNode().getScene().getWindow());
-			});
+			createPopOver(series, strengthExercises, i);
 			
 			//Setter cursoren til hand ved hover
 			series.getData().get(i).getNode().setOnMouseMoved(e -> {
@@ -312,5 +347,12 @@ public class StrengthTabController {
 				scene.setCursor(Cursor.DEFAULT);
 			});
 		}
+	}
+	
+	private void setExercisesInPopover(Session session, PopOver popOver) {
+		List<Exercise> exercises = SQLConnector.getAllExercises(session.getId());
+		TableView table = new TableView();
+		this.addTableView(exercises);
+		this.addNoteView(session.getNote());
 	}
 }

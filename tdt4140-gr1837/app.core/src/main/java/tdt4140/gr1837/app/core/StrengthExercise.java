@@ -8,6 +8,7 @@ public class StrengthExercise extends Exercise {
 	private Integer set;
 	private Integer repetitions;
 	private Integer weight;
+	private Integer session_id;
 	
 	public StrengthExercise(String name, 
 							String note,
@@ -18,6 +19,14 @@ public class StrengthExercise extends Exercise {
 		this.set = new Integer(set);
 		this.repetitions = new Integer(repetitions);
 		this.weight = new Integer(weight);
+		
+	}
+	
+	public void setSessionId(int session_id) {
+		this.session_id = new Integer(session_id);
+	}
+	public Integer getSessionId() {
+		return this.session_id;
 	}
 
 	public Integer getSet() {
