@@ -46,6 +46,7 @@ public class SQLConnectorTest {
 		assertEquals(testExercise.getWeight(), lastExercise.getWeight());
 		assertEquals(testExercise.getName(), lastExercise.getName());
 		assertEquals(testExercise.getNote(), lastExercise.getNote());
+		assertTrue(strengthExercises.size() > 0);
 	}
 	
 }
