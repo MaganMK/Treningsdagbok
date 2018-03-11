@@ -69,9 +69,12 @@
    -fx-background-color: transparent;
 }
 
+/*
 .table-row-cell:selected:hover, .list-cell:selected:hover {
     -fx-background-color: gray;
 }
+* 
+*/
 
 .table-row-cell:hover, .list-cell:hover {
 	-fx-background-color:  rgba(0,0,0,0.1);
@@ -126,6 +129,7 @@
 }
 
 /*Checklistview */
+/* 
 .list-view * {
 	-fx-background: transparent;
 	-fx-background-color: transparent;
@@ -144,4 +148,4 @@
 
 .check-box:selected .box {
  	-fx-background-color: #28a3f4;
-}
+}*/
