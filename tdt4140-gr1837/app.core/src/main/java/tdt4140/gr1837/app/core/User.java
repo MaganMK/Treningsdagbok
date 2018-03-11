@@ -70,6 +70,10 @@ public class User {
 		return exercises;
 	}
 	
+	public List<Session> getSessions() {
+		return SQLConnector.getSessions(this.getId());
+	}
+	
 	public List<StrengthExercise> getStrengthExercise(String name){
 		return SQLConnector.getStrengthExercises(name, this.id);	
 	}

@@ -124,7 +124,9 @@ public class SQLConnector {
 																 rs.getInt("reps"),
 																 rs.getInt("weight")
 				);
+				strengthExercise.setSessionId(rs.getInt("session_id"));
 				strengthExercises.add(strengthExercise);
+				
 			}
 			return strengthExercises;
 		} catch (SQLException e1) {
@@ -202,6 +204,23 @@ public class SQLConnector {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 			return new ArrayList<Trainer>();
+		}
+	}
+
+	public static Session getSessionByExercise(Integer sessionId) {
+		try {
+			ResultSet rs = getResultSet("SELECT * FROM Session WHERE session_id="+sessionId);
+			Session session = null;
+			while(rs.next()) {
+				session = new Session(rs.getString("note"), 
+									rs.getString("date"), 
+									rs.getInt("session_id")
+				);
+			}
+			return session;
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			return null;
 		}
 	}
 }
