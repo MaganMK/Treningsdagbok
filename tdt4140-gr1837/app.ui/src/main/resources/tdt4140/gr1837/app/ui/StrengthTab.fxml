@@ -16,7 +16,7 @@
 
 <!-- <?import org.controlsfx.control.CheckComboBox?> -->
 
-<AnchorPane stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.StrengthTabController">
+<AnchorPane stylesheets="@style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.StrengthTabController">
    <children>
       <SplitPane dividerPositions="0.08882521489971347" orientation="VERTICAL" prefHeight="700.0" prefWidth="1000.0">
         <items>
@@ -29,9 +29,9 @@
                   </Text>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;">
                <children>
-                  <SplitPane dividerPositions="0.6693386773547094" layoutY="1.0" minHeight="0.0" minWidth="0.0" prefHeight="583.0" prefWidth="1000.0">
+                  <SplitPane dividerPositions="0.6693386773547094" layoutY="1.0" minHeight="0.0" minWidth="0.0" prefHeight="583.0" prefWidth="1000.0" style="-fx-background-color: white;">
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="665.0" SplitPane.resizableWithParent="false">
                            <children>
