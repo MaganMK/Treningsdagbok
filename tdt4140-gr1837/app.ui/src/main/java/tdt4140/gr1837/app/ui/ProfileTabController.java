@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXTreeTableView;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableView;
@@ -33,10 +34,13 @@ public class ProfileTabController {
 	@FXML TableColumn<Exercise, String> type;
 	@FXML Text note;
 	@FXML TextArea feedback;
+	@FXML Button submit;
 	@FXML TableColumn<Exercise, Integer> set;
 	@FXML TableColumn<Exercise, Integer> repetitions;
 	@FXML TableColumn<Exercise, Integer> weight;
 	@FXML TableColumn<Exercise, String> notat;
+	
+	private Session currentSession;
 	
 	// ManagerController for kommunikasjon med andre controllers
 	public ManagerController managerController;
@@ -70,6 +74,7 @@ public class ProfileTabController {
 	@FXML public void handleMouseClickSession(MouseEvent arg0) {
 		try {
 			Session session = trainingList.getSelectionModel().getSelectedItem();
+			currentSession = session;
 			setExercises(session);
 		} catch (NullPointerException e) {
 			// Handterer unntak nar man trykker paa exercisetabellen, men ikke trykker paa en note.
@@ -89,6 +94,7 @@ public class ProfileTabController {
 	private void showFirstExercise() {
 		try {
 			Session session = trainingList.getItems().get(0);
+			currentSession = session;
 			trainingList.getSelectionModel().select(0);
 			trainingList.getFocusModel().focus(0);
 			setExercises(session); 
@@ -107,6 +113,8 @@ public class ProfileTabController {
 		}
 		this.addTableView(exercises);
 		this.addNoteView(session.getNote());
+		this.addPreviousFeedback(SQLConnector.getFeedback(session.getId()));
+		
 	}
 	
 	// Setter verdier i tabellen med ovelser
@@ -121,7 +129,17 @@ public class ProfileTabController {
 	
 	// Setter notatfeltet
 	private void addNoteView(String note) {
-		this.note.setText(note);
-		
+		this.note.setText(note);	
+	}
+	
+	// Setter tilbakemeldingsfeltet til tidligere lagret tilbakemelding
+	private void addPreviousFeedback(String feedback) {
+		this.feedback.setText(feedback);
+	}
+	
+	// Lagre teksten i feedback i databasen
+	public void submitFeedback() {
+		String text = feedback.getText();
+		SQLConnector.registerFeedback(text, currentSession.getId() );
 	}
 }
