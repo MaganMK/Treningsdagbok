@@ -60,12 +60,13 @@
 	                          <items>
 	                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
 	                                 <children>
-	                                    <TableView fx:id="exerciseList" onMouseClicked="#handleMouseClickExercise" prefHeight="318.0" prefWidth="488.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+	                                    <TableView fx:id="exerciseList" onMouseClicked="#handleMouseClickExercise" prefHeight="316.0" prefWidth="780.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 	                                      <columns>
-	                                        <TableColumn fx:id="type" prefWidth="215.0" text="Type" />
-	                                        <TableColumn fx:id="set" minWidth="0.0" prefWidth="202.0" text="Sett" />
-	                                        <TableColumn fx:id="repetitions" prefWidth="192.0" text="Repetisjoner" />
-	                                        <TableColumn fx:id="weight" prefWidth="187.0" text="Vekt" />
+	                                        <TableColumn fx:id="type" prefWidth="103.0" text="Type" />
+	                                        <TableColumn fx:id="set" minWidth="0.0" text="Sett" />
+	                                        <TableColumn fx:id="repetitions" prefWidth="90.0" text="Repetisjoner" />
+	                                        <TableColumn fx:id="weight" prefWidth="87.0" text="Vekt" />
+                                            <TableColumn fx:id="notat" prefWidth="435.0" text="Notat" />
 	                                      </columns>
 	                                    </TableView>
 	                                 </children>
@@ -78,7 +79,7 @@
                                                    <children>
                                                       <TextArea fx:id="feedback" layoutX="341.0" layoutY="14.0" prefHeight="69.0" prefWidth="439.0" promptText="Skriv tilbakemelding til økten her" />
                                                       <Text fx:id="note" layoutX="22.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="243.21875" />
-                                                      <Text layoutX="22.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Notat" textAlignment="CENTER" underline="true" wrappingWidth="292.947265625" />
+                                                      <Text layoutX="22.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Notat til økt" textAlignment="CENTER" underline="true" wrappingWidth="292.947265625" />
                                                    </children></AnchorPane>
 	                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="102.0" prefWidth="115.0" />
 	                                      </items>

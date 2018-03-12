@@ -36,6 +36,7 @@ public class ProfileTabController {
 	@FXML TableColumn<Exercise, Integer> set;
 	@FXML TableColumn<Exercise, Integer> repetitions;
 	@FXML TableColumn<Exercise, Integer> weight;
+	@FXML TableColumn<Exercise, String> notat;
 	
 	// ManagerController for kommunikasjon med andre controllers
 	public ManagerController managerController;
@@ -79,7 +80,7 @@ public class ProfileTabController {
 	@FXML public void handleMouseClickExercise(MouseEvent arg0) {
 		try {
 			Exercise exercise = exerciseList.getSelectionModel().getSelectedItem();
-			this.addNoteView(exercise.getNote());
+			//this.addNoteView(exercise.getNote());
 		} catch (NullPointerException e) {
 			// Handterer unntak nar man trykker paa exercisetabellen, men ikke trykker paa en note.
 		} 
@@ -90,11 +91,9 @@ public class ProfileTabController {
 			Session session = trainingList.getItems().get(0);
 			trainingList.getSelectionModel().select(0);
 			trainingList.getFocusModel().focus(0);
-			setExercises(session); }
-		catch (Exception e) {
-
-			//Faar ingen feilmelding hvis man ikke finner noen treningskter
-
+			setExercises(session); 
+		} catch (Exception e) {
+			// Faar ingen feilmelding hvis man ikke finner noen treningskter
 		}
 	}
 	
@@ -116,6 +115,7 @@ public class ProfileTabController {
 		set.setCellValueFactory(new PropertyValueFactory<Exercise, Integer>("set"));
 		repetitions.setCellValueFactory(new PropertyValueFactory<Exercise, Integer>("repetitions"));
 		weight.setCellValueFactory(new PropertyValueFactory<Exercise, Integer>("weight"));
+		notat.setCellValueFactory(new PropertyValueFactory<Exercise, String>("note"));
 		exerciseList.getItems().setAll(exercises);
 	}
 	
