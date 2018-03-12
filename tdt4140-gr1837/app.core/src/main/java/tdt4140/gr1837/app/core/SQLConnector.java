@@ -335,25 +335,24 @@ public class SQLConnector {
 		
 	//returns the feedback of session with id= id
 	public static String getFeedback(int id) {
+		String feedback = null;
 		try {
 			ResultSet rs = getResultSet("SELECT * FROM Feedback WHERE session_id="+id);
-			String feedback = "";
 			if (rs.next()) {
 				feedback = rs.getString("note");	
 			}
-			return feedback;
 		
 		} catch (SQLException e1) {
 			e1.printStackTrace();
-			return "";
 		}
+		return feedback;
 	}
 	
 	public static void registerFeedback(String feedback, int id) {
 		try {
 			Statement stmt = connection.createStatement();
 			String sql;
-			if (getFeedback(id).equals("")) {
+			if (getFeedback(id) == null) {
 				sql = String.format("INSERT INTO Feedback VALUES (%s, \"%s\")", id, feedback);
 			}
 			else {
