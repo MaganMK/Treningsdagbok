@@ -15,10 +15,7 @@ public class SQLConnectorTest {
 	public void testGetMuscles() {
 		Map<String, Integer> session1 = SQLConnector.getMusclesTrained(1);
 		
-		for (String muscle : session1.keySet()){
-			assertEquals("biceps", muscle);
-			assertTrue(4 == session1.get(muscle));
-		}
+		assertTrue(4 == session1.get("biceps"));
 	}
 	
 	// Hardkoder data, endres naar insert-metode er implementert
@@ -33,21 +30,23 @@ public class SQLConnectorTest {
 		assertEquals(firstSession.toString(), testSession.toString());
 	}
 	
+	// Hardkoder data, endres naar insert-metode er implementert
 	@Test
 	public void testGetAllExercises() {
-		StrengthExercise testExercise = new StrengthExercise("shrugs", "JEG ELSKER TRAPS!", 4, 12, 50);
-		List<Exercise> strengthExercises = SQLConnector.getAllExercises(5);
-		StrengthExercise lastExercise = (StrengthExercise)strengthExercises.get(strengthExercises.size() - 1);
+		StrengthExercise testExercise = new StrengthExercise("Benkpress", "Benk hos meg(harvey)", 1, 1, 100);
+		List<Exercise> strengthExercises = SQLConnector.getAllExercises(1);
+		StrengthExercise lastExercise = null;
+		for(Exercise e : strengthExercises) {
+			if(e.getNote().equals("Benk hos meg(harvey)")) {
+				lastExercise = (StrengthExercise)e;
+			}
+		}
+		assertTrue(lastExercise != null);
 		assertEquals(testExercise.getRepetitions(), lastExercise.getRepetitions());
 		assertEquals(testExercise.getSet(), lastExercise.getSet());
 		assertEquals(testExercise.getWeight(), lastExercise.getWeight());
 		assertEquals(testExercise.getName(), lastExercise.getName());
 		assertEquals(testExercise.getNote(), lastExercise.getNote());
-	}
-	
-	@Test
-	public void testTableChanges() {
-		
 	}
 	
 }
