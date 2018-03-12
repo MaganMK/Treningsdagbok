@@ -91,7 +91,9 @@ public class ProfileTabController {
 			trainingList.getFocusModel().focus(0);
 			setExercises(session); }
 		catch (Exception e) {
-			//F�r ingen feilmelding hvis man ikke finner noen trenings�kter
+
+			//Faar ingen feilmelding hvis man ikke finner noen treningskter
+
 		}
 	}
 	
