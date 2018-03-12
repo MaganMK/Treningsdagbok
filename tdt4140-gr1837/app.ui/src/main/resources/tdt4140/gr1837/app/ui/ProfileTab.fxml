@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXListView?>
-
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -12,9 +11,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.ProfileTabController">
    <children>
-      <SplitPane dividerPositions="0.2725752508361204" orientation="VERTICAL" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.2725752508361204" orientation="VERTICAL" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white;">
                <children>
@@ -62,10 +62,10 @@
 	                                 <children>
 	                                    <TableView fx:id="exerciseList" onMouseClicked="#handleMouseClickExercise" prefHeight="318.0" prefWidth="488.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 	                                      <columns>
-	                                        <TableColumn fx:id="type" prefWidth="185.0" text="Type" />
-	                                        <TableColumn fx:id="set" minWidth="0.0" prefWidth="150.0" text="Sett" />
-	                                        <TableColumn fx:id="repetitions" prefWidth="150.0" text="Repetisjoner" />
-	                                        <TableColumn fx:id="weight" prefWidth="150.0" text="Vekt" />
+	                                        <TableColumn fx:id="type" prefWidth="215.0" text="Type" />
+	                                        <TableColumn fx:id="set" minWidth="0.0" prefWidth="202.0" text="Sett" />
+	                                        <TableColumn fx:id="repetitions" prefWidth="192.0" text="Repetisjoner" />
+	                                        <TableColumn fx:id="weight" prefWidth="187.0" text="Vekt" />
 	                                      </columns>
 	                                    </TableView>
 	                                 </children>
@@ -74,9 +74,11 @@
 	                                 <children>
 	                                    <SplitPane dividerPositions="0.9947534102833158" prefHeight="104.0" prefWidth="659.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-22.0" AnchorPane.topAnchor="0.0">
 	                                      <items>
-	                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="102.0" prefWidth="349.0">
+	                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="101.0" prefWidth="232.0">
                                                    <children>
-                                                      <TextArea fx:id="note" layoutX="23.0" layoutY="15.0" prefHeight="62.0" prefWidth="591.0" />
+                                                      <TextArea fx:id="feedback" layoutX="341.0" layoutY="14.0" prefHeight="69.0" prefWidth="439.0" promptText="Skriv tilbakemelding til økten her" />
+                                                      <Text fx:id="note" layoutX="22.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="243.21875" />
+                                                      <Text layoutX="22.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Notat" textAlignment="CENTER" underline="true" wrappingWidth="292.947265625" />
                                                    </children></AnchorPane>
 	                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="102.0" prefWidth="115.0" />
 	                                      </items>

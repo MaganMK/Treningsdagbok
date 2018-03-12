@@ -31,7 +31,8 @@ public class ProfileTabController {
 	@FXML JFXListView<Session> trainingList;
 	@FXML TableView<Exercise> exerciseList;
 	@FXML TableColumn<Exercise, String> type;
-	@FXML TextArea note;
+	@FXML Text note;
+	@FXML TextArea feedback;
 	@FXML TableColumn<Exercise, Integer> set;
 	@FXML TableColumn<Exercise, Integer> repetitions;
 	@FXML TableColumn<Exercise, Integer> weight;
@@ -121,6 +122,6 @@ public class ProfileTabController {
 	// Setter notatfeltet
 	private void addNoteView(String note) {
 		this.note.setText(note);
-		this.note.setEditable(false);
+		
 	}
 }
