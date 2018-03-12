@@ -345,14 +345,14 @@ public class StrengthTabController {
 			series.getData().get(i).getNode().setOnMouseMoved(e -> {
 				Scene scene = series.getData().get(j).getNode().getScene();
 				scene.setCursor(Cursor.HAND);
-				//series.getData().get(j).getNode().setStyle("-fx-background-color: blue;");
-				// TODO Sette stilen til nodene til noe fett
+				series.getData().get(j).getNode().setStyle("-fx-scale-x: 1.3;-fx-scale-y: 1.3;");
 			});
 			
 			//Setter cursoren til default naar den er ute av noden
 			series.getData().get(i).getNode().setOnMouseExited(e -> {
 				Scene scene = series.getData().get(j).getNode().getScene();
 				scene.setCursor(Cursor.DEFAULT);
+				series.getData().get(j).getNode().setStyle("-fx-scale-x: 1;-fx-scale-y: 1");
 			});
 		}
 	}
