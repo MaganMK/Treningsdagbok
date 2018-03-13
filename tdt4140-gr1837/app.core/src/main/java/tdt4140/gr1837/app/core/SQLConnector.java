@@ -173,6 +173,18 @@ public class SQLConnector {
 		}
 	}
 	
+	// Metode for aa hente oktene
+	public static Session getSession(int id) throws SQLException, IllegalArgumentException {
+
+		ResultSet rs = getResultSet("SELECT * FROM Session WHERE session_id="+id);
+		while(rs.next()) {
+			return new Session(rs.getString("note"), 
+								rs.getString("date"), 
+								rs.getInt("session_id"));
+		}
+		throw new IllegalArgumentException("Okt med denne id-en finnes ikke");
+	}
+	
 	public static Map<String, Integer> getMusclesTrained(int sessionID){
 		try {
 			
@@ -239,9 +251,20 @@ public class SQLConnector {
 	public static int createSession(int clientId, String date, String note) throws SQLException {
 		Connection conn = SQLConnector.getConnection();
 		Statement statement = conn.createStatement();
-		statement.executeUpdate(String.format("INSERT INTO Session VALUES(%d, '%s', '%s', 127)", clientId, date, note));
-		return 126;
+		int sessionId = getMaximumSessionIdFromDBPlusOne();
+		statement.executeUpdate(String.format("INSERT INTO Session VALUES(%d, '%s', '%s', %d)", clientId, date, note, sessionId));
+		return sessionId;
 	}
+	
+	private static int getMaximumSessionIdFromDBPlusOne() throws SQLException {
+		int max = 0;
+		ResultSet rs = getResultSet("SELECT session_id FROM Session");
+		while(rs.next()) {
+			max = rs.getInt("session_id") > max ? rs.getInt("session_id") : max;
+		}
+		return max + 1;
+	}
+	
 	public static void main(String[] args) throws SQLException, ClientProtocolException, IOException
 	{
 		String       postUrl       = "http://localhost:8000/session";// put in your url
@@ -252,7 +275,9 @@ public class SQLConnector {
 		post.setEntity(postingString);
 		post.setHeader("Content-type", "application/json");
 		HttpResponse  response = httpClient.execute(post);
+		System.out.println("breakpoint");
 		System.out.println(EntityUtils.toString(response.getEntity()));
+		System.out.println("breakpoint2");
 	}
 }
 

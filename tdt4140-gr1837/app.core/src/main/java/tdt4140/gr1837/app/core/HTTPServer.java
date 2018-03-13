@@ -11,20 +11,30 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.http.entity.StringEntity;
 
+import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
 public class HTTPServer {
-	 public static void main(String[] args) throws Exception {
-	        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+	
+	static HttpServer server;
+	
+	 public static void initialize() throws Exception {
+	        server = HttpServer.create(new InetSocketAddress(8000), 0);
 	        server.createContext("/session", new SessionHandler());
 	        server.createContext("/clients", new ClientHandler());
 	        server.createContext("/exercise", new ExerciseHandler());
 	        server.setExecutor(null); // creates a default executor
 	        server.start();
 	 }
+	 
+	 public static void tearDown() {
+		 server.stop(0);
+	 }
+	 
 	 public static Map<String, String> getParams(HttpExchange ex) {
 		 Map<String, String> params = new HashMap<>();
 		 try {
@@ -38,8 +48,10 @@ public class HTTPServer {
 			 return new HashMap<String, String>();
 		 }
 	 }
+	 
 	 public static void sendResponse(HttpExchange ex, String response, int statusCode) {
          try {
+        	 ex.getResponseHeaders().set("Content-Type", "text/html; charset=UTF-8");
 			 ex.sendResponseHeaders(statusCode, response.length());
 	         OutputStream os = ex.getResponseBody();
 	         os.write(response.getBytes());
@@ -91,22 +103,36 @@ public class HTTPServer {
         	// Lager en ny session. Kalles om man faar en http request POST /session
         	Map<String, String> params = getParams(ex);
         	try {
-        		System.out.println(params.get("clientID"));
-        		System.out.println(params.get("date"));
-        		System.out.println(params.get("note"));
 				int sessionID = SQLConnector.createSession(Integer.parseInt(params.get("clientID")), params.get("date"), params.get("note"));
-				System.out.println("ok");
-				sendResponse(ex, Integer.toString(sessionID));
+				sendResponse(ex, Integer.toString(sessionID), 201);
 			} catch (NumberFormatException e) {
 				sendResponse(ex, "Ugyldig klient-id", 400);
 			} catch (SQLException e) {
-				System.out.println(e);
 				sendResponse(ex, "Kunne ikke koble til databasen", 503);
 			}
         }
         
         private void get(HttpExchange ex) {
         	// Faar en eksisterene klient. Kalles ved POST /exercise/session_id
+        	String sessionId = ex.getRequestURI().toString().split("/")[2];
+        	try {
+				Session session = SQLConnector.getSession(Integer.parseInt(sessionId));
+				Gson gson = new Gson();
+				String response = gson.toJson(session); // gson.tojson() converts your pojo to json
+				System.out.println(response);
+				response = response.replaceAll("[æ]", "ae");
+				response = response.replaceAll("[ø]", "o");
+				response = response.replaceAll("[å]", "aa");
+				System.out.println(response);
+				sendResponse(ex, response);
+			} catch (NumberFormatException e) {
+				sendResponse(ex, "Ugyldig format på okt-id", 400);
+			} catch (IllegalArgumentException e) {
+				sendResponse(ex, e.getMessage(), 404);
+				e.printStackTrace();
+			} catch (SQLException e) {
+				sendResponse(ex, "Kunne ikke koble til databasen", 503);
+			}
         }
         
         private void update(HttpExchange ex) {
