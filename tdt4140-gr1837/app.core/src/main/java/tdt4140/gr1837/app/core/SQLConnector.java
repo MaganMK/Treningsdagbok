@@ -329,7 +329,6 @@ public class SQLConnector {
 	public static void createExercise(String name, int id) throws SQLException {
 		Connection conn = SQLConnector.getConnection();
 		Statement statement = conn.createStatement();
-		
 	}
 	
 	public static void main(String[] args) throws SQLException, ClientProtocolException, IOException
@@ -342,9 +341,7 @@ public class SQLConnector {
 		post.setEntity(postingString);
 		post.setHeader("Content-type", "application/json");
 		HttpResponse  response = httpClient.execute(post);
-		System.out.println("breakpoint");
 		System.out.println(EntityUtils.toString(response.getEntity()));
-		System.out.println("breakpoint2");
 	}
 }
 

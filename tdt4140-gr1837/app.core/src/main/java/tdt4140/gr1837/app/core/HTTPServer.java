@@ -142,6 +142,8 @@ public class HTTPServer {
         	    get(ex);
         	} else if(ex.getRequestMethod().equals("POST")) {
         		post(ex);
+        	} else if(ex.getRequestMethod().equals("UPDATE")) {
+        		update(ex);
         	}
         }
         
@@ -176,7 +178,6 @@ public class HTTPServer {
 				sendResponse(ex, "Kunne ikke koble til databasen", 503);
 			}
         }
-        
         
         private void update(HttpExchange ex) {
         	// Oppdaterer en klient. Kalles ved UPDATE /client/id
