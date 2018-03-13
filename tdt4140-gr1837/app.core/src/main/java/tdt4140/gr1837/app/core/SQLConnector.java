@@ -219,7 +219,7 @@ public class SQLConnector {
 		statement.executeUpdate(String.format("INSERT INTO Session VALUES(%d, '%s', '%s', %d)", clientId, date, note, sessionId));
 		return sessionId;
 	}
-	
+
 	public static Map<String, Integer> getMusclesTrained(int sessionID){
 		try {
 			
@@ -341,7 +341,9 @@ public class SQLConnector {
 		post.setEntity(postingString);
 		post.setHeader("Content-type", "application/json");
 		HttpResponse  response = httpClient.execute(post);
+		System.out.println("breakpoint");
 		System.out.println(EntityUtils.toString(response.getEntity()));
+		System.out.println("breakpoint2");
 	}
 }
 
