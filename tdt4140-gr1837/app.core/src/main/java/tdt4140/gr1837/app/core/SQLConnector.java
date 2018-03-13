@@ -341,7 +341,9 @@ public class SQLConnector {
 		post.setEntity(postingString);
 		post.setHeader("Content-type", "application/json");
 		HttpResponse  response = httpClient.execute(post);
+		System.out.println("breakpoint");
 		System.out.println(EntityUtils.toString(response.getEntity()));
+		System.out.println("breakpoint2");
 	}
 }
 

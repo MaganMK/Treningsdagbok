@@ -14,7 +14,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.http.entity.StringEntity;
 
 import com.google.gson.Gson;
-
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
@@ -52,6 +51,7 @@ public class HTTPServer {
 	 
 	 public static void sendResponse(HttpExchange ex, String response, int statusCode) {
          try {
+        	 ex.getResponseHeaders().set("Content-Type", "text/html; charset=UTF-8");
 			 ex.sendResponseHeaders(statusCode, response.length());
 	         OutputStream os = ex.getResponseBody();
 	         os.write(response.getBytes());
