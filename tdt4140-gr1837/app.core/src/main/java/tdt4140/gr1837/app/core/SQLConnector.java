@@ -247,6 +247,7 @@ public class SQLConnector {
 			e1.printStackTrace();
 			return null;
 		}
+	}
 	
 	public static int createSession(int clientId, String date, String note) throws SQLException {
 		Connection conn = SQLConnector.getConnection();
@@ -275,9 +276,7 @@ public class SQLConnector {
 		post.setEntity(postingString);
 		post.setHeader("Content-type", "application/json");
 		HttpResponse  response = httpClient.execute(post);
-		System.out.println("breakpoint");
 		System.out.println(EntityUtils.toString(response.getEntity()));
-		System.out.println("breakpoint2");
 	}
 }
 
