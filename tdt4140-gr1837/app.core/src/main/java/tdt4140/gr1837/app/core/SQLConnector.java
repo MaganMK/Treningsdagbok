@@ -1,6 +1,17 @@
 package tdt4140.gr1837.app.core;
 
+import java.io.IOException;
 import java.sql.Connection;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +20,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.google.gson.Gson;
 
 public class SQLConnector {
 	private static String url = "jdbc:mysql://mysql.stud.ntnu.no/didris_test1";
@@ -222,6 +235,24 @@ public class SQLConnector {
 			e1.printStackTrace();
 			return null;
 		}
+	
+	public static int createSession(int clientId, String date, String note) throws SQLException {
+		Connection conn = SQLConnector.getConnection();
+		Statement statement = conn.createStatement();
+		statement.executeUpdate(String.format("INSERT INTO Session VALUES(%d, '%s', '%s', 127)", clientId, date, note));
+		return 126;
+	}
+	public static void main(String[] args) throws SQLException, ClientProtocolException, IOException
+	{
+		String       postUrl       = "http://localhost:8000/session";// put in your url
+		Gson         gson          = new Gson();
+		HttpClient   httpClient    = HttpClientBuilder.create().build();
+		HttpPost     post          = new HttpPost(postUrl);
+		StringEntity postingString = new StringEntity("clientID=4&date=2017-10-10&note=me", "utf-8");//gson.tojson() converts your pojo to json
+		post.setEntity(postingString);
+		post.setHeader("Content-type", "application/json");
+		HttpResponse  response = httpClient.execute(post);
+		System.out.println(EntityUtils.toString(response.getEntity()));
 	}
 }
 
