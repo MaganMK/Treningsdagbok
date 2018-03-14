@@ -8,6 +8,9 @@ import java.util.List;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTreeTableView;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -17,8 +20,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.control.TableColumn;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import tdt4140.gr1837.app.core.Exercise;
 import tdt4140.gr1837.app.core.SQLConnector;
 import tdt4140.gr1837.app.core.User;
@@ -28,7 +33,7 @@ public class ProfileTabController {
 	
 	// Elementer i ProfileTab.fxml
 	@FXML Tab profileTab;
-	@FXML Text clientName, ageField, phoneNumberField, motivationField;
+	@FXML Text clientName, ageField, phoneNumberField, motivationField, userFeedback;
 	@FXML JFXListView<Session> trainingList;
 	@FXML TableView<Exercise> exerciseList;
 	@FXML TableColumn<Exercise, String> type;
@@ -114,7 +119,7 @@ public class ProfileTabController {
 		this.addTableView(exercises);
 		this.addNoteView(session.getNote());
 		this.addPreviousFeedback(SQLConnector.getFeedback(session.getId()));
-		
+		this.userFeedback.setText("");
 	}
 	
 	// Setter verdier i tabellen med ovelser
@@ -139,7 +144,29 @@ public class ProfileTabController {
 	
 	// Lagre teksten i feedback i databasen
 	public void submitFeedback() {
+		updateUserFeedback(true, "");
 		String text = feedback.getText();
-		SQLConnector.registerFeedback(text, currentSession.getId() );
+		if (SQLConnector.registerFeedback(text, currentSession.getId())) {
+			updateUserFeedback(true, "Tilbakemelding oppdatert");
+		}
+		else {
+			updateUserFeedback(false, "Kunne ikke oppdatere");
+		}
+	}
+	
+	private void updateUserFeedback(boolean ok, String message) {
+		if (ok) {
+			userFeedback.setFill(Color.BLACK);
+		}
+		else {
+			userFeedback.setFill(Color.RED);
+		}
+		userFeedback.setText(message);
+		FadeTransition ft = new FadeTransition(Duration.millis(2000), userFeedback);
+		ft.setFromValue(1);
+		ft.setToValue(0);
+		ft.play();
+		/*Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), ae -> userFeedback.setText("")));
+		timeline.play();*/
 	}
 }

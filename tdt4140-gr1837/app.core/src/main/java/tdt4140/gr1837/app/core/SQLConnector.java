@@ -348,7 +348,8 @@ public class SQLConnector {
 		return feedback;
 	}
 	
-	public static void registerFeedback(String feedback, int id) {
+	public static boolean registerFeedback(String feedback, int id) {
+		boolean success = false;
 		try {
 			Statement stmt = connection.createStatement();
 			String sql;
@@ -359,10 +360,11 @@ public class SQLConnector {
 				sql = String.format("UPDATE Feedback SET note=\"%s\" WHERE session_id=%s", feedback, id);
 			}
 			stmt.execute(sql);
+			success = true;
 			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		return success;
 	}
 }
