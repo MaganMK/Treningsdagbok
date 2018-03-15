@@ -149,3 +149,7 @@
 .check-box:selected .box {
  	-fx-background-color: #28a3f4;
 }*/
+
+.chart-series-line:hover {    
+    -fx-effect: dropshadow( gaussian, rgba(163, 163, 163, 0.9), 10, 0, 5, 5 );
+}
