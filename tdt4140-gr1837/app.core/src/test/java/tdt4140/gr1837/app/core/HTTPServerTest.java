@@ -82,6 +82,7 @@ public class HTTPServerTest {
 		String s = EntityUtils.toString(response.getEntity());
 		assertEquals(5, Integer.parseInt(extractInfoFromResponse(s)[1]));
 		System.out.println(s);
+		
 	}
 
 	@Test

@@ -179,6 +179,7 @@ public class HTTPServer {
 			}
         }
         
+        
         private void update(HttpExchange ex) {
         	// Oppdaterer en klient. Kalles ved UPDATE /client/id
         }
