@@ -1,12 +1,9 @@
 package tdt4140.gr1837.app.ui;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.controlsfx.control.CheckListView;
@@ -14,9 +11,7 @@ import org.controlsfx.control.PopOver;
 
 import com.jfoenix.controls.JFXListView;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
@@ -25,9 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -134,7 +127,6 @@ public class StrengthTabController {
 			dataRepresentation.selectToggle(rmRadioButton);
 			xAxis.setTickLabelsVisible(false);
 			resetCheckBoxes();
-			
 		}
 	
 	private void resetCheckBoxes() {
@@ -210,32 +202,30 @@ public class StrengthTabController {
 		String Ylabel = dataRepresentation.getSelectedToggle().equals(rmRadioButton) ? "1RM - kg" : "Vektvolum - kg";
 		strengthChart.getYAxis().setLabel(Ylabel);
 		
-		//strengthChart.getData().clear();
 		for(String name : exercises){
 				if (!graphedExercises.contains(name)) {
 					List<StrengthExercise> exerciseType = user.getStrengthExercise(name);
 					XYChart.Series<Number, Number> series = new XYChart.Series<>();
 					series.setName(name);
 					int counter = 0;
+					
 					//Legger en series inn i charten (feks en sekvens for en ovelse)
 					for (StrengthExercise current : exerciseType) {
-						// TODO isteden for current.getWeight skal dataene representeres utifra RadioButtons
 						Double data = getRepresentation(current);
 						series.getData().add(new XYChart.Data<>(counter++, data));
 					}
 					strengthChart.getData().add(series);
 					setSeriesNodeControls(series, exerciseType);
 					graphedExercises.add(name); //Legger til at vi har grafet ex med navnet.
-					System.out.println("Lagt til: " + name);
 				}
 			}
+		
 		// Gar igjennom graphedexercises og ser om den inneholder en serie som er removet, fjerner den isafall
 		for (String name : graphedExercises) {
 			if (!exercises.contains(name)) {
 				XYChart.Series<Number, Number> serie = strengthChart.getData().stream().filter(s -> s.getName().equals(name)).collect(Collectors.toList()).get(0);
 				strengthChart.getData().remove(serie);
 				graphedExercises.remove(name);
-				System.out.println("Fjerner: " + name);
 			}
 		}
 	}
@@ -254,10 +244,7 @@ public class StrengthTabController {
 			XYChart.Series<Number, Number> serie = strengthChart.getData().stream().filter(s -> s.getName().equals(item)).collect(Collectors.toList()).get(0);
 			strengthChart.getData().remove(serie);
 			graphedExercises.remove(item);
-			System.out.println("Fjener 2: " + item);
-			
 		}
-		
 		setGraph(checkList.getCheckModel().getCheckedItems().stream().collect(Collectors.toList()));
 	}
 	
@@ -266,6 +253,7 @@ public class StrengthTabController {
 		List<String> exercisesName = user.getExercises().stream().map(ex -> ex.getName()).distinct().collect(Collectors.toList());
 		checkList.getItems().clear();
 		checkList.getItems().addAll(exercisesName);
+		
 		//Klikk-lyttere
 		checkList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
 		     public void onChanged(ListChangeListener.Change<? extends String> c) {
@@ -283,24 +271,27 @@ public class StrengthTabController {
 			PopOver pop = new PopOver();
 			pop.setWidth(100);
 			pop.setHeight(100);
+			
 			Session session = SQLConnector.getSessionByExercise(strengthExercises.get(i).getSessionId());
 			
 			Text date = new Text(String.valueOf(session.getDate()));
+			
 			TableView<Exercise> exerciseList = new TableView<Exercise>();
 			TableColumn<Exercise, Integer> set = new TableColumn<Exercise,Integer>();
 			TableColumn<Exercise, Integer> weight = new TableColumn<Exercise,Integer>();
 			TableColumn<Exercise, Integer> repetitions = new TableColumn<Exercise,Integer>();
 			TableColumn<Exercise, String> type = new TableColumn<Exercise,String>();
-			//ScrollPane scrollPane = new ScrollPane();
-			//scrollPane.get
+			
 			exerciseList.maxWidth(100);
 			exerciseList.maxHeight(100);
+			
 			type.setCellValueFactory(new PropertyValueFactory<Exercise, String>("name"));
 			set.setCellValueFactory(new PropertyValueFactory<Exercise, Integer>("set"));
 			repetitions.setCellValueFactory(new PropertyValueFactory<Exercise, Integer>("repetitions"));
 			weight.setCellValueFactory(new PropertyValueFactory<Exercise, Integer>("weight"));
+			
 			set.setText("Set");
-			type.setText("Øvelse");
+			type.setText("Session");
 			repetitions.setText("Repetisjoner");
 			weight.setText("Vekt");
 			
@@ -309,8 +300,8 @@ public class StrengthTabController {
 			exerciseList.getColumns().add(repetitions);
 			exerciseList.getColumns().add(weight);
 			
-			
 			exerciseList.getItems().setAll(SQLConnector.getAllExercises(session.getId()));
+			
 			exerciseList.setMaxSize(288, 230);
 			pop.setContentNode(date);
 			VBox container = new VBox();
@@ -318,10 +309,6 @@ public class StrengthTabController {
 			container.getChildren().addAll(date,exerciseList);
 			pop.setContentNode(container);
 			
-			//pop.setContentNode(exerciseList);
-			//exerciseList.setPadding(new Insets(20,0,0,0));
-			
-			 
 			Bounds boundsInScreen = series.getData().get(i).getNode().localToScreen(series.getData().get(i).getNode().getBoundsInLocal());
 			Double y = boundsInScreen.getMaxY() - 44;
 			Double x = boundsInScreen.getMinX() + 4;
@@ -355,12 +342,5 @@ public class StrengthTabController {
 				series.getData().get(j).getNode().setStyle("-fx-scale-x: 1;-fx-scale-y: 1");
 			});
 		}
-	}
-	
-	private void setExercisesInPopover(Session session, PopOver popOver) {
-		List<Exercise> exercises = SQLConnector.getAllExercises(session.getId());
-		TableView table = new TableView();
-		this.addTableView(exercises);
-		this.addNoteView(session.getNote());
 	}
 }
