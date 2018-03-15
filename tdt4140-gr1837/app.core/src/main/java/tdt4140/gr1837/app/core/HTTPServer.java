@@ -64,6 +64,14 @@ public class HTTPServer {
 		 sendResponse(ex, response, 200);
 	 }
 	 
+	 private static String changeNorwegianLetters(String response) {
+	 	return response.replaceAll("\u00e6", "ae")
+	 				   .replaceAll("\u00f8", "o")
+	 				   .replaceAll("\u00e5", "aa")
+	 				   .replaceAll("\u00c6", "AE")
+	 				   .replaceAll("\u00d8", "O")
+	 				   .replaceAll("\u00c5", "AA");	
+	 }
 	 
 
     static class ClientHandler implements HttpHandler {
@@ -119,14 +127,10 @@ public class HTTPServer {
 				Session session = SQLConnector.getSession(Integer.parseInt(sessionId));
 				Gson gson = new Gson();
 				String response = gson.toJson(session); // gson.tojson() converts your pojo to json
-				System.out.println(response);
-				response = response.replaceAll("[æ]", "ae");
-				response = response.replaceAll("[ø]", "o");
-				response = response.replaceAll("[å]", "aa");
-				System.out.println(response);
+				response = changeNorwegianLetters(response);
 				sendResponse(ex, response);
 			} catch (NumberFormatException e) {
-				sendResponse(ex, "Ugyldig format på okt-id", 400);
+				sendResponse(ex, "Ugyldig format paa okt-id", 400);
 			} catch (IllegalArgumentException e) {
 				sendResponse(ex, e.getMessage(), 404);
 				e.printStackTrace();
@@ -134,6 +138,7 @@ public class HTTPServer {
 				sendResponse(ex, "Kunne ikke koble til databasen", 503);
 			}
         }
+        
         
         private void update(HttpExchange ex) {
         	// Oppdaterer en klient. Kalles ved UPDATE /client/id

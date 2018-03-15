@@ -37,11 +37,11 @@ public class HTTPServerTest {
 	
 	@Test
 	public void testCreateSession() throws ClientProtocolException, IOException {
-		String       postUrl       = "http://localhost:8000/session";// put in your url
+		String       postUrl       = "http://localhost:8000/session";
 		Gson         gson          = new Gson();
 		HttpClient   httpClient    = HttpClientBuilder.create().build();
 		HttpPost     post          = new HttpPost(postUrl);
-		StringEntity postingString = new StringEntity("clientID=4&date=2017-10-10&note=me", "utf-8");//gson.tojson() converts your pojo to json
+		StringEntity postingString = new StringEntity("clientID=4&date=2017-10-10&note=me", "utf-8");
 		post.setEntity(postingString);
 		post.setHeader("Content-type", "application/json");
 		HttpResponse  response = httpClient.execute(post);
@@ -55,11 +55,11 @@ public class HTTPServerTest {
 	
 	@Test
 	public void testCreateSessionWrongClientId() throws ClientProtocolException, IOException {
-		String       postUrl       = "http://localhost:8000/session";// put in your url
+		String       postUrl       = "http://localhost:8000/session";
 		Gson         gson          = new Gson();
 		HttpClient   httpClient    = HttpClientBuilder.create().build();
 		HttpPost     post          = new HttpPost(postUrl);
-		StringEntity postingString = new StringEntity("clientID=kevin&date=2017-10-10&note=me", "utf-8");//gson.tojson() converts your pojo to json
+		StringEntity postingString = new StringEntity("clientID=kevin&date=2017-10-10&note=me", "utf-8");
 		post.setEntity(postingString);
 		post.setHeader("Content-type", "application/json");
 		HttpResponse  response = httpClient.execute(post);
@@ -70,7 +70,7 @@ public class HTTPServerTest {
 	
 	@Test
 	public void testGetSession() throws ClientProtocolException, IOException {
-		String       getUrl       = "http://localhost:8000/session/5";// put in your url
+		String       getUrl       = "http://localhost:8000/session/5";
 		HttpClient   httpClient   = HttpClientBuilder.create().build();
 		HttpGet      get          = new HttpGet(getUrl);
 		get.setHeader("Content-type", "application/json");
@@ -78,9 +78,9 @@ public class HTTPServerTest {
 		
 		int statusCode = response.getStatusLine().getStatusCode();
 		assertEquals(OK, statusCode);
-//		System.out.println((response.getEntity()));
 		String s = EntityUtils.toString(response.getEntity());
 		System.out.println(s);
+		
 	}
 
 	@After

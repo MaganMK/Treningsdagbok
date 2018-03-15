@@ -252,18 +252,16 @@ public class SQLConnector {
 	public static int createSession(int clientId, String date, String note) throws SQLException {
 		Connection conn = SQLConnector.getConnection();
 		Statement statement = conn.createStatement();
-		int sessionId = getMaximumSessionIdFromDBPlusOne();
+		int sessionId = getMaximumSessionIdFromDBPlusOneAlsoKnownAsNextID();
 		statement.executeUpdate(String.format("INSERT INTO Session VALUES(%d, '%s', '%s', %d)", clientId, date, note, sessionId));
 		return sessionId;
 	}
 	
-	private static int getMaximumSessionIdFromDBPlusOne() throws SQLException {
-		int max = 0;
-		ResultSet rs = getResultSet("SELECT session_id FROM Session");
-		while(rs.next()) {
-			max = rs.getInt("session_id") > max ? rs.getInt("session_id") : max;
-		}
-		return max + 1;
+	private static int getMaximumSessionIdFromDBPlusOneAlsoKnownAsNextID() throws SQLException {
+		ResultSet rs = getResultSet("SELECT MAX(session_id) AS maximum FROM Session");
+		if (rs.next()) {
+			return rs.getInt("maximum") + 1;
+		} return 1;
 	}
 	
 	public static void main(String[] args) throws SQLException, ClientProtocolException, IOException
