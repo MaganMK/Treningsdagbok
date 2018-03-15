@@ -8,7 +8,8 @@
 <?import org.controlsfx.control.textfield.CustomTextField?>
 <?import org.controlsfx.glyphfont.Glyph?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600" prefWidth="1000" stylesheets="@style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.SearchTabController">
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600" prefWidth="800" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.SearchTabController">
    <children>
       <Text fx:id="errorMessage" fill="RED" layoutX="193.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="375.3333210945129" />
       <CustomTextField fx:id="searchField" layoutX="291.0" layoutY="129.0" onAction="#enterPressed" prefHeight="28.0" prefWidth="375.0" promptText="Navn" stylesheets="@style.css">
