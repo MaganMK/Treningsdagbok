@@ -40,7 +40,7 @@
                                     <ToggleGroup fx:id="dataRepresentation" />
                                  </toggleGroup>
                               </RadioButton>
-                              <LineChart fx:id="strengthChart" layoutX="133.0" layoutY="48.0" prefHeight="473.0" prefWidth="515.0">
+                              <LineChart fx:id="strengthChart" layoutX="145.0" layoutY="48.0" prefHeight="473.0" prefWidth="503.0">
                                 <xAxis>
                                   <NumberAxis prefWidth="456.0" side="BOTTOM" fx:id="xAxis" />
                                 </xAxis>
@@ -48,7 +48,7 @@
                                   <NumberAxis side="LEFT" />
                                 </yAxis>
                               </LineChart>
-                              <CheckListView fx:id="checkList" layoutX="8.0" layoutY="150.0" prefHeight="287.0" prefWidth="119.0" style="-fx-background-color: transparent;" stylesheets="@style.css"/>
+                              <CheckListView fx:id="checkList" layoutX="8.0" layoutY="150.0" prefHeight="361.0" prefWidth="149.0" style="-fx-background-color: transparent;" stylesheets="@style.css" />
                               <RadioButton fx:id="vektvolumRadioButton" layoutX="15.0" layoutY="98.0" mnemonicParsing="false" onAction="#handleRadioButtons" text="Vektvolum" toggleGroup="$dataRepresentation" />
                               <Label layoutX="15.0" layoutY="55.0" text="Datarepresentasjon" />
                               <Label layoutX="17.0" layoutY="130.0" text="Exercise" />
