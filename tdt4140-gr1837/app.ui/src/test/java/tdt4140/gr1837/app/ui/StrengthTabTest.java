@@ -25,9 +25,9 @@ public class StrengthTabTest extends ApplicationTest {
 
     @BeforeClass
     public static void headless() {
-    		if (Boolean.valueOf(System.getProperty("gitlab-ci", "false"))) {
-    			GitlabCISupport.headless();
-    		}
+    	if (Boolean.valueOf(System.getProperty("gitlab-ci", "false"))) {
+    		GitlabCISupport.headless();
+    	}
     }
 
 	@Override
@@ -45,38 +45,35 @@ public class StrengthTabTest extends ApplicationTest {
 
     @Test
     public void testElementsExists() {
-    		Node field = from(root).lookup("#musclemanPane").query();
-    		Assert.assertTrue(field instanceof AnchorPane);
+    	Node field = from(root).lookup("#musclemanPane").query();
+    	Assert.assertTrue(field instanceof AnchorPane);
     }
     
     @Test
     public void testMuscleAction() {
-    		clickOn("#rumpe");
-    		clickOn("#lats");
-    		clickOn("#traps");
-    		clickOn("#bryst");
+    	clickOn("#rumpe");
+    	clickOn("#lats");
+    	clickOn("#traps");
+    	clickOn("#bryst");
     }
     
     @Test
     public void testGraphElementsExists() {
-    		Node strengthChart = from(root).lookup("#strengthChart").query();
-    		Node rmRadioButton = from(root).lookup("#rmRadioButton").query();
-    		Node vektvolumRadioButton = from(root).lookup("#vektvolumRadioButton").query();
+    	Node strengthChart = from(root).lookup("#strengthChart").query();
+    	Node rmRadioButton = from(root).lookup("#rmRadioButton").query();
+    	Node vektvolumRadioButton = from(root).lookup("#vektvolumRadioButton").query();
     		
-		Assert.assertTrue(strengthChart instanceof LineChart);
-		Assert.assertTrue(rmRadioButton instanceof RadioButton);
+    	Assert.assertTrue(strengthChart instanceof LineChart);
+    	Assert.assertTrue(rmRadioButton instanceof RadioButton);
 		Assert.assertTrue(vektvolumRadioButton instanceof RadioButton);
     }
     
     @Test
     public void testRadioButtonAction() {
-    		clickOn("#vektvolumRadioButton");
-    		RadioButton vektvolumRadioButton = from(root).lookup("#vektvolumRadioButton").query();
-    		
-    		Assert.assertTrue(vektvolumRadioButton.isSelected());
+    	clickOn("#vektvolumRadioButton");
+    	RadioButton vektvolumRadioButton = from(root).lookup("#vektvolumRadioButton").query();
+    	Assert.assertTrue(vektvolumRadioButton.isSelected());
     }
-    
-    
 }
 
 

@@ -44,7 +44,7 @@ public class StrengthTabController {
 	
 	User user;
 	
-	//Oversikt over exercises som allerede er graphed
+	// Oversikt over exercises som allerede er graphed
 	List<String> graphedExercises = new ArrayList<>();
 	
 	// Bakgrunn
@@ -87,7 +87,7 @@ public class StrengthTabController {
 		
 	//Radiobuttons
 	@FXML ToggleGroup dataRepresentation;
-	@FXML RadioButton rmRadioButton, vektvolumRadioButton;
+	@FXML RadioButton rmRadioButton, weightVolumeRadioButton;
 		
 	//Graf
 	@FXML LineChart<Number,Number> strengthChart;
@@ -105,7 +105,7 @@ public class StrengthTabController {
 		this.managerController = managerController;
 	}
 	
-	//Setter musklene til grad av rødfarge
+	// Setter musklene til grad av rødfarge
 	public void updateMuscles() {
 		Map<String, Double> musclesWithPrecentage = muscleMan.getMusclesWithPrecentages();
 		
@@ -116,28 +116,29 @@ public class StrengthTabController {
 	
 	// Setter user som skrives i sokefeltet
 	public void setUser(User user) {
-			this.user = user;
-			clientName.setText(user.getName());
-			muscleMan = new MuscleImage(user);
-			initMuscleMap();
-			updateMuscles();
-			graphedExercises.clear();
-			strengthChart.getData().clear();
-			setCheckboxes();
-			dataRepresentation.selectToggle(rmRadioButton);
-			xAxis.setTickLabelsVisible(false);
-			resetCheckBoxes();
-		}
+		this.user = user;
+		clientName.setText(user.getName());
+		muscleMan = new MuscleImage(user);
+		initMuscleMap();
+		updateMuscles();
+		graphedExercises.clear();
+		strengthChart.getData().clear();
+		setCheckboxes();
+		dataRepresentation.selectToggle(rmRadioButton);
+		xAxis.setTickLabelsVisible(false);
+		resetCheckBoxes();
+	}
 	
+	// Checker og unchecker checkboxer for aa cleare fra forrige bruker
 	private void resetCheckBoxes() {
 		List<String> exercisesName = user.getExercises().stream().map(ex -> ex.getName()).distinct().collect(Collectors.toList());
 		checkList.getItems().clear();
 		checkList.getItems().addAll(exercisesName);
 		checkList.getCheckModel().checkAll();
 		checkList.getCheckModel().clearChecks();
-
 	}
 
+	// Mapper muskler til muskelnavn
 	private void initMuscleMap(){
 		muscles.put("underarmer", underarmer);
 		muscles.put("abs", abs);
@@ -195,28 +196,24 @@ public class StrengthTabController {
 		this.note.setText(note);
 	}
 	
-	//Setter inn testdata i grafen som erstatning for database
+	// Setter inn testdata i grafen som erstatning for database
 	public void setGraph(List<String> exercises) {	
 		strengthChart.getXAxis().setLabel("Session");
-		
 		String Ylabel = dataRepresentation.getSelectedToggle().equals(rmRadioButton) ? "1RM - kg" : "Vektvolum - kg";
 		strengthChart.getYAxis().setLabel(Ylabel);
-		
 		for(String name : exercises){
 				if (!graphedExercises.contains(name)) {
 					List<StrengthExercise> exerciseType = user.getStrengthExercise(name);
 					XYChart.Series<Number, Number> series = new XYChart.Series<>();
 					series.setName(name);
 					int counter = 0;
-					
-					//Legger en series inn i charten (feks en sekvens for en ovelse)
-					for (StrengthExercise current : exerciseType) {
+					for (StrengthExercise current : exerciseType) { // Legger en series inn i charten (feks en sekvens for en ovelse)
 						Double data = getRepresentation(current);
 						series.getData().add(new XYChart.Data<>(counter++, data));
 					}
 					strengthChart.getData().add(series);
 					setSeriesNodeControls(series, exerciseType);
-					graphedExercises.add(name); //Legger til at vi har grafet ex med navnet.
+					graphedExercises.add(name);
 				}
 			}
 		
@@ -253,19 +250,16 @@ public class StrengthTabController {
 		List<String> exercisesName = user.getExercises().stream().map(ex -> ex.getName()).distinct().collect(Collectors.toList());
 		checkList.getItems().clear();
 		checkList.getItems().addAll(exercisesName);
-		
-		//Klikk-lyttere
-		checkList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
+		checkList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() { // Klikk-lyttere
 		     public void onChanged(ListChangeListener.Change<? extends String> c) {
 		    	 try {
 		    		 setGraph(checkList.getCheckModel().getCheckedItems().stream().collect(Collectors.toList()));
-		    	 } catch (Exception e) {
-		    		// TODO Faar exception, men ting fungerer som de skal.. Trengs det aa fikses?
-		    	 }
+		    	 } catch (Exception e) { }
 		     }
 		 });
 	}
 	
+	// Lager popover til en node og setter inn tilhorende treningsdata
 	private void createPopOver(XYChart.Series<Number, Number> series,List<StrengthExercise> strengthExercises, int i) {
 		series.getData().get(i).getNode().setOnMousePressed(e -> {
 			PopOver pop = new PopOver();
@@ -284,6 +278,7 @@ public class StrengthTabController {
 			
 			exerciseList.maxWidth(100);
 			exerciseList.maxHeight(100);
+			exerciseList.setMaxSize(288, 230);
 			
 			type.setCellValueFactory(new PropertyValueFactory<Exercise, String>("name"));
 			set.setCellValueFactory(new PropertyValueFactory<Exercise, Integer>("set"));
@@ -302,21 +297,20 @@ public class StrengthTabController {
 			
 			exerciseList.getItems().setAll(SQLConnector.getAllExercises(session.getId()));
 			
-			exerciseList.setMaxSize(288, 230);
-			pop.setContentNode(date);
 			VBox container = new VBox();
 			container.setPadding(new Insets(5,0,0,5));
 			container.getChildren().addAll(date,exerciseList);
+			
+			pop.setContentNode(date);
 			pop.setContentNode(container);
 			
 			Bounds boundsInScreen = series.getData().get(i).getNode().localToScreen(series.getData().get(i).getNode().getBoundsInLocal());
 			Double y = boundsInScreen.getMaxY() - 44;
 			Double x = boundsInScreen.getMinX() + 4;
-			 
 		    pop.setX(x);
 		    pop.setY(y);
-		     
 		    pop.setMinSize(300, 150);
+		    
 			pop.show((Stage)series.getData().get(i).getNode().getScene().getWindow());
 		});
 	}
@@ -328,15 +322,13 @@ public class StrengthTabController {
 			final int j = i;
 			createPopOver(series, strengthExercises, i);
 			
-			//Setter cursoren til hand ved hover
-			series.getData().get(i).getNode().setOnMouseMoved(e -> {
+			series.getData().get(i).getNode().setOnMouseMoved(e -> { // Setter cursoren til hand ved hover
 				Scene scene = series.getData().get(j).getNode().getScene();
 				scene.setCursor(Cursor.HAND);
 				series.getData().get(j).getNode().setStyle("-fx-scale-x: 1.3;-fx-scale-y: 1.3;");
 			});
 			
-			//Setter cursoren til default naar den er ute av noden
-			series.getData().get(i).getNode().setOnMouseExited(e -> {
+			series.getData().get(i).getNode().setOnMouseExited(e -> { // Setter cursoren til default naar den er ute av noden
 				Scene scene = series.getData().get(j).getNode().getScene();
 				scene.setCursor(Cursor.DEFAULT);
 				series.getData().get(j).getNode().setStyle("-fx-scale-x: 1;-fx-scale-y: 1");
