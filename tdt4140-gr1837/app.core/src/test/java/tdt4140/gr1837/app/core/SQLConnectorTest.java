@@ -49,4 +49,9 @@ public class SQLConnectorTest {
 		assertTrue(strengthExercises.size() > 0);
 	}
 	
+	@Test
+	public void testTableChanges() {
+
+	}
+	
 }
