@@ -4,6 +4,7 @@ import org.controlsfx.control.textfield.CustomTextField;
 import org.controlsfx.control.textfield.TextFields;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.text.Text;
 import tdt4140.gr1837.app.core.User;
 import tdt4140.gr1837.app.core.UserDatabase;
@@ -48,6 +49,6 @@ public class SearchTabController {
 	
 	//Fester brukerlista til sokefeltet, slik at den kan komme med forslag ved inntasting
 	public void bindAutocomplete() {
-		TextFields.bindAutoCompletion(searchField, UserDatabase.getUsers());
+		TextFields.bindAutoCompletion(searchField, UserDatabase.getUsers()).setPrefWidth(searchField.getPrefWidth());
 	}
 }
