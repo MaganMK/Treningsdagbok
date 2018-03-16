@@ -4,6 +4,7 @@ import org.controlsfx.control.textfield.CustomTextField;
 import org.controlsfx.control.textfield.TextFields;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.text.Text;
 import tdt4140.gr1837.app.core.User;
 import tdt4140.gr1837.app.core.UserDatabase;
@@ -27,6 +28,10 @@ public class SearchTabController {
 	// Utvides til faktisk sokefunksjonalitet med autocomplete-forslag i sprint 2
 	@FXML public void searchForUser() {
 		String userName = searchField.getText();
+		if(userName.length() == 0) {
+			errorMessage.setText("Tomt felt");
+			return;
+		}
 		User user = UserDatabase.getUser(userName);
 		if (user != null) {
 			errorMessage.setText("");
@@ -37,13 +42,13 @@ public class SearchTabController {
 		}
 	}
 	
-	//Soker på bruker nar man skriver i sokefeltet og trykker enter
+	//Soker paa bruker nar man skriver i sokefeltet og trykker enter
 	@FXML public void enterPressed() {
 		searchForUser();
 	}
 	
-	//Fester brukerlista til søkefeltet, slik at den kan komme med forslag ved inntasting
+	//Fester brukerlista til sokefeltet, slik at den kan komme med forslag ved inntasting
 	public void bindAutocomplete() {
-		TextFields.bindAutoCompletion(searchField, UserDatabase.getUsers());
+		TextFields.bindAutoCompletion(searchField, UserDatabase.getUsers()).setPrefWidth(searchField.getPrefWidth());
 	}
 }

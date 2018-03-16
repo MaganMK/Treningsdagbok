@@ -93,7 +93,7 @@ public class SQLConnector {
 	}
 	
 	// Metode for aa hente styrkeovelser til spesifikk okt
-	private static List<Exercise> getStrengthExercises(int sessionId) {
+	public static List<Exercise> getStrengthExercises(int sessionId) {
 		try {
 			List<Exercise> strengthExercises = new ArrayList<>();
 			ResultSet rs = getResultSet("SELECT * FROM Strength_Session NATURAL JOIN Exercise WHERE session_id="+sessionId);
@@ -110,6 +110,28 @@ public class SQLConnector {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 			return new ArrayList<Exercise>();
+		}
+	}
+	
+	public static List<StrengthExercise> getStrengthExercises(String exerciseName, int userID) {
+		try {
+			List<StrengthExercise> strengthExercises = new ArrayList<>();
+			ResultSet rs = getResultSet("SELECT * FROM `Strength_Session` NATURAL JOIN `Exercise` INNER JOIN `Session` ON (`Session`.`session_id` = Strength_Session.session_id) WHERE exercise_name =" + "\"" +exerciseName+ "\"" + "AND client_id=" + userID);
+			while(rs.next()) {
+				StrengthExercise strengthExercise = new StrengthExercise(rs.getString("exercise_name"),
+																 rs.getString("note"),
+																 rs.getInt("sett"),
+																 rs.getInt("reps"),
+																 rs.getInt("weight")
+				);
+				strengthExercise.setSessionId(rs.getInt("session_id"));
+				strengthExercises.add(strengthExercise);
+				
+			}
+			return strengthExercises;
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			return new ArrayList<StrengthExercise>();
 		}
 	}
 	
@@ -182,6 +204,23 @@ public class SQLConnector {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 			return new ArrayList<Trainer>();
+		}
+	}
+
+	public static Session getSessionByExercise(Integer sessionId) {
+		try {
+			ResultSet rs = getResultSet("SELECT * FROM Session WHERE session_id="+sessionId);
+			Session session = null;
+			while(rs.next()) {
+				session = new Session(rs.getString("note"), 
+									rs.getString("date"), 
+									rs.getInt("session_id")
+				);
+			}
+			return session;
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			return null;
 		}
 	}
 }

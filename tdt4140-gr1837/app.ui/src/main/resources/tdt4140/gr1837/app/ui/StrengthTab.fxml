@@ -1,85 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import org.controlsfx.control.CheckListView?>
 
 <!-- <?import org.controlsfx.control.CheckComboBox?> -->
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.161" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.StrengthTabController">
+<AnchorPane stylesheets="@style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.StrengthTabController">
    <children>
-      <SplitPane dividerPositions="0.16220735785953178" orientation="VERTICAL" prefHeight="600.0" prefWidth="800.0">
+      <SplitPane dividerPositions="0.08882521489971347" orientation="VERTICAL" prefHeight="700.0" prefWidth="1000.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Text fx:id="clientName" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="799.9999959468842">
+                  <Text fx:id="clientName" layoutX="-1.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="799.9999959468842">
                      <font>
-                        <Font size="37.0" />
+                        <Font size="26.0" />
                      </font>
                   </Text>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;">
                <children>
-                  <SplitPane dividerPositions="0.603" layoutY="1.0" minHeight="0.0" minWidth="0.0" prefHeight="497.0" prefWidth="798.0">
+                  <SplitPane dividerPositions="0.6693386773547094" layoutY="1.0" minHeight="0.0" minWidth="0.0" prefHeight="583.0" prefWidth="1000.0" style="-fx-background-color: white;">
                     <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="476.0" SplitPane.resizableWithParent="false">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="665.0" SplitPane.resizableWithParent="false">
                            <children>
-                              <SplitPane dividerPositions="0.23" minHeight="0.0" minWidth="0.0" prefHeight="497.0" prefWidth="476.0">
-                                 <items>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0">
-                                       <children>
-                                          <JFXListView fx:id="trainingList" layoutX="50.0" layoutY="95.0" onMouseClicked="#handleMouseClickSession" prefHeight="430.0" prefWidth="197.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                       </children>
-                                    </AnchorPane>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="378.0">
-                                       <children>
-                                          <SplitPane dividerPositions="0.75" minHeight="0.0" minWidth="0.0" orientation="VERTICAL" prefHeight="413.0" prefWidth="384.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-6.0" AnchorPane.topAnchor="0.0">
-                                             <items>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="559.0">
-                                                   <children>
-                                                      <TableView fx:id="exerciseList" onMouseClicked="#handleMouseClickExercise" prefHeight="420.0" prefWidth="488.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                         <columns>
-                                                            <TableColumn fx:id="set" minWidth="0.0" prefWidth="79.0" text="Sett" />
-                                                            <TableColumn fx:id="repetitions" prefWidth="158.0" text="Repetisjoner" />
-                                                            <TableColumn fx:id="weight" prefWidth="141.0" text="Vekt" />
-                                                         </columns>
-                                                      </TableView>
-                                                   </children>
-                                                </AnchorPane>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                                                   <children>
-                                                      <SplitPane dividerPositions="0.9947534102833158" prefHeight="104.0" prefWidth="659.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-22.0" AnchorPane.topAnchor="0.0">
-                                                         <items>
-                                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="102.0" prefWidth="349.0">
-                                                               <children>
-                                                                  <TextArea fx:id="note" layoutX="23.0" layoutY="15.0" prefHeight="62.0" prefWidth="591.0" />
-                                                               </children>
-                                                            </AnchorPane>
-                                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="102.0" prefWidth="115.0" />
-                                                         </items>
-                                                      </SplitPane>
-                                                   </children>
-                                                </AnchorPane>
-                                             </items>
-                                          </SplitPane>
-                                       </children>
-                                    </AnchorPane>
-                                 </items>
-                              </SplitPane>
+                              <RadioButton fx:id="rmRadioButton" layoutX="15.0" layoutY="76.0" mnemonicParsing="false" onAction="#handleRadioButtons" text="1RM">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="dataRepresentation" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <LineChart fx:id="strengthChart" layoutX="145.0" layoutY="48.0" prefHeight="473.0" prefWidth="503.0">
+                                <xAxis>
+                                  <NumberAxis prefWidth="456.0" side="BOTTOM" fx:id="xAxis" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis side="LEFT" />
+                                </yAxis>
+                              </LineChart>
+                              <CheckListView fx:id="checkList" layoutX="8.0" layoutY="150.0" prefHeight="361.0" prefWidth="149.0" style="-fx-background-color: transparent;" stylesheets="@style.css" />
+                              <RadioButton fx:id="vektvolumRadioButton" layoutX="15.0" layoutY="98.0" mnemonicParsing="false" onAction="#handleRadioButtons" text="Vektvolum" toggleGroup="$dataRepresentation" />
+                              <Label layoutX="15.0" layoutY="55.0" text="Datarepresentasjon" />
+                              <Label layoutX="17.0" layoutY="130.0" text="Exercise" />
                            </children>
                         </AnchorPane>
                       <AnchorPane fx:id="musclemanPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
-                              <Pane layoutX="-11.0" layoutY="87.0" prefHeight="321.0" prefWidth="335.0">
+                              <Pane layoutX="-11.0" layoutY="110.0" prefHeight="321.0" prefWidth="335.0">
                                  <children>
                                     <ImageView fx:id="muscleManImage" fitHeight="305.0" fitWidth="338.0" pickOnBounds="true" preserveRatio="true">
                                        <image>

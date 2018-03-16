@@ -2,8 +2,10 @@ package tdt4140.gr1837.app.core;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
 
 
 public class UserTest {
@@ -14,6 +16,8 @@ public class UserTest {
 	@Before
 	public void init() {
 		user.setTrainer(trainer);
+		UserDatabase.initialize();
+		TrainerDatabase.initialize();
 	}
 	
 	@Test
@@ -29,6 +33,12 @@ public class UserTest {
 	@Test
 	public void testToString() {
 		assertEquals("Mons",user.toString());
+	}
+	
+	@Test
+	public void testGetExercises() {
+		User user = UserDatabase.getUser("Test User");
+		Assert.assertTrue(user.getExercises().size() > 0);
 	}
 	
 

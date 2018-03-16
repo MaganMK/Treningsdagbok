@@ -1,5 +1,8 @@
 package tdt4140.gr1837.app.core;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // Midlertidig user-klasse til a fylle userdatabasen, testes derfor ikke
 public class User {
 	
@@ -49,6 +52,30 @@ public class User {
 	@Override
 	public String toString() {
 		return getName();
+	}
+	
+	
+	//Vi trenger:
+		//- Navn pa ovelse
+		//- Vekt
+		//- Representasjon 1rm/vektvolum
+	
+	//Returnerer alle exercises en bruker har hatt ila alle sessions
+	public List<Exercise> getExercises() {
+		List<Exercise> exercises = new ArrayList<>();
+		List<Session> sessions = SQLConnector.getSessions(this.getId());
+		for (Session session : sessions) {
+			exercises.addAll(SQLConnector.getAllExercises(session.getId()));
+		}
+		return exercises;
+	}
+	
+	public List<Session> getSessions() {
+		return SQLConnector.getSessions(this.getId());
+	}
+	
+	public List<StrengthExercise> getStrengthExercise(String name){
+		return SQLConnector.getStrengthExercises(name, this.id);	
 	}
 
 }

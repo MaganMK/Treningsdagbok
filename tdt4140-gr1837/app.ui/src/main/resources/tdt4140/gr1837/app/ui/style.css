@@ -1,6 +1,6 @@
 /*Tab*/
 .tab {
-    -fx-pref-width: 185;
+    -fx-pref-width: 247;
 } 
 
 .tab-header-background {
@@ -60,7 +60,8 @@
 }
 
 /*Autocomplete */
-/*Vil justere bredden på autocomplete-viewet og flytte den litt ned slik at den ikke ligger over sokefeltet */
+/*Vil justere bredden pa autocomplete-viewet og flytte den litt ned slik at den ikke ligger over sokefeltet */
+
 
 
 /*Table og list i profiletab */
@@ -69,9 +70,12 @@
    -fx-background-color: transparent;
 }
 
+/*
 .table-row-cell:selected:hover, .list-cell:selected:hover {
     -fx-background-color: gray;
 }
+* 
+*/
 
 .table-row-cell:hover, .list-cell:hover {
 	-fx-background-color:  rgba(0,0,0,0.1);
@@ -123,4 +127,29 @@
     -fx-padding: 10px;
     -fx-text-fill: gray;
     -fx-highlight-fill: #7ecfff;
+}
+
+/*Checklistview */
+/* 
+.list-view * {
+	-fx-background: transparent;
+	-fx-background-color: transparent;
+	-fx-text-fill: black;
+}
+
+.check-box .box {
+	-fx-background-color: white;
+	-fx-border-color:grey;
+	-fx-border-radius:3px; 
+}
+
+.check-box:selected .mark {
+	-fx-background-color: white;
+}
+
+.check-box:selected .box {
+ 	-fx-background-color: #28a3f4;
+}*/
+.chart-series-line:hover {    
+    -fx-effect: dropshadow( gaussian, rgba(163, 163, 163, 0.9), 10, 0, 5, 5 );
 }
