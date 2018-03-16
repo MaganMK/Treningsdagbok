@@ -1,5 +1,4 @@
-[![pipeline status](https://gitlab.stud.iie.ntnu.no/tdt4140-2018/37/badges/master/pipeline.svg)](https://gitlab.stud.iie.ntnu.no/tdt4140-2018/37/commits/master)
-[![coverage report](https://gitlab.stud.iie.ntnu.no/tdt4140-2018/37/badges/master/coverage.svg)](https://gitlab.stud.iie.ntnu.no/tdt4140-2018/37/commits/master)
+<img src="/tdt4140-gr1837/app.ui/Images/Div/icon.png" width="50" height="50" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -8,7 +7,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="/tdt4140-gr1837/app.ui/Images/Div/icon.png" width="50" height="50" />
+[![pipeline status](https://gitlab.stud.iie.ntnu.no/tdt4140-2018/37/badges/master/pipeline.svg)](https://gitlab.stud.iie.ntnu.no/tdt4140-2018/37/commits/master)
+[![coverage report](https://gitlab.stud.iie.ntnu.no/tdt4140-2018/37/badges/master/coverage.svg)](https://gitlab.stud.iie.ntnu.no/tdt4140-2018/37/commits/master)
 
 ## Applikasjonen
 Her finner du prosjektmappa med kildekode, ressurser og diverse tilhørende treningsdagbok-applikasjonen. 
