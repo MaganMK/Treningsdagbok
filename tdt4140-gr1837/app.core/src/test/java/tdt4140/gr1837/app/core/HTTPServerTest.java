@@ -82,7 +82,43 @@ public class HTTPServerTest {
 		String s = EntityUtils.toString(response.getEntity());
 		assertEquals(5, Integer.parseInt(extractInfoFromResponse(s)[1]));
 		System.out.println(s);
+	}
+
+	@Test
+	public void testGetSessionWithNonexcistingID() throws ClientProtocolException, IOException {
+		String       getUrl       = "http://localhost:8000/session/750";
+		HttpClient   httpClient    = HttpClientBuilder.create().build();
+		HttpGet      get          = new HttpGet(getUrl);
+		get.setHeader("Content-type", "application/json");
+		HttpResponse  response = httpClient.execute(get);
 		
+		int statusCode = response.getStatusLine().getStatusCode();
+		assertEquals(NOT_FOUND, statusCode);
+	}
+	
+	// Hittil er det lovlig aa legge til negative id'er i databasen, men det er ikke "lov"..
+	@Test
+	public void testGetSessionWithIllegalID() throws ClientProtocolException, IOException {
+		String       getUrl       = "http://localhost:8000/session/-69";
+		HttpClient   httpClient    = HttpClientBuilder.create().build();
+		HttpGet      get          = new HttpGet(getUrl);
+		get.setHeader("Content-type", "application/json");
+		HttpResponse  response = httpClient.execute(get);
+		
+		int statusCode = response.getStatusLine().getStatusCode();
+		assertEquals(NOT_FOUND, statusCode);
+	}
+	
+	
+	// Returnerer en liste med info fra objektet vi faar gjennom HTTP. Forst notatet, id'en og datoen.
+	// Alle verdier er en String
+	private String[] extractInfoFromResponse(String s) {
+		String[] response = s.split(",");
+		String note = response[0].split(":")[1];
+		String id = response[1].split(":")[1];
+		String date = response[2].split(":")[1];
+		String[] info = {note, id, date};
+		return info;
 	}
 
 	@Test
