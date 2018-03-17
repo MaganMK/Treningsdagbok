@@ -1,5 +1,6 @@
 package tdt4140.gr1837.app.core;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +65,11 @@ public class User {
 		List<Exercise> exercises = new ArrayList<>();
 		List<Session> sessions = SQLConnector.getSessions(this.getId());
 		for (Session session : sessions) {
-			exercises.addAll(SQLConnector.getAllExercises(session.getId()));
+			try {
+				exercises.addAll(SQLConnector.getAllExercises(session.getId()));
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return exercises;
 	}

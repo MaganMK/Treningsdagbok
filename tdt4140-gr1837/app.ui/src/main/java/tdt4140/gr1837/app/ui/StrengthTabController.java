@@ -302,7 +302,13 @@ public class StrengthTabController {
 			exerciseList.getColumns().add(repetitions);
 			exerciseList.getColumns().add(weight);
 			
-			exerciseList.getItems().setAll(SQLConnector.getAllExercises(session.getId()));
+			try {
+				exerciseList.getItems().setAll(SQLConnector.getAllExercises(session.getId()));
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				exerciseList.getItems().setAll(new ArrayList<>());
+				e1.printStackTrace();
+			}
 			
 			VBox container = new VBox();
 			container.setPadding(new Insets(5,0,0,5));
