@@ -264,6 +264,12 @@ public class SQLConnector {
 		} return 1;
 	}
 	
+	public static void createExercise(String name, int id) throws SQLException {
+		Connection conn = SQLConnector.getConnection();
+		Statement statement = conn.createStatement();
+		
+	}
+	
 	public static void main(String[] args) throws SQLException, ClientProtocolException, IOException
 	{
 		String       postUrl       = "http://localhost:8000/session";// put in your url
