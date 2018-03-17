@@ -96,7 +96,7 @@ public class SQLConnector {
 	public static List<Exercise> getStrengthExercises(int sessionId) {
 		try {
 			List<Exercise> strengthExercises = new ArrayList<>();
-			ResultSet rs = getResultSet("SELECT * FROM Strength_Session NATURAL JOIN Exercise WHERE session_id="+sessionId);
+			ResultSet rs = getResultSet("SELECT * FROM Strength_Exercise NATURAL JOIN Exercise WHERE session_id="+sessionId);
 			while(rs.next()) {
 				Exercise strengthExercise = new StrengthExercise(rs.getString("exercise_name"),
 																 rs.getString("note"),
@@ -116,7 +116,7 @@ public class SQLConnector {
 	public static List<StrengthExercise> getStrengthExercises(String exerciseName, int userID) {
 		try {
 			List<StrengthExercise> strengthExercises = new ArrayList<>();
-			ResultSet rs = getResultSet("SELECT * FROM `Strength_Session` NATURAL JOIN `Exercise` INNER JOIN `Session` ON (`Session`.`session_id` = Strength_Session.session_id) WHERE exercise_name =" + "\"" +exerciseName+ "\"" + "AND client_id=" + userID);
+			ResultSet rs = getResultSet("SELECT * FROM `Strength_Exercise` NATURAL JOIN `Exercise` INNER JOIN `Session` ON (`Session`.`session_id` = Strength_Exercise.session_id) WHERE exercise_name =" + "\"" +exerciseName+ "\"" + "AND client_id=" + userID);
 			while(rs.next()) {
 				StrengthExercise strengthExercise = new StrengthExercise(rs.getString("exercise_name"),
 																 rs.getString("note"),
@@ -164,7 +164,7 @@ public class SQLConnector {
 		try {
 			
 			Map<String, Integer> musclesTrained = new HashMap<>();
-			ResultSet rs1 = getResultSet("SELECT * FROM Strength_Session WHERE session_id="+sessionID);
+			ResultSet rs1 = getResultSet("SELECT * FROM Strength_Exercise WHERE session_id="+sessionID);
 			while(rs1.next()){
 					ResultSet rs2 = getResultSet("SELECT * FROM Muscle_Trained WHERE exercise_id="+ rs1.getInt("exercise_id"));	
 					while(rs2.next()){
