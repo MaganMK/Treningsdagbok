@@ -57,4 +57,38 @@ public class SQLConnectorTest {
 		assertTrue(strengthExercises.size() > 0);
 	}
 	
+	@Test
+	public void testGetUser() throws SQLException {
+		try {
+			SQLConnector.getUser(-1);
+			fail("Hentet bruker med ugyldig ID");
+		} catch (IllegalArgumentException e) {
+			// Testen passet
+		}
+		
+		try {
+			SQLConnector.getUser(1);
+		} catch (IllegalArgumentException e) {
+			fail("Fikk ikke hentet bruker med gyldig ID");
+		}
+	}
+	
+	@Test
+	public void testCreateGetDeleteUser() throws SQLException {
+		int clientId = SQLConnector.createUser("Test testesen", "666 66 666", 55, "Fa testene til å kjore", 5);
+		try {
+			SQLConnector.getUser(clientId);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		
+		SQLConnector.deleteUser(clientId);
+		try {
+			SQLConnector.getUser(clientId);
+			fail();
+		} catch (IllegalArgumentException e) {
+			// Testen passet
+		}
+	}
+	
 }

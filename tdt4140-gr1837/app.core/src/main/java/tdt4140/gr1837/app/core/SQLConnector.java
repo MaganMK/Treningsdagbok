@@ -113,6 +113,19 @@ public class SQLConnector {
 		statement.executeUpdate(String.format
 				("UPDATE Strength_Exercise SET reps=%d, sett=%d, weight=%d, note='%s', session_id=%d, exercise_id=%d, strength_exercise_id=%d",
 						reps, sett, weight, note, session_id, exercise_id, strength_exercise_id));
+
+	// Metode for aa hente klientene
+	public static User getUser(int clientId) throws SQLException, IllegalArgumentException {
+			ResultSet rs = getResultSet("SELECT * FROM Client WHERE client_id=" + clientId);
+			while(rs.next()) {
+				return new User(rs.getString("name"), 
+									rs.getString("phone"), 
+									rs.getInt("age"), 
+									rs.getString("motivation"), 
+									rs.getInt("client_id")
+				);
+			}
+			throw new IllegalArgumentException("Klient med denne id-en finnes ikke");
 	}
 	
 	// Metode for aa hente ovelser til spesifikk okt
@@ -198,6 +211,15 @@ public class SQLConnector {
 		throw new IllegalArgumentException("Okt med denne id-en finnes ikke");
 	}
 	
+	// Metode for aa opprette en okt
+	public static int createSession(int clientId, String date, String note) throws SQLException {
+		Connection conn = SQLConnector.getConnection();
+		Statement statement = conn.createStatement();
+		int sessionId = getMaximumIdFromDBPlusOneAlsoKnownAsNextID("session_id", "Session");
+		statement.executeUpdate(String.format("INSERT INTO Session VALUES(%d, '%s', '%s', %d)", clientId, date, note, sessionId));
+		return sessionId;
+	}
+	
 	public static Map<String, Integer> getMusclesTrained(int sessionID){
 		try {
 			
@@ -262,12 +284,16 @@ public class SQLConnector {
 		}
 	}
 	
-	public static int createSession(int clientId, String date, String note) throws SQLException {
+	// Metode for aa opprette en bruker
+	public static int createUser(String name, String phoneNumber, int age, String motivation, int trainerId) throws SQLException {
 		Connection conn = SQLConnector.getConnection();
 		Statement statement = conn.createStatement();
-		int sessionId = getMaximumSessionIdFromDBPlusOneAlsoKnownAsNextID();
-		statement.executeUpdate(String.format("INSERT INTO Session VALUES(%d, '%s', '%s', %d)", clientId, date, note, sessionId));
-		return sessionId;
+		int clientId = getMaximumIdFromDBPlusOneAlsoKnownAsNextID("client_id", "Client");
+		statement.executeUpdate(String.format("INSERT INTO Client (name, phone, age, motivation, client_id, trainer_id) "
+											+ "VALUES('%s', '%s', %d, '%s', %d, %d)", name, phoneNumber, age, motivation, clientId, trainerId));
+		statement = conn.createStatement();
+		statement.executeUpdate(String.format("INSERT INTO Personal_Trainer(client_id, trainer_id) VALUES(%d, %d)", clientId, trainerId));
+		return clientId;
 	}
 	
 	private static int getMaximumSessionIdFromDBPlusOneAlsoKnownAsNextID() throws SQLException {
@@ -275,30 +301,42 @@ public class SQLConnector {
 		if (rs.next()) {
 			return rs.getInt("maximum") + 1;
 		} return 1;
+
+	// Metode for aa slette en bruker
+	public static void deleteUser(int clientId) throws SQLException {
+		Connection conn = SQLConnector.getConnection();
+		Statement statement = conn.createStatement();
+		statement.executeUpdate("DELETE FROM Client WHERE client_id=" + clientId);
 	}
 	
-	private static int getMaximumExerciseIdFromDBPlusOneAlsoKnownAsNextID() throws SQLException {
-		ResultSet rs = getResultSet("SELECT MAX(exercise_id) AS max FROM Exercise");
+	// Metode for aa endre en bruker
+	public static void updateUser(int clientId, String name, String phoneNumber, int age, String motivation, int trainerId) throws SQLException {
+		Connection conn = SQLConnector.getConnection();
+		Statement statement = conn.createStatement();
+		statement.executeUpdate(String.format("UPDATE Client SET name='%s', phone='%s', age=%d, motivation='%s', trainer_id=%d ", 
+												name, phoneNumber, age, motivation, trainerId)
+											+ "WHERE client_id=" + clientId);
+	}
+	
+	private static int getMaximumIdFromDBPlusOneAlsoKnownAsNextID(String param_id, String param) throws SQLException {
+		ResultSet rs = getResultSet("SELECT MAX("+ param_id + ") AS maximum FROM " + param);
 		if (rs.next()) {
-			return rs.getInt("max");
-		} 
-		return 1;
+			return rs.getInt("maximum") + 1;
+		} return 1;
 	}
 	
-	
-	public static void main(String[] args) throws SQLException, ClientProtocolException, IOException
-	{
-		String       postUrl       = "http://localhost:8000/session";// put in your url
-		Gson         gson          = new Gson();
-		HttpClient   httpClient    = HttpClientBuilder.create().build();
-		HttpPost     post          = new HttpPost(postUrl);
-		StringEntity postingString = new StringEntity("clientID=4&date=2017-10-10&note=me", "utf-8");//gson.tojson() converts your pojo to json
-		post.setEntity(postingString);
-		post.setHeader("Content-type", "application/json");
-		HttpResponse  response = httpClient.execute(post);
-		System.out.println("breakpoint");
-		System.out.println(EntityUtils.toString(response.getEntity()));
-		System.out.println("breakpoint2");
+	public static void main(String[] args) throws SQLException, ClientProtocolException, IOException {
+//		String       postUrl       = "http://localhost:8000/client";// put in your url
+//		HttpClient   httpClient    = HttpClientBuilder.create().build();
+//		HttpPost     post          = new HttpPost(postUrl);
+//		StringEntity postingString = new StringEntity("clientID=4&date=2017-10-10&note=me", "utf-8");//gson.tojson() converts your pojo to json
+//		post.setEntity(postingString);
+//		post.setHeader("Content-type", "application/json");
+//		HttpResponse  response = httpClient.execute(post);
+//		System.out.println("breakpoint");
+//		System.out.println(EntityUtils.toString(response.getEntity()));
+//		System.out.println("breakpoint2");
+		updateUser(1202, "Kevin Kristiansen", "888 99 222", 87, "Look out babes på bingoklubben", 8);
 	}
 }
 

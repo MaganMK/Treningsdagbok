@@ -54,7 +54,6 @@ public class User {
 		return getName();
 	}
 	
-	
 	//Vi trenger:
 		//- Navn pa ovelse
 		//- Vekt
@@ -77,5 +76,4 @@ public class User {
 	public List<StrengthExercise> getStrengthExercise(String name){
 		return SQLConnector.getStrengthExercises(name, this.id);	
 	}
-
 }
