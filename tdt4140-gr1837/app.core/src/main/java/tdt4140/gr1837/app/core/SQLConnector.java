@@ -101,7 +101,7 @@ public class SQLConnector {
 	public static void createStrengtExercise(int reps, int sett, int weight, String note, int session_id, int exercise_id) throws SQLException {
 		Connection conn = SQLConnector.getConnection();
 		Statement statement = conn.createStatement();
-		int exerciseId = getMaximumIdFromDBPlusOneAlsoKnownAsNextID(); 	// Attribut som i tabellen / databasen heter strength_exercise_id
+		int exerciseId = getMaximumIdFromDBPlusOneAlsoKnownAsNextID("strength_exercise_id", "Strength_Exercise"); 	// Attribut som i tabellen / databasen heter strength_exercise_id
 		statement.executeUpdate(String.format
 				("INSERT INTO Strength_Exercise VALUES(%d, %d, %d, '%s', %d, %d, %d)", reps, sett, weight, note, session_id, exercise_id, exerciseId));
 	}
@@ -113,6 +113,7 @@ public class SQLConnector {
 		statement.executeUpdate(String.format
 				("UPDATE Strength_Exercise SET reps=%d, sett=%d, weight=%d, note='%s', session_id=%d, exercise_id=%d, strength_exercise_id=%d",
 						reps, sett, weight, note, session_id, exercise_id, strength_exercise_id));
+<<<<<<< c18e810ae119c24ce24228c50d7f839a6750ca13
 
 	// Metode for aa hente klientene
 	public static User getUser(int clientId) throws SQLException, IllegalArgumentException {
@@ -126,6 +127,8 @@ public class SQLConnector {
 				);
 			}
 			throw new IllegalArgumentException("Klient med denne id-en finnes ikke");
+=======
+>>>>>>> Legg til funksjonalitet for ovelser i SQLConnector
 	}
 	
 	// Metode for aa hente ovelser til spesifikk okt
@@ -301,7 +304,8 @@ public class SQLConnector {
 		if (rs.next()) {
 			return rs.getInt("maximum") + 1;
 		} return 1;
-
+	}
+	
 	// Metode for aa slette en bruker
 	public static void deleteUser(int clientId) throws SQLException {
 		Connection conn = SQLConnector.getConnection();
@@ -331,11 +335,14 @@ public class SQLConnector {
 		Statement statement = conn.createStatement();
 	}
 	
-	public static void createExercise(String name, int id) throws SQLException {
-		Connection conn = SQLConnector.getConnection();
-		Statement statement = conn.createStatement();
-		
+	private static int getMaximumExerciseIdFromDBPlusOneAlsoKnownAsNextID() throws SQLException {
+		ResultSet rs = getResultSet("SELECT MAX(exercise_id) AS max FROM Exercise");
+		if (rs.next()) {
+			return rs.getInt("max");
+		} 
+		return 1;
 	}
+	
 	
 	public static void main(String[] args) throws SQLException, ClientProtocolException, IOException
 	{
