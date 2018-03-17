@@ -322,21 +322,29 @@ public class SQLConnector {
 		ResultSet rs = getResultSet("SELECT MAX("+ param_id + ") AS maximum FROM " + param);
 		if (rs.next()) {
 			return rs.getInt("maximum") + 1;
-		} return 1;
+		}
+		return 1;
 	}
 	
-	public static void main(String[] args) throws SQLException, ClientProtocolException, IOException {
-//		String       postUrl       = "http://localhost:8000/client";// put in your url
-//		HttpClient   httpClient    = HttpClientBuilder.create().build();
-//		HttpPost     post          = new HttpPost(postUrl);
-//		StringEntity postingString = new StringEntity("clientID=4&date=2017-10-10&note=me", "utf-8");//gson.tojson() converts your pojo to json
-//		post.setEntity(postingString);
-//		post.setHeader("Content-type", "application/json");
-//		HttpResponse  response = httpClient.execute(post);
-//		System.out.println("breakpoint");
-//		System.out.println(EntityUtils.toString(response.getEntity()));
-//		System.out.println("breakpoint2");
-		updateUser(1202, "Kevin Kristiansen", "888 99 222", 87, "Look out babes på bingoklubben", 8);
+	public static void createExercise(String name, int id) throws SQLException {
+		Connection conn = SQLConnector.getConnection();
+		Statement statement = conn.createStatement();
+		
+	}
+	
+	public static void main(String[] args) throws SQLException, ClientProtocolException, IOException
+	{
+		String       postUrl       = "http://localhost:8000/session";// put in your url
+		Gson         gson          = new Gson();
+		HttpClient   httpClient    = HttpClientBuilder.create().build();
+		HttpPost     post          = new HttpPost(postUrl);
+		StringEntity postingString = new StringEntity("clientID=4&date=2017-10-10&note=me", "utf-8");//gson.tojson() converts your pojo to json
+		post.setEntity(postingString);
+		post.setHeader("Content-type", "application/json");
+		HttpResponse  response = httpClient.execute(post);
+		System.out.println("breakpoint");
+		System.out.println(EntityUtils.toString(response.getEntity()));
+		System.out.println("breakpoint2");
 	}
 }
 
