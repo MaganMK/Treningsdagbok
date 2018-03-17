@@ -90,7 +90,7 @@ public class HTTPServer {
         	// Faar en eksisterene klient. Kalles ved POST /client
         	Map<String, String> params = getParams(ex);
         	try {
-				int clientID = SQLConnector.createUser(params.get("name"), Integer.parseInt(params.get("age")), params.get("motivation"), Integer.parseInt(params.get("trainer_id")));
+				int clientID = SQLConnector.createUser(params.get("name"), params.get("phone"), Integer.parseInt(params.get("age")), params.get("motivation"), Integer.parseInt(params.get("trainer_id")));
 				sendResponse(ex, Integer.toString(clientID), 201);
 			} catch (NumberFormatException e) {
 				sendResponse(ex, "Ugyldig klient-id", 400);
@@ -99,12 +99,40 @@ public class HTTPServer {
 			}
         }
         
+        
         private void get(HttpExchange ex) {
         	// Lager en ny client. Kalles om man faar en http request GET /client/id
+        	String clientId = ex.getRequestURI().toString().split("/")[2];
+        	
+        	try {
+				User user = SQLConnector.getUser(Integer.parseInt(clientId));
+				Gson gson = new Gson();
+				String response = gson.toJson(user); // gson.tojson() converts your pojo to json
+				response = changeNorwegianLetters(response);
+				sendResponse(ex, response);
+			} catch (NumberFormatException e) {
+				sendResponse(ex, "Ugyldig format paa okt-id", 400);
+			} catch (IllegalArgumentException e) {
+				sendResponse(ex, e.getMessage(), 404);
+				e.printStackTrace();
+			} catch (SQLException e) {
+				sendResponse(ex, "Kunne ikke koble til databasen", 503);
+			}
         }
         
         private void update(HttpExchange ex) {
         	// Oppdaterer en klient. Kalles ved UPDATE /client/id
+        	String clientId = ex.getRequestURI().toString().split("/")[2];
+        	
+        	Map<String, String> params = getParams(ex);
+        	try {
+				SQLConnector.updateUser(Integer.parseInt(clientId), params.get("name"), params.get("phone"), Integer.parseInt(params.get("age")), params.get("motivation"), Integer.parseInt(params.get("trainer_id")));
+				sendResponse(ex, clientId, 201);
+			} catch (NumberFormatException e) {
+				sendResponse(ex, "Ugyldig klient-id", 400);
+			} catch (SQLException e) {
+				sendResponse(ex, "Kunne ikke koble til databasen", 503);
+			}
         }
     }
     static class SessionHandler implements HttpHandler {
@@ -191,13 +219,13 @@ public class HTTPServer {
         	// Lager en ny ovelse. Kalles om man faar en http request POST /exercise/session_id
         	Map<String, String> params = getParams(ex);
         	try {
-				SQLConnector.createExercise(Integer.parseInt(params.get("sessionId")),params.get("reps"), params.get("sett"), params.get("weight"), params.get("note"));
+				//SQLConnector.createExercise(Integer.parseInt(params.get("sessionId")),params.get("reps"), params.get("sett"), params.get("weight"), params.get("note"));
 				sendResponse(ex, Integer.toString(201));
 			} catch (NumberFormatException e) {
 				sendResponse(ex, "Ugyldig klient-id", 400);
-			} catch (SQLException e) {
+			} /*catch (SQLException e) {
 				sendResponse(ex, "Kunne ikke koble til databasen", 503);
-			}
+			}*/
         }
         
         private void update(HttpExchange ex) {
@@ -205,13 +233,13 @@ public class HTTPServer {
         	Map<String, String> params = getParams(ex);
         	String exerciseId = ex.getRequestURI().toString().split("/")[2];
         	try {
-				SQLConnector.updateExercise(Integer.parseInt(exerciseId), params.get("reps"), params.get("sett"), params.get("weight"), params.get("note"));
+				//SQLConnector.updateExercise(Integer.parseInt(exerciseId), params.get("reps"), params.get("sett"), params.get("weight"), params.get("note"));
 				sendResponse(ex, exerciseId, 200);
 			} catch (NumberFormatException e) {
 				sendResponse(ex, "Ugyldig exercise-id", 400);
-			} catch (SQLException e) {
+			} /*catch (SQLException e) {
 				sendResponse(ex, "Kunne ikke koble til databasen", 503);
-			}
+			}*/
         }
     }
 }

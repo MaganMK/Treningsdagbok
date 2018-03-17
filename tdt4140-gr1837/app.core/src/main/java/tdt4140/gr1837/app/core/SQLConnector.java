@@ -101,7 +101,7 @@ public class SQLConnector {
 	public static void createStrengtExercise(int reps, int sett, int weight, String note, int session_id, int exercise_id) throws SQLException {
 		Connection conn = SQLConnector.getConnection();
 		Statement statement = conn.createStatement();
-		int exerciseId = getMaximumExerciseIdFromDBPlusOneAlsoKnownAsNextID(); 	// Attribut som i tabellen / databasen heter strength_exercise_id
+		int exerciseId = getMaximumIdFromDBPlusOneAlsoKnownAsNextID(); 	// Attribut som i tabellen / databasen heter strength_exercise_id
 		statement.executeUpdate(String.format
 				("INSERT INTO Strength_Exercise VALUES(%d, %d, %d, '%s', %d, %d, %d)", reps, sett, weight, note, session_id, exercise_id, exerciseId));
 	}
