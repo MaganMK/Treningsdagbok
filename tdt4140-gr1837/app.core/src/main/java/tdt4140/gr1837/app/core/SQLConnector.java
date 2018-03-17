@@ -140,7 +140,7 @@ public class SQLConnector {
 	// Metode for aa hente styrkeovelser til spesifikk okt
 	private static List<Exercise> getStrengthExercises(int sessionId) throws SQLException {
 		List<Exercise> strengthExercises = new ArrayList<>();
-		ResultSet rs = getResultSet("SELECT * FROM Strength_Session NATURAL JOIN Exercise WHERE session_id="+sessionId);
+		ResultSet rs = getResultSet("SELECT * FROM Strength_Exercise NATURAL JOIN Exercise WHERE session_id="+sessionId);
 		while(rs.next()) {
 			Exercise strengthExercise = new StrengthExercise(rs.getString("exercise_name"),
 															 rs.getString("note"),
