@@ -176,10 +176,6 @@ public class HTTPServer {
 				sendResponse(ex, "Kunne ikke koble til databasen", 503);
 			}
         }
-        
-        private void update(HttpExchange ex) {
-        	// Oppdaterer en klient. Kalles ved UPDATE /client/id
-        }
     }
     
     static class ExerciseHandler implements HttpHandler {
