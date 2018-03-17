@@ -97,6 +97,24 @@ public class SQLConnector {
 		}
 	}
 	
+	// exercise_id i konstruktoren er fremmednokkel til ovelse-tabell som sier hvilken ovelse det er.
+	public static void createStrengtExercise(int reps, int sett, int weight, String note, int session_id, int exercise_id) throws SQLException {
+		Connection conn = SQLConnector.getConnection();
+		Statement statement = conn.createStatement();
+		int exerciseId = getMaximumExerciseIdFromDBPlusOneAlsoKnownAsNextID(); 	// Attribut som i tabellen / databasen heter strength_exercise_id
+		statement.executeUpdate(String.format
+				("INSERT INTO Strength_Exercise VALUES(%d, %d, %d, '%s', %d, %d, %d)", reps, sett, weight, note, session_id, exercise_id, exerciseId));
+	}
+		
+	public static void updateStrengthExercise(int reps, int sett, int weight, String note, int session_id, int exercise_id, int strength_exercise_id) 
+			throws SQLException {
+		Connection conn = SQLConnector.getConnection();
+		Statement statement = conn.createStatement();
+		statement.executeUpdate(String.format
+				("UPDATE Strength_Exercise SET reps=%d, sett=%d, weight=%d, note='%s', session_id=%d, exercise_id=%d, strength_exercise_id=%d",
+						reps, sett, weight, note, session_id, exercise_id, strength_exercise_id));
+	}
+	
 	// Metode for aa hente ovelser til spesifikk okt
 	public static List<Exercise> getAllExercises(int sessionId) throws SQLException{
 		List<Exercise> exercises = new ArrayList<>();
@@ -259,11 +277,14 @@ public class SQLConnector {
 		} return 1;
 	}
 	
-	public static void createExercise(String name, int id) throws SQLException {
-		Connection conn = SQLConnector.getConnection();
-		Statement statement = conn.createStatement();
-		
+	private static int getMaximumExerciseIdFromDBPlusOneAlsoKnownAsNextID() throws SQLException {
+		ResultSet rs = getResultSet("SELECT MAX(exercise_id) AS max FROM Exercise");
+		if (rs.next()) {
+			return rs.getInt("max");
+		} 
+		return 1;
 	}
+	
 	
 	public static void main(String[] args) throws SQLException, ClientProtocolException, IOException
 	{
