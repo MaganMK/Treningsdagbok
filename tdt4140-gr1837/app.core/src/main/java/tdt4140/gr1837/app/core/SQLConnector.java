@@ -113,8 +113,8 @@ public class SQLConnector {
 		statement.executeUpdate(String.format
 				("UPDATE Strength_Exercise SET reps=%d, sett=%d, weight=%d, note='%s', session_id=%d, exercise_id=%d, strength_exercise_id=%d",
 						reps, sett, weight, note, session_id, exercise_id, strength_exercise_id));
-<<<<<<< c18e810ae119c24ce24228c50d7f839a6750ca13
-
+	}
+	
 	// Metode for aa hente klientene
 	public static User getUser(int clientId) throws SQLException, IllegalArgumentException {
 			ResultSet rs = getResultSet("SELECT * FROM Client WHERE client_id=" + clientId);
@@ -127,8 +127,6 @@ public class SQLConnector {
 				);
 			}
 			throw new IllegalArgumentException("Klient med denne id-en finnes ikke");
-=======
->>>>>>> Legg til funksjonalitet for ovelser i SQLConnector
 	}
 	
 	// Metode for aa hente ovelser til spesifikk okt
@@ -299,13 +297,6 @@ public class SQLConnector {
 		return clientId;
 	}
 	
-	private static int getMaximumSessionIdFromDBPlusOneAlsoKnownAsNextID() throws SQLException {
-		ResultSet rs = getResultSet("SELECT MAX(session_id) AS maximum FROM Session");
-		if (rs.next()) {
-			return rs.getInt("maximum") + 1;
-		} return 1;
-	}
-	
 	// Metode for aa slette en bruker
 	public static void deleteUser(int clientId) throws SQLException {
 		Connection conn = SQLConnector.getConnection();
@@ -335,28 +326,19 @@ public class SQLConnector {
 		Statement statement = conn.createStatement();
 	}
 	
-	private static int getMaximumExerciseIdFromDBPlusOneAlsoKnownAsNextID() throws SQLException {
-		ResultSet rs = getResultSet("SELECT MAX(exercise_id) AS max FROM Exercise");
-		if (rs.next()) {
-			return rs.getInt("max");
-		} 
-		return 1;
-	}
 	
-	
-	public static void main(String[] args) throws SQLException, ClientProtocolException, IOException
-	{
-		String       postUrl       = "http://localhost:8000/session";// put in your url
-		Gson         gson          = new Gson();
-		HttpClient   httpClient    = HttpClientBuilder.create().build();
-		HttpPost     post          = new HttpPost(postUrl);
-		StringEntity postingString = new StringEntity("clientID=4&date=2017-10-10&note=me", "utf-8");//gson.tojson() converts your pojo to json
-		post.setEntity(postingString);
-		post.setHeader("Content-type", "application/json");
-		HttpResponse  response = httpClient.execute(post);
-		System.out.println("breakpoint");
-		System.out.println(EntityUtils.toString(response.getEntity()));
-		System.out.println("breakpoint2");
+	public static void main(String[] args) throws SQLException, ClientProtocolException, IOException {
+//		String       postUrl       = "http://localhost:8000/client";// put in your url
+//		HttpClient   httpClient    = HttpClientBuilder.create().build();
+//		HttpPost     post          = new HttpPost(postUrl);
+//		StringEntity postingString = new StringEntity("clientID=4&date=2017-10-10&note=me", "utf-8");//gson.tojson() converts your pojo to json
+//		post.setEntity(postingString);
+//		post.setHeader("Content-type", "application/json");
+//		HttpResponse  response = httpClient.execute(post);
+//		System.out.println("breakpoint");
+//		System.out.println(EntityUtils.toString(response.getEntity()));
+//		System.out.println("breakpoint2");
+		updateUser(1202, "Kevin Kristiansen", "888 99 222", 87, "Look out babes på bingoklubben", 8);
 	}
 }
 
