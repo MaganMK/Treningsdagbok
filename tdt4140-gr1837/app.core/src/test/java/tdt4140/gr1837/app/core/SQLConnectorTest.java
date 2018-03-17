@@ -2,6 +2,8 @@ package tdt4140.gr1837.app.core;
 
 import static org.junit.Assert.*;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +35,13 @@ public class SQLConnectorTest {
 	@Test
 	public void testGetAllExercises() {
 		StrengthExercise testExercise = new StrengthExercise("Benkpress", "Benk hos meg(harvey)", 1, 1, 100);
-		List<Exercise> strengthExercises = SQLConnector.getAllExercises(1);
+		List<Exercise> strengthExercises = new ArrayList<>();
+		try {
+			strengthExercises = SQLConnector.getAllExercises(1);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			fail();
+		}
 		StrengthExercise lastExercise = null;
 		for(Exercise e : strengthExercises) {
 			if(e.getNote().equals("Benk hos meg(harvey)")) {

@@ -1,5 +1,6 @@
 package tdt4140.gr1837.app.ui;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -163,7 +164,13 @@ public class StrengthTabController {
 	@FXML public void handleMouseClickSession(MouseEvent arg0) {
 		try {
 			Session session = trainingList.getSelectionModel().getSelectedItem();
-		    List<Exercise> exercises = SQLConnector.getAllExercises(session.getId());
+		    List<Exercise> exercises;
+			try {
+				exercises = SQLConnector.getAllExercises(session.getId());
+			} catch (SQLException e) {
+				e.printStackTrace();
+				exercises = new ArrayList<>();
+			}
 			this.addTableView(exercises);
 			this.addNoteView(session.getNote());
 		} catch (NullPointerException e) {
