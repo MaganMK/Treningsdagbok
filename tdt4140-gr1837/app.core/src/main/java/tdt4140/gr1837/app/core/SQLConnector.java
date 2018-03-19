@@ -98,12 +98,13 @@ public class SQLConnector {
 	}
 	
 	// exercise_id i konstruktoren er fremmednokkel til ovelse-tabell som sier hvilken ovelse det er.
-	public static void createStrengtExercise(int reps, int sett, int weight, String note, int session_id, int exercise_id) throws SQLException {
+	public static int createStrengthExercise(int reps, int sett, int weight, String note, int session_id, int exercise_id) throws SQLException {
 		Connection conn = SQLConnector.getConnection();
 		Statement statement = conn.createStatement();
 		int exerciseId = getMaximumIdFromDBPlusOneAlsoKnownAsNextID("strength_exercise_id", "Strength_Exercise"); 	// Attribut som i tabellen / databasen heter strength_exercise_id
 		statement.executeUpdate(String.format
 				("INSERT INTO Strength_Exercise VALUES(%d, %d, %d, '%s', %d, %d, %d)", reps, sett, weight, note, session_id, exercise_id, exerciseId));
+		return exerciseId;
 	}
 		
 	public static void updateStrengthExercise(int reps, int sett, int weight, String note, int session_id, int exercise_id, int strength_exercise_id) 
@@ -321,9 +322,13 @@ public class SQLConnector {
 		return 1;
 	}
 	
-	public static void createExercise(String name, int id) throws SQLException {
+	// Metode for aa opprette en generell ovelse
+	public static void createExercise(String name) throws SQLException {
 		Connection conn = SQLConnector.getConnection();
 		Statement statement = conn.createStatement();
+		int exerciseId = getMaximumIdFromDBPlusOneAlsoKnownAsNextID("exercise_id", "Exercise");
+		statement.executeUpdate(
+				String.format("INSERT INTO Exercise (exercise_name, exercise_id) VALUES('%s', %d)", name, exerciseId));
 	}
 	
 	

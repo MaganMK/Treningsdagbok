@@ -81,16 +81,16 @@ public class HTTPServer {
         	    get(ex);
         	} else if(ex.getRequestMethod().equals("POST")) {
         		post(ex);
-        	} else if(ex.getRequestMethod().equals("UPDATE")) {
+        	} else if(ex.getRequestMethod().equals("PUT")) {
         		update(ex);
         	}
         }
         
         private void post(HttpExchange ex) {
-        	// Faar en eksisterene klient. Kalles ved POST /client
+        	// Lager en ny client. Kalles om man faar en http request POST /client
         	Map<String, String> params = getParams(ex);
         	try {
-				int clientID = SQLConnector.createUser(params.get("name"), params.get("phone"), Integer.parseInt(params.get("age")), params.get("motivation"), Integer.parseInt(params.get("trainer_id")));
+				int clientID = SQLConnector.createUser(params.get("name"), params.get("phone"), Integer.parseInt(params.get("age")), params.get("motivation"), Integer.parseInt(params.get("trainerID")));
 				sendResponse(ex, Integer.toString(clientID), 201);
 			} catch (NumberFormatException e) {
 				sendResponse(ex, "Ugyldig klient-id", 400);
@@ -101,7 +101,7 @@ public class HTTPServer {
         
         
         private void get(HttpExchange ex) {
-        	// Lager en ny client. Kalles om man faar en http request GET /client/id
+        	// Faar en eksisterene klient. Kalles ved GET /client/id
         	String clientId = ex.getRequestURI().toString().split("/")[2];
         	
         	try {
@@ -114,20 +114,19 @@ public class HTTPServer {
 				sendResponse(ex, "Ugyldig format paa okt-id", 400);
 			} catch (IllegalArgumentException e) {
 				sendResponse(ex, e.getMessage(), 404);
-				e.printStackTrace();
 			} catch (SQLException e) {
 				sendResponse(ex, "Kunne ikke koble til databasen", 503);
 			}
         }
         
         private void update(HttpExchange ex) {
-        	// Oppdaterer en klient. Kalles ved UPDATE /client/id
+        	// Oppdaterer en klient. Kalles ved PUT /client/id
         	String clientId = ex.getRequestURI().toString().split("/")[2];
         	
         	Map<String, String> params = getParams(ex);
         	try {
-				SQLConnector.updateUser(Integer.parseInt(clientId), params.get("name"), params.get("phone"), Integer.parseInt(params.get("age")), params.get("motivation"), Integer.parseInt(params.get("trainer_id")));
-				sendResponse(ex, clientId, 201);
+				SQLConnector.updateUser(Integer.parseInt(clientId), params.get("name"), params.get("phone"), Integer.parseInt(params.get("age")), params.get("motivation"), Integer.parseInt(params.get("trainerID")));
+				sendResponse(ex, clientId);
 			} catch (NumberFormatException e) {
 				sendResponse(ex, "Ugyldig klient-id", 400);
 			} catch (SQLException e) {
@@ -171,7 +170,6 @@ public class HTTPServer {
 				sendResponse(ex, "Ugyldig format paa okt-id", 400);
 			} catch (IllegalArgumentException e) {
 				sendResponse(ex, e.getMessage(), 404);
-				e.printStackTrace();
 			} catch (SQLException e) {
 				sendResponse(ex, "Kunne ikke koble til databasen", 503);
 			}
@@ -214,13 +212,14 @@ public class HTTPServer {
         	// Lager en ny ovelse. Kalles om man faar en http request POST /exercise/session_id
         	Map<String, String> params = getParams(ex);
         	try {
-				//SQLConnector.createExercise(Integer.parseInt(params.get("sessionId")),params.get("reps"), params.get("sett"), params.get("weight"), params.get("note"));
-				sendResponse(ex, Integer.toString(201));
+				int exerciseId = SQLConnector.createStrengthExercise(Integer.parseInt(params.get("reps")), Integer.parseInt(params.get("sett")), Integer.parseInt(params.get("weight")), params.get("note"), Integer.parseInt(params.get("sessionId")), Integer.parseInt(params.get("exerciseId")));
+				sendResponse(ex, Integer.toString(exerciseId), 201);
 			} catch (NumberFormatException e) {
+				e.printStackTrace();
 				sendResponse(ex, "Ugyldig klient-id", 400);
-			} /*catch (SQLException e) {
+			} catch (SQLException e) {
 				sendResponse(ex, "Kunne ikke koble til databasen", 503);
-			}*/
+			}
         }
         
         private void update(HttpExchange ex) {
