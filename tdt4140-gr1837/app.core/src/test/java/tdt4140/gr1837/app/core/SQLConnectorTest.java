@@ -91,4 +91,38 @@ public class SQLConnectorTest {
 		}
 	}
 	
+	
+	@Test
+	public void testGetTrainers() {
+		try {
+			if(SQLConnector.getTrainers() == null) fail();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			fail();
+		}
+	}
+	
+	@Test
+	public void testGetStrengthExercises() throws SQLException {
+		try {
+			if (SQLConnector.getStrengthExercises("Benkpress", 5) == null) fail();
+		} catch (Exception e1) {
+			fail();
+		}
+	}
+	
+	@Test
+	public void testCreateUpdateUser() throws SQLException {
+		int clientID = SQLConnector.createUser("Kong Harald", "22225555", 81, "Bli den mest veltrente kongen", 1);
+		try {
+			SQLConnector.getUser(clientID);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		
+		SQLConnector.updateUser(clientID, "Kong Harald", "22225555", 81, "Sonja synes jeg er blitt tjukk", 1);
+		if (!SQLConnector.getUser(clientID).getMotivation().equals("Sonja synes jeg er blitt tjukk")) {
+			fail();
+		} 
+	}
 }

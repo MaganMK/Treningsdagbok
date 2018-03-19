@@ -331,7 +331,6 @@ public class SQLConnector {
 				String.format("INSERT INTO Exercise (exercise_name, exercise_id) VALUES('%s', %d)", name, exerciseId));
 	}
 	
-	
 	public static void main(String[] args) throws SQLException, ClientProtocolException, IOException {
 //		String       postUrl       = "http://localhost:8000/client";// put in your url
 //		HttpClient   httpClient    = HttpClientBuilder.create().build();

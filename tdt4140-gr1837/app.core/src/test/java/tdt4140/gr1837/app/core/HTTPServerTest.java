@@ -109,7 +109,7 @@ public class HTTPServerTest {
 		int statusCode = response.getStatusLine().getStatusCode();
 		assertEquals(NOT_FOUND, statusCode);
 	}
-	
+
 	@Test
 	public void testCreateClient() throws ClientProtocolException, IOException {
 		String       postUrl       = "http://localhost:8000/clients";
