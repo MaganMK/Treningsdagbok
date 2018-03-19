@@ -212,7 +212,7 @@ public class HTTPServer {
         	// Lager en ny ovelse. Kalles om man faar en http request POST /exercise/session_id
         	Map<String, String> params = getParams(ex);
         	try {
-				int exerciseId = SQLConnector.createStrengthExercise(Integer.parseInt(params.get("reps")), Integer.parseInt(params.get("sett")), Integer.parseInt(params.get("weight")), params.get("note"), Integer.parseInt(params.get("sessionId")), Integer.parseInt(params.get("exerciseId")));
+				int exerciseId = SQLConnector.createStrengthExercise(Integer.parseInt(params.get("reps")), Integer.parseInt(params.get("sett")), Integer.parseInt(params.get("weight")),  params.get("note"),Integer.parseInt(params.get("sessionId")), Integer.parseInt(params.get("exerciseId")));
 				sendResponse(ex, Integer.toString(exerciseId), 201);
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
@@ -227,13 +227,13 @@ public class HTTPServer {
         	Map<String, String> params = getParams(ex);
         	String exerciseId = ex.getRequestURI().toString().split("/")[2];
         	try {
-				//SQLConnector.updateExercise(Integer.parseInt(exerciseId), params.get("reps"), params.get("sett"), params.get("weight"), params.get("note"));
+				SQLConnector.updateStrengthExercise(Integer.parseInt(params.get("reps")), Integer.parseInt(params.get("sett")), Integer.parseInt(params.get("weight")),  params.get("note"),Integer.parseInt(params.get("exercise")), Integer.parseInt(params.get("exerciseId")));
 				sendResponse(ex, exerciseId, 200);
 			} catch (NumberFormatException e) {
 				sendResponse(ex, "Ugyldig exercise-id", 400);
-			} /*catch (SQLException e) {
+			} catch (SQLException e) {
 				sendResponse(ex, "Kunne ikke koble til databasen", 503);
-			}*/
+			}
         }
     }
 }

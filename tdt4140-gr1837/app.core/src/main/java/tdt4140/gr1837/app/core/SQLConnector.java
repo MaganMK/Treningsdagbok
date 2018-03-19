@@ -107,13 +107,13 @@ public class SQLConnector {
 		return exerciseId;
 	}
 		
-	public static void updateStrengthExercise(int reps, int sett, int weight, String note, int session_id, int exercise_id, int strength_exercise_id) 
+	public static void updateStrengthExercise(int reps, int sett, int weight, String note, int exercise_id, int strength_exercise_id) 
 			throws SQLException {
 		Connection conn = SQLConnector.getConnection();
 		Statement statement = conn.createStatement();
 		statement.executeUpdate(String.format
 				("UPDATE Strength_Exercise SET reps=%d, sett=%d, weight=%d, note='%s', session_id=%d, exercise_id=%d, strength_exercise_id=%d",
-						reps, sett, weight, note, session_id, exercise_id, strength_exercise_id));
+						reps, sett, weight, note, exercise_id, strength_exercise_id));
 	}
 	
 	// Metode for aa hente klientene
