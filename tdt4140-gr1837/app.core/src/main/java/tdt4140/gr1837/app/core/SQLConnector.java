@@ -63,7 +63,6 @@ public class SQLConnector {
 		try {
 			connection = SQLConnector.getConnection();
 		} catch (SQLException e1) {
-			e1.printStackTrace();
 			throw e1;
 		}
 		Statement stmt;
@@ -77,7 +76,7 @@ public class SQLConnector {
 	}
 	
 	// Metode for aa hente klientene
-	public static List<User> getUsers() {
+	public static List<User> getUsers() throws SQLException{
 		try {
 			ResultSet rs = getResultSet("SELECT * FROM Client");
 			List<User> users = new ArrayList<>();
@@ -92,8 +91,7 @@ public class SQLConnector {
 			}
 			return users;
 		} catch (SQLException e1) {
-			e1.printStackTrace();
-			return UserDatabase.getOfflineUserDatabase();
+			throw e1;
 		}
 	}
 	
@@ -131,7 +129,7 @@ public class SQLConnector {
 	}
 	
 	// Metode for aa hente ovelser til spesifikk okt
-	public static List<Exercise> getAllExercises(int sessionId) throws SQLException{
+	public static List<Exercise> getAllExercises(int sessionId) throws SQLException {
 		List<Exercise> exercises = new ArrayList<>();
 		exercises.addAll(getStrengthExercises(sessionId));
 		exercises.addAll(getEnduranceExercises(sessionId));
@@ -154,7 +152,7 @@ public class SQLConnector {
 		return strengthExercises;
 	}
 	
-	public static List<StrengthExercise> getStrengthExercises(String exerciseName, int userID) {
+	public static List<StrengthExercise> getStrengthExercises(String exerciseName, int userID) throws SQLException{
 		try {
 			List<StrengthExercise> strengthExercises = new ArrayList<>();
 			ResultSet rs = getResultSet("SELECT * FROM `Strength_Exercise` NATURAL JOIN `Exercise` INNER JOIN `Session` ON (`Session`.`session_id` = Strength_Exercise.session_id) WHERE exercise_name =" + "\"" +exerciseName+ "\"" + "AND client_id=" + userID);
@@ -171,19 +169,18 @@ public class SQLConnector {
 			}
 			return strengthExercises;
 		} catch (SQLException e1) {
-			e1.printStackTrace();
-			return new ArrayList<StrengthExercise>();
+			throw e1;
 		}
 	}
 	
 	// Metode for aa hente utholdenhetsovelser, implementeres i senere sprint
-	private static List<Exercise> getEnduranceExercises(int sessionId) {
+	private static List<Exercise> getEnduranceExercises(int sessionId) throws SQLException{
 		return new ArrayList<Exercise>();
 	}
 	
 	
 	// Metode for aa hente oktene
-	public static List<Session> getSessions(int id) {
+	public static List<Session> getSessions(int id) throws SQLException {
 		try {
 			List<Session> sessions = new ArrayList<>();
 			ResultSet rs = getResultSet("SELECT * FROM Session WHERE client_id="+id);
@@ -196,8 +193,7 @@ public class SQLConnector {
 			}
 			return sessions;
 		} catch (SQLException e1) {
-			e1.printStackTrace();
-			return new ArrayList<Session>();
+			throw e1;
 		}
 	}
 	
@@ -222,7 +218,7 @@ public class SQLConnector {
 		return sessionId;
 	}
 
-	public static Map<String, Integer> getMusclesTrained(int sessionID){
+	public static Map<String, Integer> getMusclesTrained(int sessionID) throws SQLException{
 		try {
 			
 			Map<String, Integer> musclesTrained = new HashMap<>();
@@ -239,13 +235,12 @@ public class SQLConnector {
 			}
 			return musclesTrained;
 		} catch (SQLException e1) {
-			e1.printStackTrace();
-			return new HashMap<String, Integer>();
+			throw e1;
 		}
 	}
 
 	// Metode for aa hente trenere
-	public static List<Trainer> getTrainers() {
+	public static List<Trainer> getTrainers() throws SQLException{
 		try {
 			List<Trainer> trainers = new ArrayList<>();
 			ResultSet rs = getResultSet("SELECT * FROM Trainer");
@@ -264,12 +259,11 @@ public class SQLConnector {
 			}
 			return trainers;
 		} catch (SQLException e1) {
-			e1.printStackTrace();
-			return new ArrayList<Trainer>();
+			throw e1;
 		}
 	}
 
-	public static Session getSessionByExercise(Integer sessionId) {
+	public static Session getSessionByExercise(Integer sessionId) throws SQLException{
 		try {
 			ResultSet rs = getResultSet("SELECT * FROM Session WHERE session_id="+sessionId);
 			Session session = null;
@@ -281,8 +275,7 @@ public class SQLConnector {
 			}
 			return session;
 		} catch (SQLException e1) {
-			e1.printStackTrace();
-			return null;
+			throw e1;
 		}
 	}
 	

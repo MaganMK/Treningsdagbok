@@ -273,7 +273,12 @@ public class StrengthTabController {
 			pop.setWidth(100);
 			pop.setHeight(100);
 			
-			Session session = SQLConnector.getSessionByExercise(strengthExercises.get(i).getSessionId());
+			Session session;
+			try {
+				session = SQLConnector.getSessionByExercise(strengthExercises.get(i).getSessionId());
+			} catch (SQLException e2) {
+				session = null;
+			}
 			
 			Text date = new Text(String.valueOf(session.getDate()));
 			

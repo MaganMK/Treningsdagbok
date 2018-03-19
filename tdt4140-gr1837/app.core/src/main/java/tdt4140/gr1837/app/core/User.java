@@ -63,7 +63,12 @@ public class User {
 	//Returnerer alle exercises en bruker har hatt ila alle sessions
 	public List<Exercise> getExercises() {
 		List<Exercise> exercises = new ArrayList<>();
-		List<Session> sessions = SQLConnector.getSessions(this.getId());
+		List<Session> sessions;
+		try {
+			sessions = SQLConnector.getSessions(this.getId());
+		} catch (SQLException e1) {
+			sessions = new ArrayList<Session>();
+		}
 		for (Session session : sessions) {
 			try {
 				exercises.addAll(SQLConnector.getAllExercises(session.getId()));
@@ -75,10 +80,18 @@ public class User {
 	}
 	
 	public List<Session> getSessions() {
-		return SQLConnector.getSessions(this.getId());
+		try {
+			return SQLConnector.getSessions(this.getId());
+		} catch (SQLException e) {
+			return new ArrayList<>();
+		}
 	}
 	
 	public List<StrengthExercise> getStrengthExercise(String name){
-		return SQLConnector.getStrengthExercises(name, this.id);	
+		try {
+			return SQLConnector.getStrengthExercises(name, this.id);
+		} catch (SQLException e) {
+			return new ArrayList<>();
+		}	
 	}
 }

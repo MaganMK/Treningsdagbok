@@ -52,7 +52,12 @@ public class ProfileTabController {
 		motivationField.setText("Motivasjon: " + user.getMotivation());
 		phoneNumberField.setText("Telefonnummer: " + user.getPhoneNumber());
 		int id = user.getId();
-		List<Session> sessions = SQLConnector.getSessions(id);
+		List<Session> sessions;
+		try {
+			sessions = SQLConnector.getSessions(id);
+		} catch (SQLException e) {
+			sessions = new ArrayList<>();
+		}
 		List<Session> sessionsReverse = sessions.subList(0, sessions.size());
 		Collections.reverse(sessionsReverse);
 		trainingList.setItems(FXCollections.observableArrayList(sessionsReverse));

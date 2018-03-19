@@ -18,7 +18,12 @@ public class TrainerDatabase {
 	}
 	public static void initialize() {
 		if(trainers.isEmpty()) {
-			trainers = SQLConnector.getTrainers();
+			try {
+				trainers = SQLConnector.getTrainers();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				trainers = new ArrayList<Trainer>();
+			}
 		}
 	}
 	public static List<Trainer> getOfflineTrainerDatabase() {

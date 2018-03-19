@@ -183,7 +183,7 @@ public class HTTPServer {
         	    get(ex);
         	} else if(ex.getRequestMethod().equals("POST")) {
         		post(ex);
-        	} else if(ex.getRequestMethod().equals("UPDATE")) {
+        	} else if(ex.getRequestMethod().equals("PUT")) {
         		update(ex);
         	}
         }

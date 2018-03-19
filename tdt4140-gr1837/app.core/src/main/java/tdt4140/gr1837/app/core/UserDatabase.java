@@ -23,7 +23,12 @@ public class UserDatabase {
 	
 	public static void initialize() {
 		if(users.isEmpty()) {
-			users = SQLConnector.getUsers();
+			try {
+				users = SQLConnector.getUsers();
+			} catch (SQLException e) {
+				initializeOfflineDatabase();
+				users = getOfflineUserDatabase();
+			}
 		}
 	}
 	public static List<User> getOfflineUserDatabase() {
