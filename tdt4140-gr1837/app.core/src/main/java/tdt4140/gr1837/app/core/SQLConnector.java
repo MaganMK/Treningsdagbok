@@ -110,7 +110,7 @@ public class SQLConnector {
 		Connection conn = SQLConnector.getConnection();
 		Statement statement = conn.createStatement();
 		statement.executeUpdate(String.format
-				("UPDATE Strength_Exercise SET reps=%d, sett=%d, weight=%d, note='%s', session_id=%d, exercise_id=%d, strength_exercise_id=%d",
+				("UPDATE Strength_Exercise SET reps=%d, sett=%d, weight=%d, note='%s', exercise_id=%d WHERE strength_exercise_id=%d",
 						reps, sett, weight, note, exercise_id, strength_exercise_id));
 	}
 	
@@ -137,11 +137,11 @@ public class SQLConnector {
 	}
 	
 	// Metode for aa hente styrkeovelser til spesifikk okt
-	private static List<Exercise> getStrengthExercises(int sessionId) throws SQLException {
-		List<Exercise> strengthExercises = new ArrayList<>();
+	public static List<StrengthExercise> getStrengthExercises(int sessionId) throws SQLException {
+		List<StrengthExercise> strengthExercises = new ArrayList<>();
 		ResultSet rs = getResultSet("SELECT * FROM Strength_Exercise NATURAL JOIN Exercise WHERE session_id="+sessionId);
 		while(rs.next()) {
-			Exercise strengthExercise = new StrengthExercise(rs.getString("exercise_name"),
+			StrengthExercise strengthExercise = new StrengthExercise(rs.getString("exercise_name"),
 															 rs.getString("note"),
 															 rs.getInt("sett"),
 															 rs.getInt("reps"),
@@ -171,6 +171,12 @@ public class SQLConnector {
 		} catch (SQLException e1) {
 			throw e1;
 		}
+	}
+	// Metode for aa slette en bruker
+	public static void deleteStrengthExercise(int exerciseId) throws SQLException {
+		Connection conn = SQLConnector.getConnection();
+		Statement statement = conn.createStatement();
+		statement.executeUpdate("DELETE FROM Strength_Exercise WHERE strength_exercise_id=" + exerciseId);
 	}
 	
 	// Metode for aa hente utholdenhetsovelser, implementeres i senere sprint

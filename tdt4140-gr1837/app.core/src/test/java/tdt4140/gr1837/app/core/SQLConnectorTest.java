@@ -100,7 +100,6 @@ public class SQLConnectorTest {
 		}
 	}
 	
-	
 	@Test
 	public void testGetTrainers() {
 		try {
@@ -133,5 +132,26 @@ public class SQLConnectorTest {
 		if (!SQLConnector.getUser(clientID).getMotivation().equals("Sonja synes jeg er blitt tjukk")) {
 			fail();
 		} 
+	}
+	@Test
+	public void testCreateGetUpdateDeleteExercise() {
+		try {
+			int index = SQLConnector.getStrengthExercises(1).size();
+			int exId = SQLConnector.createStrengthExercise(5, 5, 5, "God okt", 1, 1);
+			StrengthExercise exercise = SQLConnector.getStrengthExercises(1).get(index);
+			assertTrue(exercise.getNote().equals("God okt"));
+			SQLConnector.updateStrengthExercise(5, 5, 5, "Darlig okt", 1, exId);
+			exercise = SQLConnector.getStrengthExercises(1).get(index);
+			assertTrue(exercise.getNote().equals("Darlig okt"));
+			SQLConnector.deleteStrengthExercise(exId);
+			try {
+				assertTrue(!exercise.equals(SQLConnector.getStrengthExercises(1).get(index)));
+			} catch(Exception e) {
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			fail();
+		}
 	}
 }
