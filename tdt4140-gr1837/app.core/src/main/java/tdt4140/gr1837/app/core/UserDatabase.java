@@ -37,6 +37,7 @@ public class UserDatabase {
 		}
 		return offlineUserDatabase;
 	}
+	
 	public static List<User> getUsers() {
 		return users;
 	}
@@ -64,7 +65,7 @@ public class UserDatabase {
 				return users.get(i);
 			}
 		}
-		throw new IllegalArgumentException();
+		return new User("Ke", "vin",1, "ke", 1);
 	}
 	
 	public static List<String> getUsersWithName() {

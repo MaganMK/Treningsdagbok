@@ -6,12 +6,18 @@ import static org.junit.Assert.fail;
 
 import java.sql.SQLException;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class StrengthExerciseTest {
 	
 	StrengthExercise exercise = new StrengthExercise("Kneb�y", "Svir i quadriceps", 3, 12, 120);
 	StrengthExercise rmExercise = new StrengthExercise("Benkpress", "AUUUUUUU", 3, 1, 120);
+	
+	@Before
+	public void init() {
+		UserDatabase.initialize();
+	}
 	
 	@Test
 	public void testExerciseSetters() {

@@ -7,11 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Before;
 import org.junit.Test;
 
 
 public class SQLConnectorTest {
-
+	
+	@Before
+	public void init() {
+		UserDatabase.initialize();
+	}
 	
 	@Test
 	public void testGetMuscles() {
