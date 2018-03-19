@@ -1,5 +1,6 @@
 package tdt4140.gr1837.app.core;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +55,6 @@ public class User {
 		return getName();
 	}
 	
-	
 	//Vi trenger:
 		//- Navn pa ovelse
 		//- Vekt
@@ -63,19 +63,35 @@ public class User {
 	//Returnerer alle exercises en bruker har hatt ila alle sessions
 	public List<Exercise> getExercises() {
 		List<Exercise> exercises = new ArrayList<>();
-		List<Session> sessions = SQLConnector.getSessions(this.getId());
+		List<Session> sessions;
+		try {
+			sessions = SQLConnector.getSessions(this.getId());
+		} catch (SQLException e1) {
+			sessions = new ArrayList<Session>();
+		}
 		for (Session session : sessions) {
-			exercises.addAll(SQLConnector.getAllExercises(session.getId()));
+			try {
+				exercises.addAll(SQLConnector.getAllExercises(session.getId()));
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return exercises;
 	}
 	
 	public List<Session> getSessions() {
-		return SQLConnector.getSessions(this.getId());
+		try {
+			return SQLConnector.getSessions(this.getId());
+		} catch (SQLException e) {
+			return new ArrayList<>();
+		}
 	}
 	
 	public List<StrengthExercise> getStrengthExercise(String name){
-		return SQLConnector.getStrengthExercises(name, this.id);	
+		try {
+			return SQLConnector.getStrengthExercises(name, this.id);
+		} catch (SQLException e) {
+			return new ArrayList<>();
+		}	
 	}
-
 }

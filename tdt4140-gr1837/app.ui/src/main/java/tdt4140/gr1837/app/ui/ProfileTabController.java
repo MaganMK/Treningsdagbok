@@ -1,5 +1,7 @@
 package tdt4140.gr1837.app.ui;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -50,7 +52,12 @@ public class ProfileTabController {
 		motivationField.setText("Motivasjon: " + user.getMotivation());
 		phoneNumberField.setText("Telefonnummer: " + user.getPhoneNumber());
 		int id = user.getId();
-		List<Session> sessions = SQLConnector.getSessions(id);
+		List<Session> sessions;
+		try {
+			sessions = SQLConnector.getSessions(id);
+		} catch (SQLException e) {
+			sessions = new ArrayList<>();
+		}
 		List<Session> sessionsReverse = sessions.subList(0, sessions.size());
 		Collections.reverse(sessionsReverse);
 		trainingList.setItems(FXCollections.observableArrayList(sessionsReverse));
@@ -84,12 +91,18 @@ public class ProfileTabController {
 			trainingList.getFocusModel().focus(0);
 			setExercises(session); }
 		catch (Exception e) {
-			//Får ingen feilmelding hvis man ikke finner noen treningsøkter
+			//Fï¿½r ingen feilmelding hvis man ikke finner noen treningsï¿½kter
 		}
 	}
 	
 	private void setExercises(Session session) {
-		List<Exercise> exercises = SQLConnector.getAllExercises(session.getId());
+		List<Exercise> exercises;
+		try {
+			exercises = SQLConnector.getAllExercises(session.getId());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			exercises = new ArrayList<>();
+		}
 		this.addTableView(exercises);
 		this.addNoteView(session.getNote());
 	}

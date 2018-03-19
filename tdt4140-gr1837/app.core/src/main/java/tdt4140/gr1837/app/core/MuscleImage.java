@@ -1,5 +1,6 @@
 package tdt4140.gr1837.app.core;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +42,11 @@ public class MuscleImage {
 		muscles.put("hofteIn", 0);
 		
 		// Denne skal oppdatere verdiene m/ data fra databasen
-		updateBody(SQLConnector.getSessions(this.user.getId()));
+		try {
+			updateBody(SQLConnector.getSessions(this.user.getId()));
+		} catch (SQLException e) {
+			updateBody(new ArrayList<Session>());
+		}
 	}
 	
 	public Map<String, Double> getMusclesWithPrecentages(){
@@ -62,7 +67,12 @@ public class MuscleImage {
 	// Her sender vi alle okter fra databasen
 	public void updateBody(List<Session> sessions){
 		for (Session session : sessions){
-			Map<String, Integer> musclesEachSession = SQLConnector.getMusclesTrained(session.getId());
+			Map<String, Integer> musclesEachSession;
+			try {
+				musclesEachSession = SQLConnector.getMusclesTrained(session.getId());
+			} catch (SQLException e) {
+				musclesEachSession = new HashMap<String, Integer>();
+			}
 			for(String muscle : musclesEachSession.keySet()){
 				increaseTotalValue(musclesEachSession.get(muscle));
 				updateMuscle(muscle, musclesEachSession.get(muscle)); 

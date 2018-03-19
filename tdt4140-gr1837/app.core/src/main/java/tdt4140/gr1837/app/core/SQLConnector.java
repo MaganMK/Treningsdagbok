@@ -1,6 +1,17 @@
 package tdt4140.gr1837.app.core;
 
+import java.io.IOException;
 import java.sql.Connection;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +20,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.google.gson.Gson;
 
 public class SQLConnector {
 	private static String url = "jdbc:mysql://mysql.stud.ntnu.no/didris_test1";
@@ -50,7 +63,6 @@ public class SQLConnector {
 		try {
 			connection = SQLConnector.getConnection();
 		} catch (SQLException e1) {
-			e1.printStackTrace();
 			throw e1;
 		}
 		Statement stmt;
@@ -64,7 +76,7 @@ public class SQLConnector {
 	}
 	
 	// Metode for aa hente klientene
-	public static List<User> getUsers() {
+	public static List<User> getUsers() throws SQLException{
 		try {
 			ResultSet rs = getResultSet("SELECT * FROM Client");
 			List<User> users = new ArrayList<>();
@@ -79,13 +91,45 @@ public class SQLConnector {
 			}
 			return users;
 		} catch (SQLException e1) {
-			e1.printStackTrace();
-			return UserDatabase.getOfflineUserDatabase();
+			throw e1;
 		}
 	}
 	
+	// exercise_id i konstruktoren er fremmednokkel til ovelse-tabell som sier hvilken ovelse det er.
+	public static int createStrengthExercise(int reps, int sett, int weight, String note, int session_id, int exercise_id) throws SQLException {
+		Connection conn = SQLConnector.getConnection();
+		Statement statement = conn.createStatement();
+		int exerciseId = getMaximumIdFromDBPlusOneAlsoKnownAsNextID("strength_exercise_id", "Strength_Exercise"); 	// Attribut som i tabellen / databasen heter strength_exercise_id
+		statement.executeUpdate(String.format
+				("INSERT INTO Strength_Exercise VALUES(%d, %d, %d, '%s', %d, %d, %d)", reps, sett, weight, note, session_id, exercise_id, exerciseId));
+		return exerciseId;
+	}
+		
+	public static void updateStrengthExercise(int reps, int sett, int weight, String note, int exercise_id, int strength_exercise_id) 
+			throws SQLException {
+		Connection conn = SQLConnector.getConnection();
+		Statement statement = conn.createStatement();
+		statement.executeUpdate(String.format
+				("UPDATE Strength_Exercise SET reps=%d, sett=%d, weight=%d, note='%s', exercise_id=%d WHERE strength_exercise_id=%d",
+						reps, sett, weight, note, exercise_id, strength_exercise_id));
+	}
+	
+	// Metode for aa hente klientene
+	public static User getUser(int clientId) throws SQLException, IllegalArgumentException {
+			ResultSet rs = getResultSet("SELECT * FROM Client WHERE client_id=" + clientId);
+			while(rs.next()) {
+				return new User(rs.getString("name"), 
+									rs.getString("phone"), 
+									rs.getInt("age"), 
+									rs.getString("motivation"), 
+									rs.getInt("client_id")
+				);
+			}
+			throw new IllegalArgumentException("Klient med denne id-en finnes ikke");
+	}
+	
 	// Metode for aa hente ovelser til spesifikk okt
-	public static List<Exercise> getAllExercises(int sessionId) {
+	public static List<Exercise> getAllExercises(int sessionId) throws SQLException {
 		List<Exercise> exercises = new ArrayList<>();
 		exercises.addAll(getStrengthExercises(sessionId));
 		exercises.addAll(getEnduranceExercises(sessionId));
@@ -93,27 +137,22 @@ public class SQLConnector {
 	}
 	
 	// Metode for aa hente styrkeovelser til spesifikk okt
-	public static List<Exercise> getStrengthExercises(int sessionId) {
-		try {
-			List<Exercise> strengthExercises = new ArrayList<>();
-			ResultSet rs = getResultSet("SELECT * FROM Strength_Exercise NATURAL JOIN Exercise WHERE session_id="+sessionId);
-			while(rs.next()) {
-				Exercise strengthExercise = new StrengthExercise(rs.getString("exercise_name"),
-																 rs.getString("note"),
-																 rs.getInt("sett"),
-																 rs.getInt("reps"),
-																 rs.getInt("weight")
-				);
-				strengthExercises.add(strengthExercise);
-			}
-			return strengthExercises;
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-			return new ArrayList<Exercise>();
+	public static List<StrengthExercise> getStrengthExercises(int sessionId) throws SQLException {
+		List<StrengthExercise> strengthExercises = new ArrayList<>();
+		ResultSet rs = getResultSet("SELECT * FROM Strength_Exercise NATURAL JOIN Exercise WHERE session_id="+sessionId);
+		while(rs.next()) {
+			StrengthExercise strengthExercise = new StrengthExercise(rs.getString("exercise_name"),
+															 rs.getString("note"),
+															 rs.getInt("sett"),
+															 rs.getInt("reps"),
+															 rs.getInt("weight")
+			);
+			strengthExercises.add(strengthExercise);
 		}
+		return strengthExercises;
 	}
 	
-	public static List<StrengthExercise> getStrengthExercises(String exerciseName, int userID) {
+	public static List<StrengthExercise> getStrengthExercises(String exerciseName, int userID) throws SQLException{
 		try {
 			List<StrengthExercise> strengthExercises = new ArrayList<>();
 			ResultSet rs = getResultSet("SELECT * FROM `Strength_Exercise` NATURAL JOIN `Exercise` INNER JOIN `Session` ON (`Session`.`session_id` = Strength_Exercise.session_id) WHERE exercise_name =" + "\"" +exerciseName+ "\"" + "AND client_id=" + userID);
@@ -130,19 +169,24 @@ public class SQLConnector {
 			}
 			return strengthExercises;
 		} catch (SQLException e1) {
-			e1.printStackTrace();
-			return new ArrayList<StrengthExercise>();
+			throw e1;
 		}
+	}
+	// Metode for aa slette en bruker
+	public static void deleteStrengthExercise(int exerciseId) throws SQLException {
+		Connection conn = SQLConnector.getConnection();
+		Statement statement = conn.createStatement();
+		statement.executeUpdate("DELETE FROM Strength_Exercise WHERE strength_exercise_id=" + exerciseId);
 	}
 	
 	// Metode for aa hente utholdenhetsovelser, implementeres i senere sprint
-	private static List<Exercise> getEnduranceExercises(int sessionId) {
+	private static List<Exercise> getEnduranceExercises(int sessionId) throws SQLException{
 		return new ArrayList<Exercise>();
 	}
 	
 	
 	// Metode for aa hente oktene
-	public static List<Session> getSessions(int id) {
+	public static List<Session> getSessions(int id) throws SQLException {
 		try {
 			List<Session> sessions = new ArrayList<>();
 			ResultSet rs = getResultSet("SELECT * FROM Session WHERE client_id="+id);
@@ -155,12 +199,32 @@ public class SQLConnector {
 			}
 			return sessions;
 		} catch (SQLException e1) {
-			e1.printStackTrace();
-			return new ArrayList<Session>();
+			throw e1;
 		}
 	}
 	
-	public static Map<String, Integer> getMusclesTrained(int sessionID){
+	// Metode for aa hente oktene
+	public static Session getSession(int id) throws SQLException, IllegalArgumentException {
+
+		ResultSet rs = getResultSet("SELECT * FROM Session WHERE session_id="+id);
+		while(rs.next()) {
+			return new Session(rs.getString("note"), 
+								rs.getString("date"), 
+								rs.getInt("session_id"));
+		}
+		throw new IllegalArgumentException("Okt med denne id-en finnes ikke");
+	}
+	
+	// Metode for aa opprette en okt
+	public static int createSession(int clientId, String date, String note) throws SQLException {
+		Connection conn = SQLConnector.getConnection();
+		Statement statement = conn.createStatement();
+		int sessionId = getMaximumIdFromDBPlusOneAlsoKnownAsNextID("session_id", "Session");
+		statement.executeUpdate(String.format("INSERT INTO Session VALUES(%d, '%s', '%s', %d)", clientId, date, note, sessionId));
+		return sessionId;
+	}
+
+	public static Map<String, Integer> getMusclesTrained(int sessionID) throws SQLException{
 		try {
 			
 			Map<String, Integer> musclesTrained = new HashMap<>();
@@ -177,13 +241,12 @@ public class SQLConnector {
 			}
 			return musclesTrained;
 		} catch (SQLException e1) {
-			e1.printStackTrace();
-			return new HashMap<String, Integer>();
+			throw e1;
 		}
 	}
 
 	// Metode for aa hente trenere
-	public static List<Trainer> getTrainers() {
+	public static List<Trainer> getTrainers() throws SQLException{
 		try {
 			List<Trainer> trainers = new ArrayList<>();
 			ResultSet rs = getResultSet("SELECT * FROM Trainer");
@@ -202,12 +265,11 @@ public class SQLConnector {
 			}
 			return trainers;
 		} catch (SQLException e1) {
-			e1.printStackTrace();
-			return new ArrayList<Trainer>();
+			throw e1;
 		}
 	}
 
-	public static Session getSessionByExercise(Integer sessionId) {
+	public static Session getSessionByExercise(Integer sessionId) throws SQLException{
 		try {
 			ResultSet rs = getResultSet("SELECT * FROM Session WHERE session_id="+sessionId);
 			Session session = null;
@@ -219,9 +281,52 @@ public class SQLConnector {
 			}
 			return session;
 		} catch (SQLException e1) {
-			e1.printStackTrace();
-			return null;
+			throw e1;
 		}
 	}
+	
+	// Metode for aa opprette en bruker
+	public static int createUser(String name, String phoneNumber, int age, String motivation, int trainerId) throws SQLException {
+		Connection conn = SQLConnector.getConnection();
+		Statement statement = conn.createStatement();
+		int clientId = getMaximumIdFromDBPlusOneAlsoKnownAsNextID("client_id", "Client");
+		statement.executeUpdate(String.format("INSERT INTO Client (name, phone, age, motivation, client_id, trainer_id) "
+											+ "VALUES('%s', '%s', %d, '%s', %d, %d)", name, phoneNumber, age, motivation, clientId, trainerId));
+		statement = conn.createStatement();
+		statement.executeUpdate(String.format("INSERT INTO Personal_Trainer(client_id, trainer_id) VALUES(%d, %d)", clientId, trainerId));
+		return clientId;
+	}
+	
+	// Metode for aa slette en bruker
+	public static void deleteUser(int clientId) throws SQLException {
+		Connection conn = SQLConnector.getConnection();
+		Statement statement = conn.createStatement();
+		statement.executeUpdate("DELETE FROM Client WHERE client_id=" + clientId);
+	}
+	
+	// Metode for aa endre en bruker
+	public static void updateUser(int clientId, String name, String phoneNumber, int age, String motivation, int trainerId) throws SQLException {
+		Connection conn = SQLConnector.getConnection();
+		Statement statement = conn.createStatement();
+		statement.executeUpdate(String.format("UPDATE Client SET name='%s', phone='%s', age=%d, motivation='%s', trainer_id=%d ", 
+												name, phoneNumber, age, motivation, trainerId)
+											+ "WHERE client_id=" + clientId);
+	}
+	
+	private static int getMaximumIdFromDBPlusOneAlsoKnownAsNextID(String param_id, String param) throws SQLException {
+		ResultSet rs = getResultSet("SELECT MAX("+ param_id + ") AS maximum FROM " + param);
+		if (rs.next()) {
+			return rs.getInt("maximum") + 1;
+		}
+		return 1;
+	}
+	
+	// Metode for aa opprette en generell ovelse
+	public static void createExercise(String name) throws SQLException {
+		Connection conn = SQLConnector.getConnection();
+		Statement statement = conn.createStatement();
+		int exerciseId = getMaximumIdFromDBPlusOneAlsoKnownAsNextID("exercise_id", "Exercise");
+		statement.executeUpdate(
+				String.format("INSERT INTO Exercise (exercise_name, exercise_id) VALUES('%s', %d)", name, exerciseId));
+	}
 }
-

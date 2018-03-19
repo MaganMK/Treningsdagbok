@@ -2,13 +2,22 @@ package tdt4140.gr1837.app.core;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import java.sql.SQLException;
+
+import org.junit.Before;
 import org.junit.Test;
 
 public class StrengthExerciseTest {
 	
-	StrengthExercise exercise = new StrengthExercise("Knebøy", "Svir i quadriceps", 3, 12, 120);
+	StrengthExercise exercise = new StrengthExercise("Knebï¿½y", "Svir i quadriceps", 3, 12, 120);
 	StrengthExercise rmExercise = new StrengthExercise("Benkpress", "AUUUUUUU", 3, 1, 120);
+	
+	@Before
+	public void init() {
+		UserDatabase.initialize();
+	}
 	
 	@Test
 	public void testExerciseSetters() {
@@ -31,7 +40,7 @@ public class StrengthExerciseTest {
 	
 	@Test
 	public void testToString() {
-		assertEquals("Knebøy", exercise.toString());
+		assertEquals("Knebï¿½y", exercise.toString());
 	}
 	
 	@Test
@@ -44,5 +53,4 @@ public class StrengthExerciseTest {
 	public void testGetWeightVolume() {
 		assertTrue(exercise.getWeightVolume() == 4320.0);
 	}
-
 }
