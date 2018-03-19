@@ -25,7 +25,7 @@ public class ProfileTabController {
 	
 	// Elementer i ProfileTab.fxml
 	@FXML Tab profileTab;
-	@FXML Text clientName, ageField, phoneNumberField;
+	@FXML Text clientName, ageField, phoneNumberField, motivationField;
 	@FXML JFXListView<Session> trainingList;
 	@FXML TableView<Exercise> exerciseList;
 	@FXML TableColumn<Exercise, String> type;
@@ -47,6 +47,7 @@ public class ProfileTabController {
 	public void setUser(User user) {
 		clientName.setText(user.getName());
 		ageField.setText("Alder: " + Integer.toString(user.getAge()));
+		motivationField.setText("Motivasjon: " + user.getMotivation());
 		phoneNumberField.setText("Telefonnummer: " + user.getPhoneNumber());
 		int id = user.getId();
 		List<Session> sessions = SQLConnector.getSessions(id);
