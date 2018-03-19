@@ -10,14 +10,13 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
-
 public class SQLConnectorTest {
-	
+
 	@Before
 	public void init() {
 		UserDatabase.initialize();
 	}
-	
+
 	@Test
 	public void testGetMuscles() {
 		Map<String, Integer> session1;
@@ -28,7 +27,7 @@ public class SQLConnectorTest {
 			fail();
 		}
 	}
-	
+
 	// Hardkoder data, endres naar insert-metode er implementert
 	@Test
 	public void testGetSessions() {
@@ -40,11 +39,11 @@ public class SQLConnectorTest {
 			assertEquals(firstSession.getNote(), testSession.getNote());
 			assertEquals(firstSession.getId(), testSession.getId());
 			assertEquals(firstSession.toString(), testSession.toString());
-		} catch(SQLException e) {
+		} catch (SQLException e) {
 			fail();
 		}
 	}
-	
+
 	// Hardkoder data, endres naar insert-metode er implementert
 	@Test
 	public void testGetAllExercises() {
@@ -57,9 +56,9 @@ public class SQLConnectorTest {
 			// fail();
 		}
 		StrengthExercise lastExercise = null;
-		for(Exercise e : strengthExercises) {
-			if(e.getNote().equals("Benk hos meg(harvey)")) {
-				lastExercise = (StrengthExercise)e;
+		for (Exercise e : strengthExercises) {
+			if (e.getNote().equals("Benk hos meg(harvey)")) {
+				lastExercise = (StrengthExercise) e;
 			}
 		}
 		assertTrue(lastExercise != null);
@@ -70,7 +69,7 @@ public class SQLConnectorTest {
 		assertEquals(testExercise.getNote(), lastExercise.getNote());
 		assertTrue(strengthExercises.size() > 0);
 	}
-	
+
 	@Test
 	public void testGetUser() throws SQLException {
 		try {
@@ -79,14 +78,14 @@ public class SQLConnectorTest {
 		} catch (IllegalArgumentException e) {
 			// Testen passet
 		}
-		
+
 		try {
 			SQLConnector.getUser(1);
 		} catch (IllegalArgumentException e) {
 			fail("Fikk ikke hentet bruker med gyldig ID");
 		}
 	}
-	
+
 	@Test
 	public void testCreateGetDeleteUser() throws SQLException {
 		int clientId = SQLConnector.createUser("Test testesen", "666 66 666", 55, "Fa testene til å kjore", 5);
@@ -95,7 +94,7 @@ public class SQLConnectorTest {
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
-		
+
 		SQLConnector.deleteUser(clientId);
 		try {
 			SQLConnector.getUser(clientId);
@@ -104,26 +103,28 @@ public class SQLConnectorTest {
 			// Testen passet
 		}
 	}
-	
+
 	@Test
 	public void testGetTrainers() {
 		try {
-			if(SQLConnector.getTrainers() == null) fail();
+			if (SQLConnector.getTrainers() == null)
+				fail();
 		} catch (Exception e1) {
 			e1.printStackTrace();
 			fail();
 		}
 	}
-	
+
 	@Test
 	public void testGetStrengthExercises() throws SQLException {
 		try {
-			if (SQLConnector.getStrengthExercises("Benkpress", 5) == null) fail();
+			if (SQLConnector.getStrengthExercises("Benkpress", 5) == null)
+				fail();
 		} catch (Exception e1) {
 			fail();
 		}
 	}
-	
+
 	@Test
 	public void testCreateUpdateUser() throws SQLException {
 		int clientID = SQLConnector.createUser("Kong Harald", "22225555", 81, "Bli den mest veltrente kongen", 1);
@@ -132,12 +133,13 @@ public class SQLConnectorTest {
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
-		
+
 		SQLConnector.updateUser(clientID, "Kong Harald", "22225555", 81, "Sonja synes jeg er blitt tjukk", 1);
 		if (!SQLConnector.getUser(clientID).getMotivation().equals("Sonja synes jeg er blitt tjukk")) {
 			fail();
-		} 
+		}
 	}
+
 	@Test
 	public void testCreateGetUpdateDeleteExercise() {
 		try {
@@ -151,8 +153,8 @@ public class SQLConnectorTest {
 			SQLConnector.deleteStrengthExercise(exId);
 			try {
 				assertTrue(!exercise.equals(SQLConnector.getStrengthExercises(1).get(index)));
-			} catch(Exception e) {
-				
+			} catch (Exception e) {
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
