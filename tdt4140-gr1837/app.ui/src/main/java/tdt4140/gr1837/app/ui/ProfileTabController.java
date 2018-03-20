@@ -96,16 +96,6 @@ public class ProfileTabController {
 		}
 	}
 
-	// Handler for museklikk paa overlser
-	@FXML
-	public void handleMouseClickExercise(MouseEvent arg0) {
-		try {
-			Exercise exercise = exerciseList.getSelectionModel().getSelectedItem();
-		} catch (NullPointerException e) {
-			// Handterer unntak nar man trykker paa exercisetabellen, men ikke trykker paa
-			// en note.
-		}
-	}
 
 	private void showFirstExercise() {
 		try {

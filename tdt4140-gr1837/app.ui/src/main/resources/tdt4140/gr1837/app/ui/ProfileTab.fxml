@@ -61,7 +61,7 @@
 	                          <items>
 	                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
 	                                 <children>
-	                                    <TableView fx:id="exerciseList" onMouseClicked="#handleMouseClickExercise" prefHeight="316.0" prefWidth="780.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+	                                    <TableView fx:id="exerciseList"  prefHeight="316.0" prefWidth="780.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 	                                      <columns>
 	                                        <TableColumn fx:id="type" prefWidth="109.0" text="Type" />
 	                                        <TableColumn fx:id="set" minWidth="0.0" prefWidth="79.0" text="Sett" />
