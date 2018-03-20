@@ -37,6 +37,21 @@ Dersom det er innen for vår tidsramme vil vi utvidde med "manager"-funksjonalit
 - Koden følger i stor grad konvensjonene gitt av oracle (se: http://www.oracle.com/technetwork/java/codeconventions-150003.pdf)
     f.eks. brukes K&R-stilen
 
+## For å kjøre programmet selv må du
+- Ha JDK version 8 installert på din maskin. <br />
+
+Du kan så *enten* bruke en IDE som støtter Java (f.eks. Eclipse eller IntelliJ): 
+1. Last ned prosjektet og åpne det i IDE'en. 
+2. Finn "ManagerLauncher.java"-filen inne i tdt4140-gr1837/app.ui/src/main/java/tdt4140/gr1837/app/ui og kjør dette scriptet som java-applikasjon
+
+*eller* kjøre programmet fra terminalen: 
+1. Last ned prosjektet på maskinen din 
+2. Sørg for å ha nyeste versjon av Maven innstallert på maskinen din
+3. Naviger til tdt4140-gr1837/app.ui/src/main/java/tdt4140/gr1837/app/ui i kommando-vinduet ditt, med kommandoen ```cd```
+4. Kompilere "ManagerLauncher.java"-filen som .class-fil med kommandoen  ```javac ManagerLauncher.java```
+5. Kjør "ManagerLauncher.class"-filen med kommandoen ```java ManagerLauncher.class```
+
+
 #### Database 
 > https://mysqladmin.stud.ntnu.no/index.php?db=&token=38a7fdfd5b38012b12cf4bfc29e510cb&old_usr=didris_test
 
