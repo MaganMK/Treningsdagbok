@@ -37,8 +37,7 @@ Dersom det er innen for vår tidsramme vil vi utvidde med "manager"-funksjonalit
 - Koden følger i stor grad konvensjonene gitt av oracle (se: http://www.oracle.com/technetwork/java/codeconventions-150003.pdf)
     f.eks. brukes K&R-stilen
 
-
-### For å kjøre programmet selv må du
+## For å kjøre programmet selv må du
 - Ha JDK version 8 installert på din maskin. <br />
 
 Du kan så *enten* bruke en IDE som støtter Java (f.eks. Eclipse eller IntelliJ): 
