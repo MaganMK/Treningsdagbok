@@ -106,7 +106,8 @@ public class StrengthTabController {
 		this.managerController = managerController;
 	}
 	
-	// Setter musklene til grad av rødfarge
+
+	// Setter musklene til grad av roedfarge
 	public void updateMuscles() {
 		Map<String, Double> musclesWithPrecentage = muscleMan.getMusclesWithPrecentages();
 		

@@ -269,7 +269,9 @@ public class SQLConnector {
 		}
 	}
 
+
 	public static Session getSessionByExercise(Integer sessionId) throws SQLException{
+
 		try {
 			ResultSet rs = getResultSet("SELECT * FROM Session WHERE session_id="+sessionId);
 			Session session = null;
@@ -285,6 +287,7 @@ public class SQLConnector {
 		}
 	}
 	
+
 	// Metode for aa opprette en bruker
 	public static int createUser(String name, String phoneNumber, int age, String motivation, int trainerId) throws SQLException {
 		Connection conn = SQLConnector.getConnection();
@@ -328,5 +331,40 @@ public class SQLConnector {
 		int exerciseId = getMaximumIdFromDBPlusOneAlsoKnownAsNextID("exercise_id", "Exercise");
 		statement.executeUpdate(
 				String.format("INSERT INTO Exercise (exercise_name, exercise_id) VALUES('%s', %d)", name, exerciseId));
+	}
+		
+	//returns the feedback of session with id= id
+	public static String getFeedback(int id) {
+		String feedback = null;
+		try {
+			ResultSet rs = getResultSet("SELECT * FROM Feedback WHERE session_id="+id);
+			if (rs.next()) {
+				feedback = rs.getString("note");	
+			}
+		
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		return feedback;
+	}
+	
+	public static boolean registerFeedback(String feedback, int id) {
+		boolean success = false;
+		try {
+			Statement stmt = connection.createStatement();
+			String sql;
+			if (getFeedback(id) == null) {
+				sql = String.format("INSERT INTO Feedback VALUES (%s, \"%s\")", id, feedback);
+			}
+			else {
+				sql = String.format("UPDATE Feedback SET note=\"%s\" WHERE session_id=%s", feedback, id);
+			}
+			stmt.execute(sql);
+			success = true;
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return success;
 	}
 }

@@ -161,4 +161,14 @@ public class SQLConnectorTest {
 			fail();
 		}
 	}
+	
+	@Test
+	public void testFeedback() {
+		SQLConnector.registerFeedback("testtest", 3);
+		assertEquals("testtest", SQLConnector.getFeedback(3));
+		
+		SQLConnector.registerFeedback("",3);
+		assertEquals("", SQLConnector.getFeedback(3));
+	}
+	
 }
