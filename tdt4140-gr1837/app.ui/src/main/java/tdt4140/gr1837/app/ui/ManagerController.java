@@ -44,10 +44,17 @@ public class ManagerController {
 		tabMap.put("searchTab", searchTab1);
 		tabMap.put("strengthTab", strengthTab1);
 		tabMap.put("staminaTab", staminaTab1);
+		
+		profileTab1.setDisable(true);
+		strengthTab1.setDisable(true);
+		staminaTab1.setDisable(true);
 	}
 	
 	// Far profilsiden til a vise bruker
 	public void showUser(User user) {
+		profileTab1.setDisable(false);
+		strengthTab1.setDisable(false);
+		staminaTab1.setDisable(false);
 		profileTabController.setUser(user);
 		strengthTabController.setUser(user);
 		//staminaTabController.setUser(user);
