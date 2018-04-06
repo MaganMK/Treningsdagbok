@@ -78,6 +78,7 @@ public class ProfileTabController {
 			sessions = new ArrayList<>();
 		}
 		List<Session> sessionsReverse = sessions.subList(0, sessions.size());
+		Collections.sort(sessionsReverse);
 		Collections.reverse(sessionsReverse);
 		trainingList.setItems(FXCollections.observableArrayList(sessionsReverse));
 		showFirstExercise();
