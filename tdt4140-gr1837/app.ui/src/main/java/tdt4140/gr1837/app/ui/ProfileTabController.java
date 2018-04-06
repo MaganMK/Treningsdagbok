@@ -29,7 +29,7 @@ public class ProfileTabController {
 	@FXML
 	Tab profileTab;
 	@FXML
-	Text clientName, ageField, phoneNumberField, motivationField, userFeedback;
+	Text clientName, ageField, phoneNumberField, motivationField, userFeedback, trainingFrequency;
 	@FXML
 	JFXListView<Session> trainingList;
 	@FXML
@@ -69,6 +69,7 @@ public class ProfileTabController {
 		ageField.setText("Alder: " + Integer.toString(user.getAge()));
 		motivationField.setText("Motivasjon: " + user.getMotivation());
 		phoneNumberField.setText("Telefonnummer: " + user.getPhoneNumber());
+		trainingFrequency.setText("Treningsfrekvens per uke: " + Double.toString(user.getWeeklyTrainingFrequency()));
 		int id = user.getId();
 		List<Session> sessions;
 		try {

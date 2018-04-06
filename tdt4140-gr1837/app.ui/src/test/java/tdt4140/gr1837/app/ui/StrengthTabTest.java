@@ -68,12 +68,13 @@ public class StrengthTabTest extends ApplicationTest {
 		Assert.assertTrue(vektvolumRadioButton instanceof RadioButton);
     }
     
+    /*
     @Test
     public void testRadioButtonAction() {
     	clickOn("#vektvolumRadioButton");
     	RadioButton vektvolumRadioButton = from(root).lookup("#vektvolumRadioButton").query();
     	Assert.assertTrue(vektvolumRadioButton.isSelected());
-    }
+    }*/
 }
 
 
