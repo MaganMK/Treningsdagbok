@@ -5,11 +5,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
-// Midlertidig user-klasse til a fylle userdatabasen, testes derfor ikke
 public class User {
 
 	private String name;
@@ -99,25 +96,6 @@ public class User {
 			return new ArrayList<>();
 		}
 	}
-
-	/*
-	// Gir frekvens per uke for siste maaned, lar den stå i tilfelle frekvensen skal vise det isteden.
-	public double getWeeklyTrainingFrequency2() {
-		List<Session> sessions = getSessions();
-		Calendar oneMonthAgo = Calendar.getInstance();
-		oneMonthAgo.add(Calendar.MONTH, -1);
-		Calendar today = Calendar.getInstance();
-		today.set(Calendar.HOUR_OF_DAY, 0);
-		List<Session> sessionsLastMonth = sessions.stream()
-												  .filter(s -> s.getCalendar().compareTo(oneMonthAgo) >= 0
-												  && s.getCalendar().compareTo(today) < 0)
-												  .collect(Collectors.toList());
-		System.out.println(sessionsLastMonth.toString());
-		double sessionsPerMonth = sessionsLastMonth.size();
-		double weeksPerMonth = 4.333333;
-		DecimalFormat df = new DecimalFormat("#.#");
-		return Double.valueOf(df.format(sessionsPerMonth/weeksPerMonth));
-	}*/
 	
 	// Gaar igjennom alle oktene til en bruker og finner ukesnittet fom forste okt tom i dag
 	public double getWeeklyTrainingFrequency() {

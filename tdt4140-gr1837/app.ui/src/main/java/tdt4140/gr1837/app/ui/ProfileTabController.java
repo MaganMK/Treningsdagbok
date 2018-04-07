@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import com.jfoenix.controls.JFXListView;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
@@ -55,8 +56,6 @@ public class ProfileTabController {
 
 	// ManagerController for kommunikasjon med andre controllers
 	public ManagerController managerController;
-	// private SessionListController sessionListController = new
-	// SessionListController();
 
 	// Initialiserer managerController for a fa riktig controller pga fx:include
 	public void init(ManagerController managerController) {
@@ -77,10 +76,9 @@ public class ProfileTabController {
 		} catch (SQLException e) {
 			sessions = new ArrayList<>();
 		}
-		List<Session> sessionsReverse = sessions.subList(0, sessions.size());
-		Collections.sort(sessionsReverse);
-		Collections.reverse(sessionsReverse);
-		trainingList.setItems(FXCollections.observableArrayList(sessionsReverse));
+		Collections.sort(sessions);
+		Collections.reverse(sessions);
+		trainingList.setItems(FXCollections.observableArrayList(sessions));
 		showFirstExercise();
 	}
 
