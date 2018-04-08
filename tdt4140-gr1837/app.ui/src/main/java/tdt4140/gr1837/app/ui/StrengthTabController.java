@@ -167,7 +167,7 @@ public class StrengthTabController {
 			Session session = trainingList.getSelectionModel().getSelectedItem();
 		    List<Exercise> exercises;
 			try {
-				exercises = SQLConnector.getAllExercises(session.getId());
+				exercises = SQLConnector.getAllExercises(session.getId(), session.isStrength());
 			} catch (SQLException e) {
 				e.printStackTrace();
 				exercises = new ArrayList<>();
@@ -276,7 +276,7 @@ public class StrengthTabController {
 			
 			Session session;
 			try {
-				session = SQLConnector.getSessionByExercise(strengthExercises.get(i).getSessionId());
+				session = SQLConnector.getSession(strengthExercises.get(i).getSessionId());
 			} catch (SQLException e2) {
 				session = null;
 			}
@@ -309,7 +309,7 @@ public class StrengthTabController {
 			exerciseList.getColumns().add(weight);
 			
 			try {
-				exerciseList.getItems().setAll(SQLConnector.getAllExercises(session.getId()));
+				exerciseList.getItems().setAll(SQLConnector.getAllExercises(session.getId(), session.isStrength()));
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				exerciseList.getItems().setAll(new ArrayList<>());

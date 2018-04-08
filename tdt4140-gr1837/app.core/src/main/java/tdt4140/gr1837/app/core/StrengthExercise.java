@@ -1,8 +1,5 @@
 package tdt4140.gr1837.app.core;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-
 public class StrengthExercise extends Exercise {
 	
 	private Integer set;

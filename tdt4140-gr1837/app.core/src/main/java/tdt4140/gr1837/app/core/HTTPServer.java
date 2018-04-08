@@ -211,7 +211,7 @@ public class HTTPServer {
 			// Faar en eksisterene ovelse. Kalles ved GET /exercise/session_id
 			String sessionId = ex.getRequestURI().toString().split("/")[2];
 			try {
-				List<Exercise> exercises = SQLConnector.getAllExercises(Integer.parseInt(sessionId));
+				List<Exercise> exercises = SQLConnector.getAllExercises(Integer.parseInt(sessionId), true);
 				Gson gson = new Gson();
 				String response = gson.toJson(exercises);
 				response = changeNorwegianLetters(response);

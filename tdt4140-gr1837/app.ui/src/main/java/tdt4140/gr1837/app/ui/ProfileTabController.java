@@ -1,15 +1,20 @@
 package tdt4140.gr1837.app.ui;
 
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.jfoenix.controls.JFXListView;
+
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -27,32 +32,27 @@ import tdt4140.gr1837.app.core.Session;
 public class ProfileTabController {
 
 	// Elementer i ProfileTab.fxml
-	@FXML
-	Tab profileTab;
-	@FXML
-	Text clientName, ageField, phoneNumberField, motivationField, userFeedback, trainingFrequency;
-	@FXML
-	JFXListView<Session> trainingList;
-	@FXML
-	TableView<Exercise> exerciseList;
-	@FXML
-	TableColumn<Exercise, String> type;
-	@FXML
-	Text note;
-	@FXML
-	TextArea feedback;
-	@FXML
-	Button submit;
-	@FXML
-	TableColumn<Exercise, Integer> set;
-	@FXML
-	TableColumn<Exercise, Integer> repetitions;
-	@FXML
-	TableColumn<Exercise, Integer> weight;
-	@FXML
-	TableColumn<Exercise, String> notat;
+	@FXML private Tab profileTab;
+	@FXML private Text clientName, ageField, phoneNumberField, motivationField, userFeedback, trainingFrequency;
+	@FXML private JFXListView<Session> trainingList;
+	@FXML private CheckBox enduranceCheckBox;
+	@FXML private CheckBox strengthCheckBox;
+	@FXML private TableView<Exercise> exerciseList;
+	@FXML private Text note;
+	@FXML private TextArea feedback;
+	@FXML private Button submit;
 
+
+	private List<Session> sessions;
 	private Session currentSession;
+	// Kolonner til ovelselista, settes dynamisk
+	private TableColumn<Exercise, String> typeCol;
+	private TableColumn<Exercise, String> noteCol;
+	private TableColumn<Exercise, Integer> distanceCol;
+	private TableColumn<Exercise, Time> timeCol;
+	private TableColumn<Exercise, Integer> setCol;
+	private TableColumn<Exercise, Integer> repCol;
+	private TableColumn<Exercise, Integer> weightCol;
 
 	// ManagerController for kommunikasjon med andre controllers
 	public ManagerController managerController;
@@ -62,7 +62,7 @@ public class ProfileTabController {
 		this.managerController = managerController;
 	}
 
-	// Setter user som skrives i sokefeltet
+	// Setter user som skrives i sokefeltet og initialiserer tabellen
 	public void setUser(User user) {
 		clientName.setText(user.getName());
 		ageField.setText("Alder: " + Integer.toString(user.getAge()));
@@ -79,10 +79,13 @@ public class ProfileTabController {
 			result += c;
 		}
 		trainingFrequency.setText("Treningsfrekvens per uke: " + result);
-		int id = user.getId();
+		
+		initializeColumns();
+		configureCheckboxes();
+		
 		List<Session> sessions;
 		try {
-			sessions = SQLConnector.getSessions(id);
+			sessions = SQLConnector.getSessions(user.getId());
 		} catch (SQLException e) {
 			sessions = new ArrayList<>();
 		}
@@ -98,8 +101,8 @@ public class ProfileTabController {
 	public void handleMouseClickSession(MouseEvent arg0) {
 		try {
 			Session session = trainingList.getSelectionModel().getSelectedItem();
-			currentSession = session;
 			setExercises(session);
+			currentSession = session;
 		} catch (NullPointerException e) {
 			// Handterer unntak nar man trykker paa exercisetabellen, men ikke trykker paa
 			// en note.
@@ -113,20 +116,75 @@ public class ProfileTabController {
 			currentSession = session;
 			trainingList.getSelectionModel().select(0);
 			trainingList.getFocusModel().focus(0);
+			setColumns(session.isStrength());
 			setExercises(session);
 		} catch (Exception e) {
 			// Faar ingen feilmelding hvis man ikke finner noen treningskter
+		}
+	}
+	
+	private void initializeColumns() {
+		typeCol = new TableColumn<>("Type");
+		noteCol = new TableColumn<>("Notat");
+		distanceCol = new TableColumn<>("Distanse");
+		timeCol = new TableColumn<>("Tid");
+		setCol = new TableColumn<>("Sett");
+		repCol = new TableColumn<>("Repetisjoner");
+		weightCol = new TableColumn<>("Vekt");
+		
+		typeCol.setPrefWidth(exerciseList.widthProperty().multiply(0.19).doubleValue());
+		noteCol.setPrefWidth(exerciseList.widthProperty().multiply(0.5).doubleValue());
+		distanceCol.setPrefWidth(exerciseList.widthProperty().multiply(0.15).doubleValue());
+		timeCol.setPrefWidth(exerciseList.widthProperty().multiply(0.15).doubleValue());
+		setCol.setPrefWidth(exerciseList.widthProperty().multiply(0.08).doubleValue());
+		repCol.setPrefWidth(exerciseList.widthProperty().multiply(0.14).doubleValue());
+		weightCol.setPrefWidth(exerciseList.widthProperty().multiply(0.08).doubleValue());
+		
+		typeCol.setCellValueFactory(new PropertyValueFactory<Exercise,String>("name"));
+		noteCol.setCellValueFactory(new PropertyValueFactory<Exercise,String>("note"));
+		distanceCol.setCellValueFactory(new PropertyValueFactory<Exercise,Integer>("distance"));
+		timeCol.setCellValueFactory(new PropertyValueFactory<Exercise,Time>("time"));
+		setCol.setCellValueFactory(new PropertyValueFactory<Exercise,Integer>("set"));
+		repCol.setCellValueFactory(new PropertyValueFactory<Exercise,Integer>("repetitions"));
+		weightCol.setCellValueFactory(new PropertyValueFactory<Exercise,Integer>("weight"));
+	}
+	
+	private void setColumns(boolean strength) {
+		exerciseList.getColumns().clear();
+		exerciseList.getColumns().addAll(strength ? Arrays.asList(typeCol, setCol, repCol, weightCol, noteCol) 
+												  : Arrays.asList(typeCol, distanceCol, timeCol, noteCol));
+	}
+	
+	private void configureCheckboxes() {
+		enduranceCheckBox.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
+			toggleSessionView(strengthCheckBox.isSelected(), isNowSelected);
+		});
+		strengthCheckBox.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
+			toggleSessionView(isNowSelected, enduranceCheckBox.isSelected());
+		});
+	}
+	
+	private void toggleSessionView(boolean showStrength, boolean showEndurance) {
+		if ((showEndurance && showStrength) || !(showEndurance || showStrength)) {
+			trainingList.setItems(FXCollections.observableArrayList(sessions));
+		}
+		else if (showEndurance) {
+			trainingList.setItems(FXCollections.observableArrayList(sessions.stream().filter(s -> !s.isStrength()).collect(Collectors.toList())));
+		}
+		else {
+			trainingList.setItems(FXCollections.observableArrayList(sessions.stream().filter(s -> s.isStrength()).collect(Collectors.toList())));
 		}
 	}
 
 	private void setExercises(Session session) {
 		List<Exercise> exercises;
 		try {
-			exercises = SQLConnector.getAllExercises(session.getId());
+			exercises = SQLConnector.getAllExercises(session.getId(), session.isStrength());
 		} catch (SQLException e) {
 			e.printStackTrace();
 			exercises = new ArrayList<>();
 		}
+		if (currentSession.isStrength() != session.isStrength()) setColumns(session.isStrength());
 		this.addTableView(exercises);
 		this.addNoteView(session.getNote());
 		this.addPreviousFeedback(SQLConnector.getFeedback(session.getId()));
@@ -135,11 +193,6 @@ public class ProfileTabController {
 
 	// Setter verdier i tabellen med ovelser
 	private void addTableView(List<Exercise> exercises) {
-		type.setCellValueFactory(new PropertyValueFactory<Exercise, String>("name"));
-		set.setCellValueFactory(new PropertyValueFactory<Exercise, Integer>("set"));
-		repetitions.setCellValueFactory(new PropertyValueFactory<Exercise, Integer>("repetitions"));
-		weight.setCellValueFactory(new PropertyValueFactory<Exercise, Integer>("weight"));
-		notat.setCellValueFactory(new PropertyValueFactory<Exercise, String>("note"));
 		exerciseList.getItems().setAll(exercises);
 	}
 

@@ -66,13 +66,13 @@ public class ProfileTabTest extends ApplicationTest {
     }
     
     
-    @Test
-    public void testTableAction() {
-    		clickOn("#type");
-    		clickOn("#set");
-    		clickOn("#repetitions");
-    		clickOn("#weight");
-    }
+//    @Test
+//    public void testTableAction() {
+//    		clickOn("#type");
+//    		clickOn("#set");
+//    		clickOn("#repetitions");
+//    		clickOn("#weight");
+//    }
     
     
 }
