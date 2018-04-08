@@ -129,6 +129,14 @@ public class User {
 		}
 		return Double.valueOf(result);
 	}
+
+	public List<EnduranceExercise> getEnduranceExercise(String name){
+		try {
+			return SQLConnector.getEnduranceExercises(name, this.id);
+		} catch (SQLException e) {
+			return new ArrayList<>();
+		}	
+	}
 	
 	public List<EnduranceExercise> getEnduranceExercises() {
 		List<EnduranceExercise> endurance = new ArrayList<>();
@@ -137,9 +145,20 @@ public class User {
 			sessions = SQLConnector.getSessions(this.getId());
 		} catch (SQLException e)
 		{
-			e.printStackTrace();
+			sessions = new ArrayList<Session>();
 		}
 		
+		for (Session session : sessions) {
+			if(!session.isStrength()){
+				try {
+					endurance.addAll(SQLConnector.getEnduranceExercises(session.getId()));
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		
+		}
 		return endurance;
 	}
+
 }
