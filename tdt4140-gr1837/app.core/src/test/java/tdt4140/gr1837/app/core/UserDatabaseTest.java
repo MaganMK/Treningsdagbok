@@ -11,6 +11,12 @@ public class UserDatabaseTest {
 	public void init() {
 		UserDatabase.initialize();
 		TrainerDatabase.initialize();
+		UserDatabase.initializeOfflineDatabase();
+	}
+	
+	@Test
+	public void testOfflineDatabase() {
+		assertTrue(UserDatabase.getOfflineUserDatabase().size() > 0);
 	}
 	
 	@Test

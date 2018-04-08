@@ -12,14 +12,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.ProfileTabController">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.ProfileTabController">
    <children>
       <SplitPane dividerPositions="0.2725752508361204" orientation="VERTICAL" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white;">
                <children>
-                  <Text fx:id="clientName" layoutX="154.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Navn" wrappingWidth="432.8034248352051">
+                  <Text fx:id="clientName" layoutX="154.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Navn" wrappingWidth="432.8034248352051">
                      <font>
                         <Font size="26.0" />
                      </font>
@@ -29,21 +28,10 @@
                         <Image url="@../../../../../../Images/Div/icon.png" />
                      </image>
                   </ImageView>
-                  <Text fx:id="phoneNumberField" layoutX="154.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Telefonnummer: ">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="ageField" layoutX="154.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alder: ">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="motivationField" layoutX="154.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Motivasjon: ">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Text>
+                  <Text fx:id="phoneNumberField" layoutX="154.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Telefonnummer: " />
+                  <Text fx:id="ageField" layoutX="154.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alder: " />
+                  <Text fx:id="motivationField" layoutX="154.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Motivasjon: " />
+                  <Text fx:id="trainingFrequency" layoutX="154.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Treningsfrekvens per uke:" />
                </children>
             </AnchorPane>
          <AnchorPane fx:id="OurTestPane" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -61,7 +49,7 @@
 	                          <items>
 	                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
 	                                 <children>
-	                                    <TableView fx:id="exerciseList"  prefHeight="316.0" prefWidth="780.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+	                                    <TableView fx:id="exerciseList" prefHeight="316.0" prefWidth="780.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 	                                      <columns>
 	                                        <TableColumn fx:id="type" prefWidth="109.0" text="Type" />
 	                                        <TableColumn fx:id="set" minWidth="0.0" prefWidth="79.0" text="Sett" />

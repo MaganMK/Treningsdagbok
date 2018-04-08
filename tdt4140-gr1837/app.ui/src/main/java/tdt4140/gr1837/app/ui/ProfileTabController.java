@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import com.jfoenix.controls.JFXListView;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
@@ -29,7 +30,7 @@ public class ProfileTabController {
 	@FXML
 	Tab profileTab;
 	@FXML
-	Text clientName, ageField, phoneNumberField, motivationField, userFeedback;
+	Text clientName, ageField, phoneNumberField, motivationField, userFeedback, trainingFrequency;
 	@FXML
 	JFXListView<Session> trainingList;
 	@FXML
@@ -55,8 +56,6 @@ public class ProfileTabController {
 
 	// ManagerController for kommunikasjon med andre controllers
 	public ManagerController managerController;
-	// private SessionListController sessionListController = new
-	// SessionListController();
 
 	// Initialiserer managerController for a fa riktig controller pga fx:include
 	public void init(ManagerController managerController) {
@@ -69,6 +68,7 @@ public class ProfileTabController {
 		ageField.setText("Alder: " + Integer.toString(user.getAge()));
 		motivationField.setText("Motivasjon: " + user.getMotivation());
 		phoneNumberField.setText("Telefonnummer: " + user.getPhoneNumber());
+		trainingFrequency.setText("Treningsfrekvens per uke: " + Double.toString(user.getWeeklyTrainingFrequency()));
 		int id = user.getId();
 		List<Session> sessions;
 		try {
@@ -76,9 +76,9 @@ public class ProfileTabController {
 		} catch (SQLException e) {
 			sessions = new ArrayList<>();
 		}
-		List<Session> sessionsReverse = sessions.subList(0, sessions.size());
-		Collections.reverse(sessionsReverse);
-		trainingList.setItems(FXCollections.observableArrayList(sessionsReverse));
+		Collections.sort(sessions);
+		Collections.reverse(sessions);
+		trainingList.setItems(FXCollections.observableArrayList(sessions));
 		showFirstExercise();
 	}
 

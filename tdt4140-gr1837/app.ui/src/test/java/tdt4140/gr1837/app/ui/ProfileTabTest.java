@@ -55,6 +55,8 @@ public class ProfileTabTest extends ApplicationTest {
     		Assert.assertTrue(field instanceof Text);
     		Node list = from(root).lookup("#exerciseList").query();
     		Assert.assertTrue(list instanceof TableView);
+    		Node field2 = from(root).lookup("#trainingFrequency").query();
+    		Assert.assertTrue(field2 instanceof Text);
     }
     
     @Test

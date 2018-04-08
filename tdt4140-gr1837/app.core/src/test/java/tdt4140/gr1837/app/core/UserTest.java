@@ -40,5 +40,23 @@ public class UserTest {
 		assertTrue(user.getExercises().size() > 0);
 	}
 	
+	@Test
+	public void testGetSessions() {
+		User user = UserDatabase.getUser("Test User");
+		assertTrue(user.getSessions().size() > 0);
+	}
+	
+	@Test
+	public void testGetStrengthExercise() {
+		User user = UserDatabase.getUser("Test User");
+		assertTrue(user.getStrengthExercise("Benkpress").size() > 0);
+	}
+	
+	@Test
+	public void testGetWeeklyTrainingFrequency() {
+		User user = UserDatabase.getUser("Test User");
+		assertTrue(user.getWeeklyTrainingFrequency() >= 0);
+	}
+	
 
 }
