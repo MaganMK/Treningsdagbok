@@ -19,7 +19,6 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.control.TableColumn;
 import javafx.scene.text.Text;
@@ -82,8 +81,12 @@ public class ProfileTabController {
 		
 		initializeColumns();
 		configureCheckboxes();
-		
-		List<Session> sessions;
+		configureFeedback();
+		setSessions(user);
+		showFirstExercise();
+	}
+
+	private void setSessions(User user) {
 		try {
 			sessions = SQLConnector.getSessions(user.getId());
 		} catch (SQLException e) {
@@ -92,34 +95,49 @@ public class ProfileTabController {
 		Collections.sort(sessions);
 		Collections.reverse(sessions);
 		trainingList.setItems(FXCollections.observableArrayList(sessions));
-		showFirstExercise();
+		
+	}
+
+	private void configureFeedback() {
+		submit.setDisable(false);
+		feedback.setDisable(false);
+		
 	}
 
 	// Handler for museklikk paa okter, henter ovelsene til okta og displayer dem i
 	// tabellen, setter notatfeltet
 	@FXML
-	public void handleMouseClickSession(MouseEvent arg0) {
+	public void handleMouseClickSession() {
 		try {
 			Session session = trainingList.getSelectionModel().getSelectedItem();
 			setExercises(session);
-			currentSession = session;
+			setCurrentSession(session);
 		} catch (NullPointerException e) {
 			// Handterer unntak nar man trykker paa exercisetabellen, men ikke trykker paa
 			// en note.
 		}
 	}
+	
+	private void setCurrentSession(Session session) {
+		currentSession = session!=null ? session : currentSession;
+	}
 
 
 	private void showFirstExercise() {
+		exerciseList.getItems().clear();
+		addNoteView("");
+		addPreviousFeedback("");
 		try {
 			Session session = trainingList.getItems().get(0);
-			currentSession = session;
+			setCurrentSession(session);
 			trainingList.getSelectionModel().select(0);
 			trainingList.getFocusModel().focus(0);
 			setColumns(session.isStrength());
 			setExercises(session);
-		} catch (Exception e) {
-			// Faar ingen feilmelding hvis man ikke finner noen treningskter
+		} catch (IndexOutOfBoundsException e1) {
+			// Ingen okter i tabellen, sett feedback til disable=true
+			submit.setDisable(true);
+			feedback.setDisable(true);
 		}
 	}
 	
@@ -158,9 +176,12 @@ public class ProfileTabController {
 	private void configureCheckboxes() {
 		enduranceCheckBox.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
 			toggleSessionView(strengthCheckBox.isSelected(), isNowSelected);
+			handleMouseClickSession();
+			
 		});
 		strengthCheckBox.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
 			toggleSessionView(isNowSelected, enduranceCheckBox.isSelected());
+			handleMouseClickSession();
 		});
 	}
 	
@@ -177,18 +198,22 @@ public class ProfileTabController {
 	}
 
 	private void setExercises(Session session) {
-		List<Exercise> exercises;
-		try {
-			exercises = SQLConnector.getAllExercises(session.getId(), session.isStrength());
-		} catch (SQLException e) {
-			e.printStackTrace();
-			exercises = new ArrayList<>();
+		if (session==null) {
+			showFirstExercise();
+		} else {
+			List<Exercise> exercises;
+			try {
+				exercises = SQLConnector.getAllExercises(session.getId(), session.isStrength());
+			} catch (SQLException e) {
+				e.printStackTrace();
+				exercises = new ArrayList<>();
+			}
+			if (currentSession.isStrength() != session.isStrength()) setColumns(session.isStrength());
+			addTableView(exercises);
+			addNoteView(session.getNote());
+			addPreviousFeedback(SQLConnector.getFeedback(session.getId()));
+			userFeedback.setText("");
 		}
-		if (currentSession.isStrength() != session.isStrength()) setColumns(session.isStrength());
-		this.addTableView(exercises);
-		this.addNoteView(session.getNote());
-		this.addPreviousFeedback(SQLConnector.getFeedback(session.getId()));
-		this.userFeedback.setText("");
 	}
 
 	// Setter verdier i tabellen med ovelser

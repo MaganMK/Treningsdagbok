@@ -23,6 +23,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import tdt4140.gr1837.app.core.User;
 
 public class ProfileTabTest extends ApplicationTest {
 
