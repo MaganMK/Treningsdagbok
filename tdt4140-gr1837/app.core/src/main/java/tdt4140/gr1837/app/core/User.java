@@ -103,6 +103,7 @@ public class User {
 		Calendar today = Calendar.getInstance();
 		today.set(Calendar.HOUR_OF_DAY, 0);
 		Collections.sort(sessions);
+
 		if (sessions.size() == 0) {
 			return 0;
 		}
@@ -115,7 +116,17 @@ public class User {
 			weeksBetween = 1;
 		}
 		double frequency = sessions.size() / weeksBetween;
-		DecimalFormat df = new DecimalFormat("#.#");
-		return Double.valueOf(df.format(frequency));
+		DecimalFormat df = new DecimalFormat("#.0");
+		String formatedFrequency = df.format(frequency);
+		String result = "";
+		for(char c : formatedFrequency.toCharArray())
+		{
+			if(c == ',')
+			{
+				c = '.';
+			}
+			result += c;
+		}
+		return Double.valueOf(result);
 	}
 }

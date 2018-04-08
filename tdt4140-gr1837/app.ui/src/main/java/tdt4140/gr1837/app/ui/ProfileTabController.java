@@ -68,7 +68,17 @@ public class ProfileTabController {
 		ageField.setText("Alder: " + Integer.toString(user.getAge()));
 		motivationField.setText("Motivasjon: " + user.getMotivation());
 		phoneNumberField.setText("Telefonnummer: " + user.getPhoneNumber());
-		trainingFrequency.setText("Treningsfrekvens per uke: " + Double.toString(user.getWeeklyTrainingFrequency()));
+		String frequency = String.valueOf(user.getWeeklyTrainingFrequency());
+		String result = "";
+		for(char c : frequency.toCharArray())
+		{
+			if(c == '.')
+			{
+				c = ',';
+			}
+			result += c;
+		}
+		trainingFrequency.setText("Treningsfrekvens per uke: " + result);
 		int id = user.getId();
 		List<Session> sessions;
 		try {
