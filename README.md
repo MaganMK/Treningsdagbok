@@ -63,10 +63,10 @@ Du kan så *enten* bruke en IDE som støtter Java (f.eks. Eclipse eller IntelliJ
 - Lise Hove
 - Didrik Sten
 - Sindre Aubert
-- Anna Hermansen
 - Kevin Kristiansen
-- Magnus Kristiansen
+- Anna Hermansen
 - Lars Martin Kleppe
+- Magnus Kristiansen
 
 ## Database 
 > https://mysqladmin.stud.ntnu.no/index.php?db=&token=38a7fdfd5b38012b12cf4bfc29e510cb&old_usr=didris_test
