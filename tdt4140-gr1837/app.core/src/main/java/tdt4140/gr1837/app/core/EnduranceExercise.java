@@ -51,5 +51,6 @@ public class EnduranceExercise extends Exercise {
 		
 	}
 
+
 }
 

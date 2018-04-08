@@ -129,6 +129,9 @@ public class StrengthTabController {
 		dataRepresentation.selectToggle(rmRadioButton);
 		xAxis.setTickLabelsVisible(false);
 		resetCheckBoxes();
+		strengthChart.getXAxis().setLabel("Session");
+		String Ylabel = dataRepresentation.getSelectedToggle().equals(rmRadioButton) ? "1RM - kg" : "Vektvolum - kg";
+		strengthChart.getYAxis().setLabel(Ylabel);
 	}
 	
 	// Checker og unchecker checkboxer for aa cleare fra forrige bruker
@@ -299,7 +302,7 @@ public class StrengthTabController {
 			weight.setCellValueFactory(new PropertyValueFactory<Exercise, Integer>("weight"));
 			
 			set.setText("Set");
-			type.setText("Session");
+			type.setText("Øvelse");
 			repetitions.setText("Repetisjoner");
 			weight.setText("Vekt");
 			

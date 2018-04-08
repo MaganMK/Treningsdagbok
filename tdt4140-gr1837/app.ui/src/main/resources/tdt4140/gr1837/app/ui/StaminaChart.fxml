@@ -31,9 +31,10 @@
 	       <NumberAxis side="LEFT" />
 	     </yAxis>
 	   </LineChart>
-	   <CheckListView fx:id="checkList" layoutX="8.0" layoutY="200.0" prefHeight="361.0" prefWidth="149.0" style="-fx-background-color: transparent;" stylesheets="@style.css" />
-	   <RadioButton fx:id="distanceRadioButton" layoutX="15.0" layoutY="140.0" mnemonicParsing="false" onAction="#handleRadioButtons" text="Distanse" toggleGroup="$dataRepresentation" />
-	   <Label layoutX="15.0" layoutY="100.0" text="Datarepresentasjon" />
-	   <Label layoutX="17.0" layoutY="180.0" text="Exercise" />
+	   <CheckListView fx:id="checkList" layoutX="8.0" layoutY="225.0" prefHeight="361.0" prefWidth="149.0" style="-fx-background-color: transparent;" stylesheets="@style.css" />
+	   <RadioButton fx:id="distanceRadioButton" layoutX="15.0" layoutY="145.0" mnemonicParsing="false" onAction="#handleRadioButtons" text="Distanse" toggleGroup="$dataRepresentation" />
+	   <RadioButton fx:id="timeRadioButton" layoutX="15.0" layoutY="170.0" mnemonicParsing="false" onAction="#handleRadioButtons" text="Tid" toggleGroup="$dataRepresentation" />
+	   <Label layoutX="15.0" layoutY="95.0" text="Datarepresentasjon" />
+	   <Label layoutX="17.0" layoutY="205.0" text="Øvelse" />
 	</children>
 </AnchorPane>
