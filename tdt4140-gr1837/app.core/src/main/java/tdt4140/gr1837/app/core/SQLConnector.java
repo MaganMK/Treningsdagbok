@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -177,6 +178,24 @@ public class SQLConnector {
 		}
 		return enduranceExercises;
 	}
+  
+  public static List<EnduranceExercise> getEnduranceExercises(String exerciseName, int userID) throws SQLException{
+		try {
+			List<EnduranceExercise> enduranceExercises = new ArrayList<>();
+			ResultSet rs = getResultSet("SELECT * FROM `Endurance_Exercise` NATURAL JOIN `General_Endurance_Exercise` INNER JOIN `Session` "
+					+ " ON (`Session`.`session_id` = Endurance_Exercise.session_id)"
+					+ " WHERE exercise_name =" + "\"" +exerciseName+ "\"" + "AND client_id=" + userID);
+			while(rs.next()) {
+				EnduranceExercise enduranceExercise = new EnduranceExercise(rs.getString("exercise_name"), rs.getString("note"), rs.getInt("distance"), rs.getTime("time"));
+				enduranceExercise.setSessionId(rs.getInt("session_id"));
+				enduranceExercises.add(enduranceExercise);
+			}
+			return enduranceExercises;
+		} catch (SQLException e1) {
+			throw e1;
+		}
+	}
+
 	
 	// Metode for aa hente oktene
 	public static List<Session> getSessions(int id) throws SQLException {
@@ -348,4 +367,22 @@ public class SQLConnector {
 		}
 		return success;
 	}
+	
+	@SuppressWarnings("deprecation")
+	public static Map<String, Integer> getEnduranceDistribution(int userId){
+		Map<String, Integer> result = new HashMap<>();
+		String query = "SELECT * FROM Session INNER JOIN Endurance_Exercise ON (Session.session_id = Endurance_Exercise.session_id) NATURAL JOIN General_Endurance_Exercise WHERE isStrength=0 AND client_id="+userId;
+		try {
+			ResultSet rs = getResultSet(query);
+			while(rs.next()) {
+				result.put(rs.getString("exercise_name"), result.getOrDefault(rs.getString("exercise_name"), 0) + rs.getTime("time").getMinutes() + rs.getTime("time").getHours()*60);
+			}	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 }
+

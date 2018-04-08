@@ -33,6 +33,7 @@ public class Session implements Comparable<Session> {
 		return date;
 	}
 	
+
 	public int getYear() {
 		return Integer.valueOf(date.substring(0,4));
 	}
@@ -64,7 +65,7 @@ public class Session implements Comparable<Session> {
 	public int compareTo(Session other) {
 		return this.getCalendar().compareTo(other.getCalendar());
 	}
-	
+
 
 	@Override
 	public String toString() {
