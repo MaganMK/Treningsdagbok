@@ -129,4 +129,12 @@ public class User {
 		}
 		return Double.valueOf(result);
 	}
+	
+//	public List<EnduranceExercise> getEnduranceExercises() {
+//		List<EnduranceExercise> endurance = new ArrayList<>;
+//		List<Session> sessions;
+//		try {
+//			sessions = SQLConnector.getSessions(this.getId());
+//		} catch (SQLException)
+//	}
 }
