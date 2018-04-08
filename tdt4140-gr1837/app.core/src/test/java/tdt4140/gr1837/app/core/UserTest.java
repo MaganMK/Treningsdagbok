@@ -56,7 +56,6 @@ public class UserTest {
 	@Test
 	public void testGetWeeklyTrainingFrequency() {
 		User user = UserDatabase.getUser("Test User");
-		System.out.println(user.getWeeklyTrainingFrequency());
 		assertTrue(user.getWeeklyTrainingFrequency() >= 0);
 	}
 	

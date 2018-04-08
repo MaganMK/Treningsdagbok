@@ -220,7 +220,8 @@ public class SQLConnector {
 		Connection conn = SQLConnector.getConnection();
 		Statement statement = conn.createStatement();
 		int sessionId = getMaximumIdFromDBPlusOneAlsoKnownAsNextID("session_id", "Session");
-		statement.executeUpdate(String.format("INSERT INTO Session VALUES(%d, '%s', '%s', %d)", clientId, date, note, sessionId));
+		String insert = "(" + clientId + ",\'" + date.toString() + "\',\"" + note + "\"," + sessionId + "," + 1 + ")";
+		statement.executeUpdate("INSERT INTO Session VALUES" + insert);
 		return sessionId;
 	}
 

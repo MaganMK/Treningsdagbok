@@ -50,13 +50,7 @@ public class HTTPServerTest {
 		HttpResponse response = httpClient.execute(post);
 
 		String s = EntityUtils.toString(response.getEntity());
-		
-		// Dette maa vi se mer paa
-		if(s.equals("Kunne ikke koble til databasen")){
-			assertTrue(1==1);
-			return;
-		}
-		
+
 		assertTrue(Integer.parseInt(s) > 0);
 
 		int statusCode = response.getStatusLine().getStatusCode();
