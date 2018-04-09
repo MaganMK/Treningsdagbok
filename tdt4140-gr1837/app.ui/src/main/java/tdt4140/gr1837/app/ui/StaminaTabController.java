@@ -1,10 +1,13 @@
 package tdt4140.gr1837.app.ui;
 
+import java.util.Map;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.text.Text;
+import tdt4140.gr1837.app.core.SQLConnector;
 import tdt4140.gr1837.app.core.User;
 
 // Staminatab for graf osv. til utholdenhetsovelser
@@ -30,15 +33,19 @@ public class StaminaTabController {
 	@FXML PieChart piechart;
 	// Oppdaterer pichartet i henhold til brukerens treningsdata
 	public void updatePieChart(User user) {
-		ObservableList<PieChart.Data> pieChartData =
-                FXCollections.observableArrayList(
-                new PieChart.Data("Grapefruit", 130),
-                new PieChart.Data("Oranges", 250),
-                new PieChart.Data("Plums", 100),
-                new PieChart.Data("Pears", 220),
-                new PieChart.Data("Apples", 300));
+		Map<String, Integer> enduranceDistribution = SQLConnector.getEnduranceDistribution(user.getId());
+		ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+		if (enduranceDistribution != null){
+			for (String key : enduranceDistribution.keySet()) {
+				pieChartData.add(new PieChart.Data(key, enduranceDistribution.get(key)));
+			}
+			this.piechart.setTitle("Tid brukt på ulike øvelser");
+		}
+		else {
+			this.piechart.setTitle("Ingen utholdenhetsøvelser registrert");
+		}
 		this.piechart.setData(pieChartData);
-		this.piechart.setLegendVisible(false);
+		this.piechart.setLabelLineLength(10);
 	}
 
 }
