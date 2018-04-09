@@ -348,4 +348,11 @@ public class SQLConnector {
 		}
 		return success;
 	}
+	
+	public static Map<String, Integer> getEnduranceDistribution(int userId){
+		Map<String, Integer> result = new HashMap<>();
+		//"SELECT * FROM `Strength_Exercise` NATURAL JOIN `Exercise` INNER JOIN `Session` ON (`Session`.`session_id` = Strength_Exercise.session_id) WHERE exercise_name =" + "\"" +exerciseName+ "\"" + "AND client_id=" + userID);
+		String query = "SELECT * FROM Session INNER JOIN Endurance_Exercise ON (Session.session_id = Endurance_Exercise.session_id) NATURAL JOIN General_Endurance_Exercise WHERE isStrength=0 client_id="+userId;
+	}
+	
 }

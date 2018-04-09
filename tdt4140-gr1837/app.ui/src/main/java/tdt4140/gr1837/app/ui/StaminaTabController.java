@@ -38,7 +38,6 @@ public class StaminaTabController {
                 new PieChart.Data("Pears", 220),
                 new PieChart.Data("Apples", 300));
 		this.piechart.setData(pieChartData);
-		this.piechart.setTitle("Fordeling av utholdenhetsøkter");
 		this.piechart.setLegendVisible(false);
 	}
 
