@@ -92,8 +92,6 @@ public class ProfileTabController {
 		} catch (SQLException e) {
 			sessions = new ArrayList<>();
 		}
-		Collections.sort(sessions);
-		Collections.reverse(sessions);
 		trainingList.setItems(FXCollections.observableArrayList(sessions));
 		
 	}

@@ -269,25 +269,6 @@ public class SQLConnector {
 		}
 	}
 
-
-//	public static Session getSessionByExercise(Integer sessionId) throws SQLException{
-//
-//		try {
-//			ResultSet rs = getResultSet("SELECT * FROM Session WHERE session_id="+sessionId);
-//			Session session = null;
-//			while(rs.next()) {
-//				session = new Session(rs.getString("note"), 
-//									rs.getString("date"), 
-//									rs.getInt("session_id")
-//				);
-//			}
-//			return session;
-//		} catch (SQLException e1) {
-//			throw e1;
-//		}
-//	}
-	
-
 	// Metode for aa opprette en bruker
 	public static int createUser(String name, String phoneNumber, int age, String motivation, int trainerId) throws SQLException {
 		Connection conn = SQLConnector.getConnection();
