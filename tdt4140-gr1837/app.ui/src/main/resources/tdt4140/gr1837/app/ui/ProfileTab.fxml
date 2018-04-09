@@ -2,8 +2,8 @@
 
 <?import com.jfoenix.controls.JFXListView?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
@@ -36,11 +36,13 @@
             </AnchorPane>
          <AnchorPane fx:id="OurTestPane" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 	         <children>
-	            <SplitPane dividerPositions="0.1934673366834171" layoutX="292.0" layoutY="155.0" prefHeight="415.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+	            <SplitPane dividerPositions="0.22188755020080322" layoutX="292.0" layoutY="155.0" prefHeight="415.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 	              <items>
 	                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="178.0" prefWidth="107.0">
 	                     <children>
-	                        <JFXListView fx:id="trainingList" layoutX="50.0" layoutY="95.0" onMouseClicked="#handleMouseClickSession" prefHeight="430.0" prefWidth="197.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+	                        <JFXListView fx:id="trainingList" layoutY="31.0" onMouseClicked="#handleMouseClickSession" prefHeight="399.0" prefWidth="217.0" />
+                            <CheckBox fx:id="enduranceCheckBox" layoutX="14.0" layoutY="5.0" mnemonicParsing="false" text="Utholdenhet" />
+                            <CheckBox fx:id="strengthCheckBox" layoutX="137.0" layoutY="5.0" mnemonicParsing="false" text="Styrke" />
 	                     </children>
 	                </AnchorPane>
 	                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -51,11 +53,6 @@
 	                                 <children>
 	                                    <TableView fx:id="exerciseList" prefHeight="316.0" prefWidth="780.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 	                                      <columns>
-	                                        <TableColumn fx:id="type" prefWidth="109.0" text="Type" />
-	                                        <TableColumn fx:id="set" minWidth="0.0" prefWidth="79.0" text="Sett" />
-	                                        <TableColumn fx:id="repetitions" prefWidth="91.0" text="Repetisjoner" />
-	                                        <TableColumn fx:id="weight" prefWidth="88.0" text="Vekt" />
-                                            <TableColumn fx:id="notat" prefWidth="428.0" text="Notat" />
 	                                      </columns>
 	                                    </TableView>
 	                                 </children>

@@ -34,11 +34,16 @@ public class SQLConnectorTest {
 		try {
 			Session testSession = new Session("Bra pump!", "2018-03-01", 2);
 			List<Session> sessions = SQLConnector.getSessions(5);
-			Session firstSession = sessions.get(0);
-			assertEquals(firstSession.getDate(), testSession.getDate());
-			assertEquals(firstSession.getNote(), testSession.getNote());
-			assertEquals(firstSession.getId(), testSession.getId());
-			assertEquals(firstSession.toString(), testSession.toString());
+			Session session = null;
+			for (Session s : sessions) {
+				if (s.getDate().equals("2018-03-01")) {
+					session = s;
+				}
+			}
+			assertEquals(session.getDate(), testSession.getDate());
+			assertEquals(session.getNote(), testSession.getNote());
+			assertEquals(session.getId(), testSession.getId());
+			assertEquals(session.toString(), testSession.toString());
 		} catch (SQLException e) {
 			fail();
 		}
@@ -50,7 +55,7 @@ public class SQLConnectorTest {
 		StrengthExercise testExercise = new StrengthExercise("Benkpress", "Benk hos meg(harvey)", 1, 1, 100);
 		List<Exercise> strengthExercises = new ArrayList<>();
 		try {
-			strengthExercises = SQLConnector.getAllExercises(1);
+			strengthExercises = SQLConnector.getAllExercises(1, true);
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 			// fail();

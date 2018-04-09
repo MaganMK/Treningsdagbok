@@ -9,11 +9,17 @@ public class Session implements Comparable<Session> {
 	private String note;
 	private int id;
 	private String date;
+	private boolean strength;
 	
-	public Session(String note, String date, int id) {
+	public Session(String note, String date, int id, boolean strength) {
 		this.note = note;
 		this.date = date;
 		this.id = id;
+		this.strength = strength;
+	}
+	
+	public Session(String note, String date, int id) {
+		this(note, date, id, true);
 	}
 	
 	public String getNote() {
@@ -39,11 +45,10 @@ public class Session implements Comparable<Session> {
 		return Integer.valueOf(date.substring(8));
 	}
 	
-	@Override
-	public String toString() {
-		return date.substring(8) + '/' + date.substring(5,7) + "-" + date.substring(0,4);
+	public boolean isStrength() {
+		return strength;
 	}
-	
+
 	public Calendar getCalendar() {
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-dd-mm", Locale.GERMAN);
@@ -58,5 +63,13 @@ public class Session implements Comparable<Session> {
 	@Override
 	public int compareTo(Session other) {
 		return this.getCalendar().compareTo(other.getCalendar());
+	}
+	
+
+	@Override
+	public String toString() {
+		String reversedDate = "";
+		reversedDate = date.substring(8) + '/' + date.substring(5,7) + "-" + date.substring(0,4) + " - " + (strength ? "Styrke" : "Utholdenhet");
+		return reversedDate;
 	}
 }

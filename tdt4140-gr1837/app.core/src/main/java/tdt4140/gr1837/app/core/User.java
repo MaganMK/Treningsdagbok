@@ -73,7 +73,7 @@ public class User {
 		}
 		for (Session session : sessions) {
 			try {
-				exercises.addAll(SQLConnector.getAllExercises(session.getId()));
+				exercises.addAll(SQLConnector.getAllExercises(session.getId(), session.isStrength()));
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
