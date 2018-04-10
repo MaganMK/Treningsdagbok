@@ -45,7 +45,7 @@ public class StaminaTabController {
 			this.piechart.setTitle("Ingen utholdenhetsøvelser registrert");
 		}
 		this.piechart.setData(pieChartData);
-		this.piechart.setLabelLineLength(10);
+		this.piechart.setLabelsVisible(false);
 	}
 
 }
