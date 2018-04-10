@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import tdt4140.gr1837.app.core.SQLConnector;
 
 // Klasse for a kjore manager.fxml
 public class ManagerLauncher extends Application {
@@ -26,6 +27,11 @@ public class ManagerLauncher extends Application {
 
     public static void main(String[] args) {
         launch(args);
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+			public void run() {
+				SQLConnector.closeConnection();
+			}
+		});
     }
 
 }
