@@ -35,7 +35,7 @@ public class StaminaTabController {
 	public void updatePieChart(User user) {
 		Map<String, Integer> enduranceDistribution = SQLConnector.getEnduranceDistribution(user.getId());
 		ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-		if (enduranceDistribution != null){
+		if (!enduranceDistribution.isEmpty()){
 			for (String key : enduranceDistribution.keySet()) {
 				pieChartData.add(new PieChart.Data(key, enduranceDistribution.get(key)));
 			}

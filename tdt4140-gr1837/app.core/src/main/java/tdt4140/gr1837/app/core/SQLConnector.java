@@ -359,12 +359,11 @@ public class SQLConnector {
 			while(rs.next()) {
 				result.put(rs.getString("exercise_name"), result.getOrDefault(rs.getString("exercise_name"), 0) + rs.getTime("time").getMinutes() + rs.getTime("time").getHours()*60);
 			}	
-			return result;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return result;
 	}
 	
 }
