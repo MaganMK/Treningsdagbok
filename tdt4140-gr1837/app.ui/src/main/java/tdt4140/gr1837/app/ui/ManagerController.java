@@ -57,7 +57,7 @@ public class ManagerController {
 		staminaTab1.setDisable(false);
 		profileTabController.setUser(user);
 		strengthTabController.setUser(user);
-		//staminaTabController.setUser(user);
+		staminaTabController.setUser(user);
 	}
 
 	// Endrer tab til angitt tab

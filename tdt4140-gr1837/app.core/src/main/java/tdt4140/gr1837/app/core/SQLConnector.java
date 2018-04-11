@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -348,4 +349,21 @@ public class SQLConnector {
 		}
 		return success;
 	}
+	
+	@SuppressWarnings("deprecation")
+	public static Map<String, Integer> getEnduranceDistribution(int userId){
+		Map<String, Integer> result = new HashMap<>();
+		String query = "SELECT * FROM Session INNER JOIN Endurance_Exercise ON (Session.session_id = Endurance_Exercise.session_id) NATURAL JOIN General_Endurance_Exercise WHERE isStrength=0 AND client_id="+userId;
+		try {
+			ResultSet rs = getResultSet(query);
+			while(rs.next()) {
+				result.put(rs.getString("exercise_name"), result.getOrDefault(rs.getString("exercise_name"), 0) + rs.getTime("time").getMinutes() + rs.getTime("time").getHours()*60);
+			}	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 }
