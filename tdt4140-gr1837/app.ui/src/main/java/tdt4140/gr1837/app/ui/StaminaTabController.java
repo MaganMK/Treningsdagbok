@@ -15,6 +15,9 @@ public class StaminaTabController {
 	
 	// Tekstfelt for a se hvilken bruker man er inne pa
 	@FXML Text clientName;
+	
+	@FXML public DistanceBarController distanceBarController;
+	
 
 	// Managercontroller for kommunikasjon mellom controllers
 	public ManagerController managerController;
@@ -23,7 +26,9 @@ public class StaminaTabController {
 	// Initialiserer managercontroller
 	public void init(ManagerController managerController) {
 		this.managerController = managerController;
-		
+		distanceBarController.init();
+		//this.distanceBar.setHeight(100);
+		//this.distanceBar.setLayoutY(507);
 	}
 
 	// Setter oppsokt bruker i tekstfelt
@@ -31,6 +36,7 @@ public class StaminaTabController {
 		clientName.setText(user.getName());
 		staminaChartController.setUser(user);
 		updatePieChart(user);
+		distanceBarController.setProgress(user.getProgress());
 	}
 	
 	@FXML PieChart piechart;

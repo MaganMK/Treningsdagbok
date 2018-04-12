@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.DistanceBarController">
+	        <Rectangle fx:id="distanceBar" arcHeight="100.0" arcWidth="100.0" fill="DODGERBLUE" height="515.0" layoutX="53.0" layoutY="92.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="124.0" />
+            <Rectangle arcHeight="100.0" arcWidth="100.0" fill="#ffffff00" height="515.0" layoutX="53.0" layoutY="92.0" stroke="BLACK" strokeType="INSIDE" width="124.0" />
+</AnchorPane>
+

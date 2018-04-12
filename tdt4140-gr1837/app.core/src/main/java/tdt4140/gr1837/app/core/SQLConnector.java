@@ -333,7 +333,7 @@ public class SQLConnector {
 				String.format("INSERT INTO Exercise (exercise_name, exercise_id) VALUES('%s', %d)", name, exerciseId));
 	}
 		
-	//returns the feedback of session with id= ida
+	// returns the feedback of session with id = id
 	public static String getFeedback(int id) {
 		String feedback = null;
 		try {
@@ -378,11 +378,26 @@ public class SQLConnector {
 				result.put(rs.getString("exercise_name"), result.getOrDefault(rs.getString("exercise_name"), 0) + rs.getTime("time").getMinutes() + rs.getTime("time").getHours()*60);
 			}	
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return result;
 	}
+	public static int getDistanceRun(int client_id, String date) throws SQLException {
+		String sql = String.format("SELECT SUM(distance) AS distance_sum FROM Endurance_Exercise INNER JOIN Session ON (Endurance_Exercise.session_id = Session.session_id) WHERE client_id = %s AND date >= %s", client_id, date);
+		ResultSet rs = getResultSet(sql);
+		if(rs.next()) {
+			return rs.getInt("distance_sum");
+		}
+		return 0;
+	}
 	
+	public static void main(String[] args) {
+		try {
+			System.out.println(getDistanceRun(6, "2018-01-01"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
 

@@ -37,6 +37,7 @@
                       <AnchorPane style="-fx-background-color: white;" minHeight="0.0" minWidth="0.0" prefHeight="596.0" prefWidth="335.0">
                            <children>
                               <PieChart fx:id="piechart" layoutY="21.0" prefHeight="246.0" prefWidth="344.0" />
+                               <!--<fx:include fx:id="distanceBar" source="DistanceBar.fxml" />-->
                            </children>
                         </AnchorPane>
                     </items>

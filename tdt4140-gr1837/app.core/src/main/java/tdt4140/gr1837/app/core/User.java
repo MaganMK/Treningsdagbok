@@ -91,7 +91,11 @@ public class User {
 			return new ArrayList<>();
 		}
 	}
-
+	
+	public int getProgress() {
+		return 0;
+	}
+	
 	public List<StrengthExercise> getStrengthExercise(String name) {
 		try {
 			return SQLConnector.getStrengthExercises(name, this.id);
