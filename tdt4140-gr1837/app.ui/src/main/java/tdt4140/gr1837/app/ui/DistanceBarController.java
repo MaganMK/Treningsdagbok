@@ -14,7 +14,7 @@ public class DistanceBarController {
 		this.distanceBar.setLayoutY(507);
 	}
 	
-	public void setProgress() {
+	public void setProgress(int progress) {
 		
 	}
 }
