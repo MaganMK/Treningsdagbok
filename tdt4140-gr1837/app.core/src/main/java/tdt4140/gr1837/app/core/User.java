@@ -72,14 +72,17 @@ public class User {
 			sessions = new ArrayList<Session>();
 		}
 		for (Session session : sessions) {
+			if(session.isStrength()){
 			try {
 				exercises.addAll(SQLConnector.getAllExercises(session.getId(), session.isStrength()));
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			}
 		}
 		return exercises;
 	}
+
 
 	public List<Session> getSessions() {
 		try {
