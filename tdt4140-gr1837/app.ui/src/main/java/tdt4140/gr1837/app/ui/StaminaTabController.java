@@ -29,7 +29,7 @@ public class StaminaTabController {
 	// Setter oppsokt bruker i tekstfelt
 	public void setUser(User user) {
 		//clientName.setText(user.getName());
-		staminaChartController.setUser(user);
+		clientName.setText(user.getName());
 		updatePieChart(user);
 	}
 	
