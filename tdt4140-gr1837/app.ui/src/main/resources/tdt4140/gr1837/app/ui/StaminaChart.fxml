@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import org.controlsfx.control.CheckListView?>
+
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="665.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.StaminaChartController">
+	<children>
+	   <RadioButton fx:id="averageSpeedRadioButton" layoutX="15.0" layoutY="75.0" mnemonicParsing="false" onAction="#handleRadioButtons" text="Gjennomsnittsfart">
+	      <toggleGroup>
+	         <ToggleGroup fx:id="dataRepresentation" />
+	      </toggleGroup>
+	   </RadioButton>
+	   <LineChart fx:id="staminaChart" layoutX="145.0" layoutY="45.0" prefHeight="473.0" prefWidth="503.0">
+	     <xAxis>
+	       <NumberAxis prefWidth="456.0" side="BOTTOM" fx:id="xAxis" />
+	     </xAxis>
+	     <yAxis>
+	       <NumberAxis side="LEFT" />
+	     </yAxis>
+	   </LineChart>
+	   <CheckListView fx:id="checkList" layoutX="8.0" layoutY="180.0" prefHeight="361.0" prefWidth="149.0" style="-fx-background-color: transparent;" stylesheets="@style.css" />
+	   <RadioButton fx:id="distanceRadioButton" layoutX="15.0" layoutY="100.0" mnemonicParsing="false" onAction="#handleRadioButtons" text="Distanse" toggleGroup="$dataRepresentation" />
+	   <RadioButton fx:id="timeRadioButton" layoutX="15.0" layoutY="125.0" mnemonicParsing="false" onAction="#handleRadioButtons" text="Tid" toggleGroup="$dataRepresentation" />
+	   <Label layoutX="15.0" layoutY="50.0" text="Datarepresentasjon" />
+	   <Label layoutX="17.0" layoutY="160.0" text="Øvelse" />
+	</children>
+</AnchorPane>

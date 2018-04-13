@@ -52,7 +52,7 @@
                               <CheckListView fx:id="checkList" layoutX="8.0" layoutY="150.0" prefHeight="361.0" prefWidth="149.0" style="-fx-background-color: transparent;" stylesheets="@style.css" />
                               <RadioButton fx:id="weightVolumeRadioButton" layoutX="15.0" layoutY="98.0" mnemonicParsing="false" onAction="#handleRadioButtons" text="Vektvolum" toggleGroup="$dataRepresentation" />
                               <Label layoutX="15.0" layoutY="55.0" text="Datarepresentasjon" />
-                              <Label layoutX="17.0" layoutY="130.0" text="Exercise" />
+                              <Label layoutX="17.0" layoutY="130.0" text="Øvelse" />
                            </children>
                         </AnchorPane>
                       <AnchorPane fx:id="musclemanPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">

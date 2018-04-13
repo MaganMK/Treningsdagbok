@@ -59,5 +59,13 @@ public class UserTest {
 		assertTrue(user.getWeeklyTrainingFrequency() >= 0);
 	}
 	
+	@Test
+	public void testGetEnduranceExercises()
+	{
+		User user = UserDatabase.getUser("Mohammad Bonner");
+		assertTrue(user.getEnduranceExercises().size() >= 0);
+		assertTrue(user.getEnduranceExercise("5,0km løping").size() >= 0);
+	}
+	
 
 }

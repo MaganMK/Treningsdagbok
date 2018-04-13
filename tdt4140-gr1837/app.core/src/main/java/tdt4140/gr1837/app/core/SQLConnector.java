@@ -168,7 +168,7 @@ public class SQLConnector {
 	}
 	
 	// Metode for aa hente utholdenhetsovelser
-	private static List<EnduranceExercise> getEnduranceExercises(int sessionId) throws SQLException{
+	public static List<EnduranceExercise> getEnduranceExercises(int sessionId) throws SQLException{
 		List<EnduranceExercise> enduranceExercises = new ArrayList<>();
 		ResultSet rs = getResultSet("SELECT * FROM Endurance_Exercise NATURAL JOIN General_Endurance_Exercise WHERE session_id="+sessionId);
 		EnduranceExercise enduranceExercise;
@@ -178,6 +178,24 @@ public class SQLConnector {
 		}
 		return enduranceExercises;
 	}
+  
+  public static List<EnduranceExercise> getEnduranceExercises(String exerciseName, int userID) throws SQLException{
+		try {
+			List<EnduranceExercise> enduranceExercises = new ArrayList<>();
+			ResultSet rs = getResultSet("SELECT * FROM `Endurance_Exercise` NATURAL JOIN `General_Endurance_Exercise` INNER JOIN `Session` "
+					+ " ON (`Session`.`session_id` = Endurance_Exercise.session_id)"
+					+ " WHERE exercise_name =" + "\"" +exerciseName+ "\"" + "AND client_id=" + userID);
+			while(rs.next()) {
+				EnduranceExercise enduranceExercise = new EnduranceExercise(rs.getString("exercise_name"), rs.getString("note"), rs.getInt("distance"), rs.getTime("time"));
+				enduranceExercise.setSessionId(rs.getInt("session_id"));
+				enduranceExercises.add(enduranceExercise);
+			}
+			return enduranceExercises;
+		} catch (SQLException e1) {
+			throw e1;
+		}
+	}
+
 	
 	// Metode for aa hente oktene
 	public static List<Session> getSessions(int id) throws SQLException {
@@ -315,7 +333,7 @@ public class SQLConnector {
 				String.format("INSERT INTO Exercise (exercise_name, exercise_id) VALUES('%s', %d)", name, exerciseId));
 	}
 		
-	//returns the feedback of session with id= id
+	//returns the feedback of session with id= ida
 	public static String getFeedback(int id) {
 		String feedback = null;
 		try {
@@ -367,3 +385,4 @@ public class SQLConnector {
 	}
 	
 }
+
