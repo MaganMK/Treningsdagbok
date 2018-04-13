@@ -13,21 +13,39 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.control.CheckListView?>
+<?import javafx.scene.chart.PieChart?>
 
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller = "tdt4140.gr1837.app.ui.StaminaTabController">
+<AnchorPane stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.StaminaTabController">
 	<children>
-      <Pane fx:id="pane" prefHeight="700" prefWidth="1000">
-      	<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: white;">
-             <children>
-                <SplitPane dividerPositions="0.6693386773547094" layoutY="1.0" minHeight="0.0" minWidth="0.0" prefHeight="583.0" prefWidth="1000.0" style="-fx-background-color: white;">
-                  <items>
-                    <fx:include fx:id="staminaChart" source="StaminaChart.fxml" />
-   				  </items>
-   				</SplitPane>
-   			  </children>
-   			</AnchorPane>
-   		  </Pane>
-	</children>
+      <SplitPane dividerPositions="0.08882521489971347" orientation="VERTICAL" prefHeight="700.0" prefWidth="1000.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <Text fx:id="clientName" layoutX="35.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="166.21875" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <SplitPane dividerPositions="0.6516290726817042" layoutX="-2.0" layoutY="-2.0" prefHeight="632.0" prefWidth="1000.0">
+                    <items>
+                      <AnchorPane style="-fx-background-color: white;" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                      		<children>
+                      		 	<fx:include fx:id="staminaChart" source="StaminaChart.fxml" />
+                      		</children>
+                      	</AnchorPane>
+                      <AnchorPane style="-fx-background-color: white;" minHeight="0.0" minWidth="0.0" prefHeight="596.0" prefWidth="335.0">
+                           <children>
+                              <PieChart fx:id="piechart" layoutY="21.0" prefHeight="246.0" prefWidth="344.0" />
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
 </AnchorPane>
+
 
