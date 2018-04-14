@@ -92,8 +92,8 @@ public class User {
 		}
 	}
 	
-	public int getProgress() {
-		return 0;
+	public double getProgress() {
+		return 0.5;
 	}
 	
 	public List<StrengthExercise> getStrengthExercise(String name) {
