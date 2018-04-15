@@ -105,6 +105,11 @@
   -fx-alignment: CENTER;
 }
 
+#mostUsedList .list-cell{
+	-fx-alignment: CENTER;
+	
+}
+
 /*Tekstfelt med notat: fjerner kanter */
 .text-area {
     -fx-background-insets: 0;

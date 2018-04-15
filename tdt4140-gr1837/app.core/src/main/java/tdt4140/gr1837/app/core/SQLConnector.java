@@ -179,7 +179,12 @@ public class SQLConnector {
 		return enduranceExercises;
 	}
 	
-	// Metode for aa hente oktene
+	/**
+	 * Returnerer alle økter som oppgitt bruker id har gjennomført
+	 * @param brukerid
+	 * @return Liste med gjennomførte økter
+	 * @throws SQLException hvis noe går galt med sql queryen
+	 */
 	public static List<Session> getSessions(int id) throws SQLException {
 		try {
 			List<Session> sessions = new ArrayList<>();
@@ -209,6 +214,35 @@ public class SQLConnector {
 								rs.getBoolean("isStrength"));
 		}
 		throw new IllegalArgumentException("Okt med denne id-en finnes ikke");
+	}
+	
+	/**
+	 * Lager en tabell over hvor ofte en oovese har blitt gjort
+	 * @param id
+	 * @return tabell med oovelses navn og antall forekomster for en client
+	 * @throws SQLException hvis noe gaar galt med sql queryen
+	 */
+	public static List<String> mostUsedExercise(int id) {
+		try {
+			List<String> mostUsed = new ArrayList<>();
+			ResultSet rs = getResultSet("SELECT Exercise.exercise_name, count(exercise_name) as Antall\r\n" + 
+					"FROM((Session JOIN Strength_Exercise ON Strength_Exercise.session_id = Session.session_id)\r\n" + 
+					"               JOIN Exercise ON Strength_Exercise.exercise_id = Exercise.exercise_id)\r\n" + 
+					"               WHERE Session.client_id ="+ id +"\r\n" + 
+					"               GROUP by exercise_name  \r\n" + 
+					"ORDER BY `antall`  DESC");
+			while(rs.next()) {
+				String current = rs.getString("exercise_name");
+				mostUsed.add(current);
+			}
+			return mostUsed;
+		} catch (SQLException e1) {
+			try {
+				throw e1;
+			} catch (SQLException e) {
+				return new ArrayList<>();
+			}
+		}
 	}
 	
 	// Metode for aa opprette en okt

@@ -15,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -30,6 +31,7 @@ import tdt4140.gr1837.app.core.Session;
 
 public class ProfileTabController {
 
+	
 	// Elementer i ProfileTab.fxml
 	@FXML private Tab profileTab;
 	@FXML private Text clientName, ageField, phoneNumberField, motivationField, userFeedback, trainingFrequency;
@@ -40,6 +42,7 @@ public class ProfileTabController {
 	@FXML private Text note;
 	@FXML private TextArea feedback;
 	@FXML private Button submit;
+	@FXML private JFXListView<String> mostUsedList;
 
 
 	private List<Session> sessions;
@@ -84,6 +87,7 @@ public class ProfileTabController {
 		configureFeedback();
 		setSessions(user);
 		showFirstExercise();
+		updateMostUsedTable(user);
 	}
 
 	private void setSessions(User user) {
@@ -253,4 +257,20 @@ public class ProfileTabController {
 		ft.setToValue(0);
 		ft.play();
 	}
+	
+	
+	private void updateMostUsedTable(User user){
+		List<String> mostUsedExercises = user.getMostUsedExercises();
+		System.out.println(mostUsedExercises);
+		mostUsedList.setItems(FXCollections.observableArrayList(mostUsedExercises));
+
+	}
 }
+
+
+
+
+
+
+
+

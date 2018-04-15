@@ -129,4 +129,11 @@ public class User {
 		}
 		return Double.valueOf(result);
 	}
+	
+	public List<String> getMostUsedExercises(){
+		List<String> mostUsed = SQLConnector.mostUsedExercise(id);
+		mostUsed = mostUsed.subList(0, 3);
+		return mostUsed;
+	}
+	
 }
