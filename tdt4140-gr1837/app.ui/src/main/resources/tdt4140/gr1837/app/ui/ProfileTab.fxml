@@ -35,7 +35,7 @@
                   <AnchorPane layoutX="797.0" layoutY="4.0" prefHeight="151.0" prefWidth="200.0">
                      <children>
                         <JFXListView fx:id="mostUsedList" layoutY="33.0" prefHeight="118.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0"/>
-                        <Text layoutX="36.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Top 3 styrkeøvelser" textAlignment="CENTER" wrappingWidth="128.05470824241638">
+                        <Text layoutX="36.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Topp 3 styrkeøvelser" textAlignment="CENTER" wrappingWidth="128.05470824241638">
                            <font>
                               <Font size="15.0" />
                            </font>
