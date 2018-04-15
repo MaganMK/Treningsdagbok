@@ -37,9 +37,19 @@ public class HTTPServerTest {
 			fail();
 		}
 	}
-
+	
+	// Okttester
+	
 	@Test
-	public void testCreateSession() throws ClientProtocolException, IOException {
+	public void testCreateGetDeleteSession() throws ClientProtocolException, IOException {
+		int id = testCreateSession();
+		testGetSession(id);
+		testDeleteSession(id);
+		testGetSessionWithNonexcistingID(id);
+		
+	}
+
+	private int testCreateSession() throws ClientProtocolException, IOException {
 		String postUrl = "http://localhost:8000/session";
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(postUrl);
@@ -48,13 +58,19 @@ public class HTTPServerTest {
 		post.setHeader("Content-type", "application/json");
 		HttpResponse response = httpClient.execute(post);
 
-		String s = EntityUtils.toString(response.getEntity());
-
-		assertTrue(Integer.parseInt(s) > 0);
-
 		int statusCode = response.getStatusLine().getStatusCode();
 		assertEquals(CREATED, statusCode);
-
+		
+		return Integer.parseInt(EntityUtils.toString(response.getEntity()));
+	}
+	
+	private void testDeleteSession(int id) throws ClientProtocolException, IOException {
+		String deleteUrl = "http://localhost:8000/session/"+id;
+		HttpClient httpClient = HttpClientBuilder.create().build();
+		HttpDelete delete = new HttpDelete(deleteUrl);
+		HttpResponse response = httpClient.execute(delete);
+		System.out.println(response.getEntity());
+		assertEquals(OK, response.getStatusLine().getStatusCode());
 	}
 
 	@Test
@@ -71,9 +87,8 @@ public class HTTPServerTest {
 		assertEquals(BAD_REQUEST, statusCode);
 	}
 
-	@Test
-	public void testGetSession() throws ClientProtocolException, IOException {
-		String getUrl = "http://localhost:8000/session/5";
+	private void testGetSession(int id) throws ClientProtocolException, IOException {
+		String getUrl = "http://localhost:8000/session/"+id;
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpGet get = new HttpGet(getUrl);
 		get.setHeader("Content-type", "application/json");
@@ -82,12 +97,11 @@ public class HTTPServerTest {
 		int statusCode = response.getStatusLine().getStatusCode();
 		assertEquals(OK, statusCode);
 		String s = EntityUtils.toString(response.getEntity());
-		assertEquals(5, Integer.parseInt(extractInfoFromResponse(s).get("id")));
+		assertEquals(id, Integer.parseInt(extractInfoFromResponse(s).get("id")));
 	}
 
-	@Test
-	public void testGetSessionWithNonexcistingID() throws ClientProtocolException, IOException {
-		String getUrl = "http://localhost:8000/session/750";
+	private void testGetSessionWithNonexcistingID(int id) throws ClientProtocolException, IOException {
+		String getUrl = "http://localhost:8000/session/"+id;
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpGet get = new HttpGet(getUrl);
 		get.setHeader("Content-type", "application/json");
@@ -97,8 +111,6 @@ public class HTTPServerTest {
 		assertEquals(NOT_FOUND, statusCode);
 	}
 
-	// Hittil er det lovlig aa legge til negative id'er i databasen, men det er ikke
-	// "lov"..
 	@Test
 	public void testGetSessionWithIllegalID() throws ClientProtocolException, IOException {
 		String getUrl = "http://localhost:8000/session/-69";
@@ -110,6 +122,10 @@ public class HTTPServerTest {
 		int statusCode = response.getStatusLine().getStatusCode();
 		assertEquals(NOT_FOUND, statusCode);
 	}
+	
+	
+	
+	// Klienttester
 
 	@Test
 	public void testCreateGetUpdateDeleteClient() throws ClientProtocolException, IOException {
@@ -197,6 +213,9 @@ public class HTTPServerTest {
 		assertEquals(OK, response.getStatusLine().getStatusCode());
 	}
 
+	
+	// Styrkeovelsetester
+	
 	@Test
 	public void testCreateGetUpdateDeleteStrengthExercise() throws ClientProtocolException, IOException {
 		int sessionId = 1;
@@ -259,14 +278,18 @@ public class HTTPServerTest {
 		assertEquals(OK, statusCode);
 	}
 	
+	
+	// Utholdenhetstester
+	
 	@Test
-	public void testCreateGetDeleteEnduranceExercise() throws ClientProtocolException, IOException {
+	public void testCreateGetUpdateDeleteEnduranceExercise() throws ClientProtocolException, IOException {
 		int sessionId = 425;
 		int count = testGetEnduranceExercise(sessionId);
 		int id = testCreateEnduranceExercise(sessionId);
 		assertEquals(count + 1, testGetEnduranceExercise(sessionId));
 		testUpdateEnduranceExercise(id);
 		testDeleteEnduranceExercise(id);
+		System.out.println(count + "  " + testGetEnduranceExercise(sessionId));
 		assertEquals(count, testGetEnduranceExercise(sessionId));
 	}
 	

@@ -155,6 +155,8 @@ public class HTTPServer {
 				get(ex);
 			} else if (ex.getRequestMethod().equals("POST")) {
 				post(ex);
+			} else if (ex.getRequestMethod().equals("DELETE")) {
+				delete(ex);
 			}
 		}
 
@@ -185,6 +187,19 @@ public class HTTPServer {
 				sendResponse(ex, "Ugyldig format paa okt-id", 400);
 			} catch (IllegalArgumentException e) {
 				sendResponse(ex, e.getMessage(), 404);
+			} catch (SQLException e) {
+				sendResponse(ex, e.getMessage(), 503);
+			}
+		}
+		
+		private void delete(HttpExchange ex) {
+			// Sletter en okt. Kalles ved DELETE /session/id
+			String exerciseId = ex.getRequestURI().toString().split("/")[2];
+			try {
+				SQLConnector.deleteSession(Integer.parseInt(exerciseId));
+				sendResponse(ex, exerciseId, 200);
+			} catch (NumberFormatException e) {
+				sendResponse(ex, "Ugyldig exercise-id", 400);
 			} catch (SQLException e) {
 				sendResponse(ex, e.getMessage(), 503);
 			}

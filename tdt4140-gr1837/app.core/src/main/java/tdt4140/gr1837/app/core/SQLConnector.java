@@ -118,7 +118,7 @@ public class SQLConnector {
 		return enduranceExerciseId;
 	}
 
-	// Metode for aa slette en bruker
+	// Metode for aa slette en ovelse
 	public static void deleteEnduranceExercise(int exerciseId) throws SQLException {
 		Connection conn = SQLConnector.getConnection();
 		Statement statement = conn.createStatement();
@@ -191,7 +191,7 @@ public class SQLConnector {
 	}
 
 	// Metode for aa hente utholdenhetsovelser
-	private static List<EnduranceExercise> getEnduranceExercises(int sessionId) throws SQLException {
+	public static List<EnduranceExercise> getEnduranceExercises(int sessionId) throws SQLException {
 		List<EnduranceExercise> enduranceExercises = new ArrayList<>();
 		ResultSet rs = getResultSet(
 				"SELECT * FROM Endurance_Exercise NATURAL JOIN General_Endurance_Exercise WHERE session_id="
@@ -257,6 +257,13 @@ public class SQLConnector {
 		statement.executeUpdate(String.format("INSERT INTO Session VALUES(%d, '%s', '%s', %d, %b)", clientId, date,
 				note, sessionId, isStrength));
 		return sessionId;
+	}
+	
+	// Metode for aa slette en okt
+	public static void deleteSession(int sessionId) throws SQLException {
+		Connection conn = SQLConnector.getConnection();
+		Statement statement = conn.createStatement();
+		statement.executeUpdate("DELETE FROM Session WHERE session_id=" + sessionId);
 	}
 
 	// Kaller på metoden over, for default isStrength=true
