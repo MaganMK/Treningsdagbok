@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
@@ -33,15 +34,23 @@ public class HTTPServerTest {
 		try {
 			HTTPServer.initialize();
 		} catch (Exception e) {
-			e.printStackTrace();
-			// fail();
+			fail();
 		}
 	}
-
+	
+	// Okttester
+	
 	@Test
-	public void testCreateSession() throws ClientProtocolException, IOException {
+	public void testCreateGetDeleteSession() throws ClientProtocolException, IOException {
+		int id = testCreateSession();
+		testGetSession(id);
+		testDeleteSession(id);
+		testGetSessionWithNonexcistingID(id);
+		
+	}
+
+	private int testCreateSession() throws ClientProtocolException, IOException {
 		String postUrl = "http://localhost:8000/session";
-		Gson gson = new Gson();
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(postUrl);
 		StringEntity postingString = new StringEntity("clientID=4&date=2017-10-10&note=me", "utf-8");
@@ -49,19 +58,24 @@ public class HTTPServerTest {
 		post.setHeader("Content-type", "application/json");
 		HttpResponse response = httpClient.execute(post);
 
-		String s = EntityUtils.toString(response.getEntity());
-
-		assertTrue(Integer.parseInt(s) > 0);
-
 		int statusCode = response.getStatusLine().getStatusCode();
 		assertEquals(CREATED, statusCode);
-
+		
+		return Integer.parseInt(EntityUtils.toString(response.getEntity()));
+	}
+	
+	private void testDeleteSession(int id) throws ClientProtocolException, IOException {
+		String deleteUrl = "http://localhost:8000/session/"+id;
+		HttpClient httpClient = HttpClientBuilder.create().build();
+		HttpDelete delete = new HttpDelete(deleteUrl);
+		HttpResponse response = httpClient.execute(delete);
+		System.out.println(response.getEntity());
+		assertEquals(OK, response.getStatusLine().getStatusCode());
 	}
 
 	@Test
 	public void testCreateSessionWrongClientId() throws ClientProtocolException, IOException {
 		String postUrl = "http://localhost:8000/session";
-		Gson gson = new Gson();
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(postUrl);
 		StringEntity postingString = new StringEntity("clientID=kevin&date=2017-10-10&note=me", "utf-8");
@@ -73,9 +87,8 @@ public class HTTPServerTest {
 		assertEquals(BAD_REQUEST, statusCode);
 	}
 
-	@Test
-	public void testGetSession() throws ClientProtocolException, IOException {
-		String getUrl = "http://localhost:8000/session/5";
+	private void testGetSession(int id) throws ClientProtocolException, IOException {
+		String getUrl = "http://localhost:8000/session/"+id;
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpGet get = new HttpGet(getUrl);
 		get.setHeader("Content-type", "application/json");
@@ -84,12 +97,11 @@ public class HTTPServerTest {
 		int statusCode = response.getStatusLine().getStatusCode();
 		assertEquals(OK, statusCode);
 		String s = EntityUtils.toString(response.getEntity());
-		assertEquals(5, Integer.parseInt(extractInfoFromResponse(s).get("id")));
+		assertEquals(id, Integer.parseInt(extractInfoFromResponse(s).get("id")));
 	}
 
-	@Test
-	public void testGetSessionWithNonexcistingID() throws ClientProtocolException, IOException {
-		String getUrl = "http://localhost:8000/session/750";
+	private void testGetSessionWithNonexcistingID(int id) throws ClientProtocolException, IOException {
+		String getUrl = "http://localhost:8000/session/"+id;
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpGet get = new HttpGet(getUrl);
 		get.setHeader("Content-type", "application/json");
@@ -99,8 +111,6 @@ public class HTTPServerTest {
 		assertEquals(NOT_FOUND, statusCode);
 	}
 
-	// Hittil er det lovlig aa legge til negative id'er i databasen, men det er ikke
-	// "lov"..
 	@Test
 	public void testGetSessionWithIllegalID() throws ClientProtocolException, IOException {
 		String getUrl = "http://localhost:8000/session/-69";
@@ -112,29 +122,38 @@ public class HTTPServerTest {
 		int statusCode = response.getStatusLine().getStatusCode();
 		assertEquals(NOT_FOUND, statusCode);
 	}
+	
+	
+	
+	// Klienttester
 
 	@Test
-	public void testCreateClient() throws ClientProtocolException, IOException {
+	public void testCreateGetUpdateDeleteClient() throws ClientProtocolException, IOException {
+		int id = testCreateClient();
+		testGetClient(id);
+		testUpdateClient(id);
+		testDeleteClient(id);
+	}
+	
+	private int testCreateClient() throws ClientProtocolException, IOException {
 		String postUrl = "http://localhost:8000/clients";
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(postUrl);
 		StringEntity postingString = new StringEntity(
-				"name=Lise&phone=12345678&age=17&motivation=sugardaddy&trainerID=2", "utf-8");
+				"name=Lise&phone=12345678&age=17&motivation=sugardaddy&trainerID=2&distancegoal=200", "utf-8");
 
 		post.setEntity(postingString);
 		post.setHeader("Content-type", "application/json");
 		HttpResponse response = httpClient.execute(post);
 
-		String s = EntityUtils.toString(response.getEntity());
-		assertTrue(Integer.parseInt(s) > 0);
-
 		int statusCode = response.getStatusLine().getStatusCode();
 		assertEquals(CREATED, statusCode);
+		
+		return Integer.parseInt(EntityUtils.toString(response.getEntity()));
 	}
 
-	@Test
-	public void testGetClient() throws ClientProtocolException, IOException {
-		String getUrl = "http://localhost:8000/clients/5";
+	private void testGetClient(int id) throws ClientProtocolException, IOException {
+		String getUrl = "http://localhost:8000/clients/"+id;
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpGet get = new HttpGet(getUrl);
 		get.setHeader("Content-type", "application/json");
@@ -144,7 +163,7 @@ public class HTTPServerTest {
 		assertEquals(OK, statusCode);
 
 		String s = EntityUtils.toString(response.getEntity());
-		assertEquals(5, Integer.parseInt(extractInfoFromResponse(s).get("id")));
+		assertEquals(id, Integer.parseInt(extractInfoFromResponse(s).get("id")));
 	}
 
 	@Test
@@ -171,48 +190,69 @@ public class HTTPServerTest {
 		assertEquals(BAD_REQUEST, statusCode);
 	}
 
-	@Test
-	public void testPutClient() throws ClientProtocolException, IOException {
-		String putUrl = "http://localhost:8000/clients/55";
+	private void testUpdateClient(int id) throws ClientProtocolException, IOException {
+		String putUrl = "http://localhost:8000/clients/"+id;
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPut put = new HttpPut(putUrl);
 		StringEntity puttingString = new StringEntity(
-				"name=Lise&phone=12345678&age=17&motivation=sugardaddy&trainerID=2", "utf-8");
+				"name=Lise&phone=12345678&age=17&motivation=sugardaddy&trainerID=2&distancegoal=2000", "utf-8");
 
 		put.setEntity(puttingString);
 		put.setHeader("Content-type", "application/json");
 		HttpResponse response = httpClient.execute(put);
 
-		String s = EntityUtils.toString(response.getEntity());
-		assertTrue(Integer.parseInt(s) > 0);
-
 		int statusCode = response.getStatusLine().getStatusCode();
 		assertEquals(OK, statusCode);
 	}
+	
+	private void testDeleteClient(int id) throws ClientProtocolException, IOException {
+		String deleteUrl = "http://localhost:8000/clients/"+id;
+		HttpClient httpClient = HttpClientBuilder.create().build();
+		HttpDelete delete = new HttpDelete(deleteUrl);
+		HttpResponse response = httpClient.execute(delete);
+		assertEquals(OK, response.getStatusLine().getStatusCode());
+	}
 
+	
+	// Styrkeovelsetester
+	
 	@Test
-	public void testCreateStrengthExercise() throws ClientProtocolException, IOException {
-		String postUrl = "http://localhost:8000/exercise";
+	public void testCreateGetUpdateDeleteStrengthExercise() throws ClientProtocolException, IOException {
+		int sessionId = 1;
+		int count = testGetStrengthExercises(sessionId);
+		int id = testCreateStrengthExercise(sessionId);
+		assertEquals(count + 1, testGetStrengthExercises(sessionId));
+		testUpdateStrengthExercise(id);
+		testDeleteStrengthExercise(id);
+		assertEquals(count, testGetStrengthExercises(sessionId));
+	}
+	
+	private void testDeleteStrengthExercise(int id) throws ClientProtocolException, IOException {
+		String deleteUrl = "http://localhost:8000/exercise/strength/" + id;
+		HttpClient httpClient = HttpClientBuilder.create().build();
+		HttpDelete delete = new HttpDelete(deleteUrl);
+		HttpResponse response = httpClient.execute(delete);
+		assertEquals(OK, response.getStatusLine().getStatusCode());
+	}
+
+	private int testCreateStrengthExercise(int sessionId) throws ClientProtocolException, IOException {
+		String postUrl = "http://localhost:8000/exercise/strength";
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(postUrl);
-		StringEntity postingString = new StringEntity("reps=4&sett=3&weight=17&note=dritbra&sessionId=1&exerciseId=6",
+		StringEntity postingString = new StringEntity("reps=4&sett=3&weight=17&note=dritbra&sessionId="+sessionId+"&exerciseId=6",
 				"utf-8");
-
 		post.setEntity(postingString);
 		post.setHeader("Content-type", "application/json");
 		HttpResponse response = httpClient.execute(post);
 
-		String s = EntityUtils.toString(response.getEntity());
-		System.out.println(s);
-		assertTrue(Integer.parseInt(s) > 0);
-
 		int statusCode = response.getStatusLine().getStatusCode();
 		assertEquals(CREATED, statusCode);
+		
+		return Integer.parseInt(EntityUtils.toString(response.getEntity()));
 	}
 
-	@Test
-	public void testGetExercises() throws ClientProtocolException, IOException {
-		String getUrl = "http://localhost:8000/exercise/5";
+	private int testGetStrengthExercises(int sessionId) throws ClientProtocolException, IOException {
+		String getUrl = "http://localhost:8000/exercise/strength/"+sessionId;
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpGet get = new HttpGet(getUrl);
 		get.setHeader("Content-type", "application/json");
@@ -220,8 +260,105 @@ public class HTTPServerTest {
 
 		int statusCode = response.getStatusLine().getStatusCode();
 		assertEquals(OK, statusCode);
+		return EntityUtils.toString(response.getEntity()).split("}").length;
+	}
+	
+	private void testUpdateStrengthExercise(int id) throws ClientProtocolException, IOException {
+		String putUrl = "http://localhost:8000/exercise/strength/"+id;
+		HttpClient httpClient = HttpClientBuilder.create().build();
+		HttpPut put = new HttpPut(putUrl);
+		StringEntity puttingString = new StringEntity(
+				"reps=4&sett=3&weight=17&note=dritbra&exercise=6", "utf-8");
+
+		put.setEntity(puttingString);
+		put.setHeader("Content-type", "application/json");
+		HttpResponse response = httpClient.execute(put);
+
+		int statusCode = response.getStatusLine().getStatusCode();
+		assertEquals(OK, statusCode);
+	}
+	
+	
+	// Utholdenhetstester
+	
+	@Test
+	public void testCreateGetUpdateDeleteEnduranceExercise() throws ClientProtocolException, IOException {
+		int sessionId = 425;
+		int count = testGetEnduranceExercise(sessionId);
+		int id = testCreateEnduranceExercise(sessionId);
+		assertEquals(count + 1, testGetEnduranceExercise(sessionId));
+		testUpdateEnduranceExercise(id);
+		testDeleteEnduranceExercise(id);
+		System.out.println(count + "  " + testGetEnduranceExercise(sessionId));
+		assertEquals(count, testGetEnduranceExercise(sessionId));
+	}
+	
+	private int testCreateEnduranceExercise(int sessionId) throws ClientProtocolException, IOException {
+		String postUrl = "http://localhost:8000/exercise/endurance";
+		HttpClient httpClient = HttpClientBuilder.create().build();
+		HttpPost post = new HttpPost(postUrl);
+		StringEntity postingString = new StringEntity("distance=4&time=3000&note=yahoo&sessionId="+sessionId+"&exerciseId=1",
+				"utf-8");
+
+		post.setEntity(postingString);
+		post.setHeader("Content-type", "application/json");
+		HttpResponse response = httpClient.execute(post);
+
+		int statusCode = response.getStatusLine().getStatusCode();
+		assertEquals(CREATED, statusCode);
+		
+		return Integer.parseInt(EntityUtils.toString(response.getEntity()));
+	}
+	
+	private int testGetEnduranceExercise(int sessionId) throws ClientProtocolException, IOException {
+		String getUrl = "http://localhost:8000/exercise/endurance/" + sessionId;
+		HttpClient httpClient = HttpClientBuilder.create().build();
+		HttpGet get = new HttpGet(getUrl);
+		get.setHeader("Content-type", "application/json");
+		HttpResponse response = httpClient.execute(get);
+
+		int statusCode = response.getStatusLine().getStatusCode();
+		assertEquals(OK, statusCode);
+		
+		return EntityUtils.toString(response.getEntity()).split("}").length;
 	}
 
+	@Test 
+	public void testGetEnduranceExerciseWithIllegalId() throws ClientProtocolException, IOException {
+		String getUrl = "http://localhost:8000/exercise/endurance/seks";
+		HttpClient httpClient = HttpClientBuilder.create().build();
+		HttpGet get = new HttpGet(getUrl);
+		get.setHeader("Content-type", "application/json");
+		HttpResponse response = httpClient.execute(get);
+		
+		int statusCode = response.getStatusLine().getStatusCode();
+		assertEquals(BAD_REQUEST, statusCode);
+	}
+	
+	private void testDeleteEnduranceExercise(int id) throws ClientProtocolException, IOException {
+		String deleteUrl = "http://localhost:8000/exercise/endurance/" + id;
+		HttpClient httpClient = HttpClientBuilder.create().build();
+		HttpDelete delete = new HttpDelete(deleteUrl);
+		HttpResponse response = httpClient.execute(delete);
+		assertEquals(OK, response.getStatusLine().getStatusCode());
+	}
+	
+	private void testUpdateEnduranceExercise(int id) throws ClientProtocolException, IOException {
+		String putUrl = "http://localhost:8000/exercise/endurance/"+id;
+		HttpClient httpClient = HttpClientBuilder.create().build();
+		HttpPut put = new HttpPut(putUrl);
+		StringEntity puttingString = new StringEntity(
+				"distance=50&time=250&note=Ny+verdensrekord!+Woho&exerciseId=1", "utf-8");
+
+		put.setEntity(puttingString);
+		put.setHeader("Content-type", "application/json");
+		HttpResponse response = httpClient.execute(put);
+
+		int statusCode = response.getStatusLine().getStatusCode();
+		assertEquals(OK, statusCode);
+	}
+
+	
 	// Konverterer fra Json til map, der nokkel er variabelnavn
 	private Map<String, String> extractInfoFromResponse(String json) {
 		Gson gson = new Gson();

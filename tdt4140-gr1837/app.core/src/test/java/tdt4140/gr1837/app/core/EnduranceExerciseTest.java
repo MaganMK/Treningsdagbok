@@ -20,7 +20,19 @@ public class EnduranceExerciseTest {
 		assertTrue(5000 == exercise.getDistance());
 	}
 	
-
+	@Test
+	public void testExerciseSetters() {
+		exercise.setDistance(1000);
+		exercise.setName("100km");
+		exercise.setNote("Ble litt langt");
+		Time time = new Time(1000);
+		exercise.setTime(time);
+		
+		assertEquals(new Integer(1000), exercise.getDistance());
+		assertEquals("100km", exercise.getName());
+		assertEquals("Ble litt langt", exercise.getNote());
+		assertEquals(time, exercise.getTime());
+	}
 	
 	
 	@Test
@@ -41,5 +53,4 @@ public class EnduranceExerciseTest {
 		double time = exercise.getDistanceRepresantation();
 		assertTrue(5.0 == time);
 	}
-	
 }
