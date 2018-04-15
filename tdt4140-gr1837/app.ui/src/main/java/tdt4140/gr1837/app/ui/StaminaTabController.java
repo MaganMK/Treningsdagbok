@@ -17,7 +17,7 @@ public class StaminaTabController {
 	// Tekstfelt for a se hvilken bruker man er inne pa
 	@FXML Text clientName;
 	
-
+	// Controller for distanceBar
 	@FXML DistanceBarController distanceBarController;
 
 	// Managercontroller for kommunikasjon mellom controllers
@@ -38,7 +38,6 @@ public class StaminaTabController {
 		try {
 			distanceBarController.setProgress(user.getDistanceToRun(), user.getDistanceRun());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
