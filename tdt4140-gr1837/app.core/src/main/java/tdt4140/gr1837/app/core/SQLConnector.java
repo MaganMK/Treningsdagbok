@@ -400,14 +400,5 @@ public class SQLConnector {
 		}
 		return 0;
 	}
-	
-	public static void main(String[] args) {
-		try {
-			System.out.println(getDistanceRun(6, "2018-01-01"));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 }
 
