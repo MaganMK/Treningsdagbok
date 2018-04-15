@@ -1,17 +1,15 @@
 package tdt4140.gr1837.app.core;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.http.entity.StringEntity;
 
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
@@ -26,6 +24,7 @@ public class HTTPServer {
 		server = HttpServer.create(new InetSocketAddress(8000), 0);
 		server.createContext("/session", new SessionHandler());
 		server.createContext("/clients", new ClientHandler());
+		server.createContext("/exercise/endurance", new EnduranceExerciceHandler());
 		server.createContext("/exercise", new ExerciseHandler());
 		server.setExecutor(null); // creates a default executor
 		server.start();
@@ -137,7 +136,6 @@ public class HTTPServer {
 
 		private void delete(HttpExchange ex) {
 			// Sletter en ovelse. Kalles ved DELETE /exercise/id
-			Map<String, String> params = getParams(ex);
 			String clientId = ex.getRequestURI().toString().split("/")[2];
 			try {
 				SQLConnector.deleteUser(Integer.parseInt(clientId));
@@ -191,6 +189,86 @@ public class HTTPServer {
 				sendResponse(ex, e.getMessage(), 503);
 			}
 		}
+	}
+
+	static class EnduranceExerciceHandler implements HttpHandler {
+
+		@Override
+		public void handle(HttpExchange ex) throws IOException {
+			if (ex.getRequestMethod().equals("GET")) {
+				get(ex);
+			} else if (ex.getRequestMethod().equals("POST")) {
+				post(ex);
+			} else if (ex.getRequestMethod().equals("PUT")) {
+				update(ex);
+			} else if (ex.getRequestMethod().equals("DELETE")) {
+				delete(ex);
+			}
+		}
+
+		private void get(HttpExchange ex) {
+			// Faar en eksisterene ovelse. Kalles ved GET /exercise/endurance/session_id
+			String sessionId = ex.getRequestURI().toString().split("/")[3];
+			try {
+				List<Exercise> exercises = SQLConnector.getAllExercises(Integer.parseInt(sessionId), false);
+				Gson gson = new Gson();
+				String response = gson.toJson(exercises);
+				response = changeNorwegianLetters(response);
+				sendResponse(ex, response);
+			} catch (NumberFormatException e) {
+				sendResponse(ex, "Ugyldig format paa okt-id", 400);
+			} catch (IllegalArgumentException e) {
+				sendResponse(ex, e.getMessage(), 404);
+			} catch (SQLException e) {
+				sendResponse(ex, e.getMessage(), 503);
+			}
+		}
+
+		private void post(HttpExchange ex) {
+			// Lager en ny ovelse. Kalles om man faar en http request POST
+			// /exercise/endurance
+			Map<String, String> params = getParams(ex);
+			try {
+				int exerciseId = SQLConnector.createEnduranceExercise(Integer.parseInt(params.get("distance")),
+						new Time(Integer.parseInt(params.get("time"))), params.get("note"),
+						Integer.parseInt(params.get("sessionId")), Integer.parseInt(params.get("exerciseId")));
+				sendResponse(ex, Integer.toString(exerciseId), 201);
+			} catch (NumberFormatException e) {
+				sendResponse(ex, "Ugyldig klient-id", 400);
+			} catch (SQLException e) {
+				sendResponse(ex, e.getMessage(), 503);
+			}
+		}
+
+		private void update(HttpExchange ex) {
+			// Oppdaterer en ovelse. Kalles ved PUT /exercise/endurance/id
+			Map<String, String> params = getParams(ex);
+			String enduranceExerciseId = ex.getRequestURI().toString().split("/")[3];
+			try {
+				SQLConnector.updateEnduranceExercise(Integer.parseInt(params.get("distance")),
+						new Time(Integer.parseInt(params.get("time"))), params.get("note"),
+						Integer.parseInt(params.get("exerciseId")), Integer.parseInt(enduranceExerciseId));
+				sendResponse(ex, enduranceExerciseId, 200);
+			} catch (NumberFormatException e) {
+				sendResponse(ex, "Ugyldig verdi", 400);
+			} catch (SQLException e) {
+				sendResponse(ex, e.getMessage(), 503);
+			}
+		}
+
+		private void delete(HttpExchange ex) {
+			// Sletter en ovelse. Kalles ved DELETE /exercise/endurance/id
+			String exerciseId = ex.getRequestURI().toString().split("/")[3];
+			try {
+				SQLConnector.deleteEnduranceExercise(Integer.parseInt(exerciseId));
+				sendResponse(ex, exerciseId, 200);
+			} catch (NumberFormatException e) {
+				sendResponse(ex, "Ugyldig exercise-id", 400);
+			} catch (SQLException e) {
+				sendResponse(ex, e.getMessage(), 503);
+			}
+		}
+
 	}
 
 	static class ExerciseHandler implements HttpHandler {
@@ -262,7 +340,6 @@ public class HTTPServer {
 
 		private void delete(HttpExchange ex) {
 			// Sletter en ovelse. Kalles ved DELETE /exercise/id
-			Map<String, String> params = getParams(ex);
 			String exerciseId = ex.getRequestURI().toString().split("/")[2];
 			try {
 				SQLConnector.deleteStrengthExercise(Integer.parseInt(exerciseId));

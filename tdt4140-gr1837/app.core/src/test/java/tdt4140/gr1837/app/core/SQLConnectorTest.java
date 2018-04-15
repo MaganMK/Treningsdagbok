@@ -3,7 +3,7 @@ package tdt4140.gr1837.app.core;
 import static org.junit.Assert.*;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.sql.Time;
 import java.util.List;
 import java.util.Map;
 
@@ -47,32 +47,6 @@ public class SQLConnectorTest {
 		} catch (SQLException e) {
 			fail();
 		}
-	}
-
-	// Hardkoder data, endres naar insert-metode er implementert
-	@Test
-	public void testGetAllExercises() {
-		StrengthExercise testExercise = new StrengthExercise("Benkpress", "Benk hos meg(harvey)", 1, 1, 100);
-		List<Exercise> strengthExercises = new ArrayList<>();
-		try {
-			strengthExercises = SQLConnector.getAllExercises(1, true);
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-			// fail();
-		}
-		StrengthExercise lastExercise = null;
-		for (Exercise e : strengthExercises) {
-			if (e.getNote().equals("Benk hos meg(harvey)")) {
-				lastExercise = (StrengthExercise) e;
-			}
-		}
-		assertTrue(lastExercise != null);
-		assertEquals(testExercise.getRepetitions(), lastExercise.getRepetitions());
-		assertEquals(testExercise.getSet(), lastExercise.getSet());
-		assertEquals(testExercise.getWeight(), lastExercise.getWeight());
-		assertEquals(testExercise.getName(), lastExercise.getName());
-		assertEquals(testExercise.getNote(), lastExercise.getNote());
-		assertTrue(strengthExercises.size() > 0);
 	}
 
 	@Test
@@ -146,23 +120,20 @@ public class SQLConnectorTest {
 	}
 
 	@Test
-	public void testCreateGetUpdateDeleteExercise() {
+	public void testCreateGetUpdateDeleteStrengthExercise() {
 		try {
-			int index = SQLConnector.getStrengthExercises(1).size();
+			int index = SQLConnector.getAllExercises(1, true).size();
 			int exId = SQLConnector.createStrengthExercise(5, 5, 5, "God okt", 1, 1);
-			StrengthExercise exercise = SQLConnector.getStrengthExercises(1).get(index);
+			Exercise exercise = SQLConnector.getAllExercises(1, true).get(index);
 			assertTrue(exercise.getNote().equals("God okt"));
+			
 			SQLConnector.updateStrengthExercise(5, 5, 5, "Darlig okt", 1, exId);
-			exercise = SQLConnector.getStrengthExercises(1).get(index);
+			exercise = SQLConnector.getAllExercises(1, true).get(index);
 			assertTrue(exercise.getNote().equals("Darlig okt"));
+			
 			SQLConnector.deleteStrengthExercise(exId);
-			try {
-				assertTrue(!exercise.equals(SQLConnector.getStrengthExercises(1).get(index)));
-			} catch (Exception e) {
-
-			}
+			assertEquals(index, SQLConnector.getAllExercises(1, true).size());
 		} catch (SQLException e) {
-			e.printStackTrace();
 			fail();
 		}
 	}
@@ -176,4 +147,22 @@ public class SQLConnectorTest {
 		assertEquals("", SQLConnector.getFeedback(3));
 	}
 	
+	@Test
+	public void testCreateGetDeleteEnduranceExercise() {
+		try {
+			int index = SQLConnector.getAllExercises(425, false).size();
+			int exerciseId = SQLConnector.createEnduranceExercise(200, new Time(200), "Supersjapp", 425, 5);
+			Exercise exercise = SQLConnector.getAllExercises(425, false).get(index);
+			assertTrue(exercise.getNote().equals("Supersjapp"));
+			
+			SQLConnector.updateEnduranceExercise(200, new Time(200), "Supertreg", 5, exerciseId);
+			exercise = SQLConnector.getAllExercises(425, false).get(index);
+			assertTrue(exercise.getNote().equals("Supertreg"));
+			
+			SQLConnector.deleteEnduranceExercise(exerciseId);
+			assertEquals(index, SQLConnector.getAllExercises(425, false).size());
+		} catch (SQLException e) {
+			fail();
+		}
+	}
 }

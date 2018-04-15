@@ -79,30 +79,59 @@ public class SQLConnector {
 		}
 	}
 
-	// exercise_id i konstruktoren er fremmednokkel til ovelse-tabell som sier
+	// exerciseId i konstruktoren er fremmednokkel til ovelse-tabell som sier
 	// hvilken ovelse det er.
-	public static int createStrengthExercise(int reps, int sett, int weight, String note, int session_id,
-			int exercise_id) throws SQLException {
+	public static int createStrengthExercise(int reps, int sett, int weight, String note, int sessionId,
+			int exerciseId) throws SQLException {
 		Connection conn = SQLConnector.getConnection();
 		Statement statement = conn.createStatement();
-		int exerciseId = getMaximumIdFromDBPlusOneAlsoKnownAsNextID("strength_exercise_id", "Strength_Exercise"); // Attribut
+		int strengthExerciseId = getMaximumIdFromDBPlusOneAlsoKnownAsNextID("strength_exercise_id", "Strength_Exercise"); // Attribut
 																													// som
 																													// i
 																													// tabellen/databasen
 																													// heter
 																													// strength_exercise_id
 		statement.executeUpdate(String.format("INSERT INTO Strength_Exercise VALUES(%d, %d, %d, '%s', %d, %d, %d)",
-				reps, sett, weight, note, session_id, exercise_id, exerciseId));
-		return exerciseId;
+				reps, sett, weight, note, sessionId, exerciseId, strengthExerciseId));
+		return strengthExerciseId;
 	}
 
-	public static void updateStrengthExercise(int reps, int sett, int weight, String note, int exercise_id,
-			int strength_exercise_id) throws SQLException {
+	public static void updateStrengthExercise(int reps, int sett, int weight, String note, int exerciseId,
+			int strengthExerciseId) throws SQLException {
 		Connection conn = SQLConnector.getConnection();
 		Statement statement = conn.createStatement();
 		statement.executeUpdate(String.format(
 				"UPDATE Strength_Exercise SET reps=%d, sett=%d, weight=%d, note='%s', exercise_id=%d WHERE strength_exercise_id=%d",
-				reps, sett, weight, note, exercise_id, strength_exercise_id));
+				reps, sett, weight, note, exerciseId, strengthExerciseId));
+	}
+
+	// exercise_id i konstruktoren er fremmednokkel til ovelse-tabell som sier
+	// hvilken ovelse det er.
+	public static int createEnduranceExercise(int distance, Time time, String note, int sessionId, int exerciseId)
+			throws SQLException {
+		Connection conn = SQLConnector.getConnection();
+		Statement statement = conn.createStatement();
+		int enduranceExerciseId = getMaximumIdFromDBPlusOneAlsoKnownAsNextID("endurance_exercise_id",
+				"Endurance_Exercise");
+		statement.executeUpdate(String.format("INSERT INTO Endurance_Exercise VALUES(%d, '%s', '%s', %d, %d, %d)",
+				distance, time, note, sessionId, exerciseId, enduranceExerciseId));
+		return enduranceExerciseId;
+	}
+
+	// Metode for aa slette en bruker
+	public static void deleteEnduranceExercise(int exerciseId) throws SQLException {
+		Connection conn = SQLConnector.getConnection();
+		Statement statement = conn.createStatement();
+		statement.executeUpdate("DELETE FROM Endurance_Exercise WHERE endurance_exercise_id=" + exerciseId);
+	}
+
+	public static void updateEnduranceExercise(int distance, Time time, String note, int exerciseId,
+			int enduranceExerciseId) throws SQLException {
+		Connection conn = SQLConnector.getConnection();
+		Statement statement = conn.createStatement();
+		statement.executeUpdate(String.format(
+				"UPDATE Endurance_Exercise SET distance=%d, time='%s', note='%s', exercise_id=%d WHERE endurance_exercise_id=%d",
+				distance, time, note, exerciseId, enduranceExerciseId));
 	}
 
 	// Metode for aa hente klientene
@@ -123,7 +152,7 @@ public class SQLConnector {
 	}
 
 	// Metode for aa hente styrkeovelser til spesifikk okt
-	public static List<StrengthExercise> getStrengthExercises(int sessionId) throws SQLException {
+	private static List<StrengthExercise> getStrengthExercises(int sessionId) throws SQLException {
 		List<StrengthExercise> strengthExercises = new ArrayList<>();
 		ResultSet rs = getResultSet(
 				"SELECT * FROM Strength_Exercise NATURAL JOIN Exercise WHERE session_id=" + sessionId);
@@ -154,7 +183,7 @@ public class SQLConnector {
 		}
 	}
 
-	// Metode for aa slette en bruker
+	// Metode for aa slette en styrkeovelse
 	public static void deleteStrengthExercise(int exerciseId) throws SQLException {
 		Connection conn = SQLConnector.getConnection();
 		Statement statement = conn.createStatement();
