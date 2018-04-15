@@ -85,17 +85,17 @@ public class HTTPServer {
 		}
 
 		private void post(HttpExchange ex) {
-			// Lager en ny client. Kalles om man faar en http request POST /client
+			// Lager en ny client. Kalles om man faar en http request POST /clients
 			Map<String, String> params = getParams(ex);
 			try {
 				int clientID = SQLConnector.createUser(params.get("name"), params.get("phone"),
 						Integer.parseInt(params.get("age")), params.get("motivation"),
-						Integer.parseInt(params.get("trainerID")));
+						Integer.parseInt(params.get("trainerID")), Integer.parseInt(params.get("distancegoal")));
 				sendResponse(ex, Integer.toString(clientID), 201);
 			} catch (NumberFormatException e) {
 				sendResponse(ex, "Ugyldig klient-id", 400);
 			} catch (SQLException e) {
-				sendResponse(ex, "Kunne ikke koble til databasen", 503);
+				sendResponse(ex, e.getMessage(), 503);
 			}
 		}
 
@@ -114,7 +114,7 @@ public class HTTPServer {
 			} catch (IllegalArgumentException e) {
 				sendResponse(ex, e.getMessage(), 404);
 			} catch (SQLException e) {
-				sendResponse(ex, "Kunne ikke koble til databasen", 503);
+				sendResponse(ex, e.getMessage(), 503);
 			}
 		}
 
@@ -126,12 +126,12 @@ public class HTTPServer {
 			try {
 				SQLConnector.updateUser(Integer.parseInt(clientId), params.get("name"), params.get("phone"),
 						Integer.parseInt(params.get("age")), params.get("motivation"),
-						Integer.parseInt(params.get("trainerID")));
+						Integer.parseInt(params.get("trainerID")), Integer.parseInt(params.get("distancegoal")));
 				sendResponse(ex, clientId);
 			} catch (NumberFormatException e) {
 				sendResponse(ex, "Ugyldig klient-id", 400);
 			} catch (SQLException e) {
-				sendResponse(ex, "Kunne ikke koble til databasen", 503);
+				sendResponse(ex, e.getMessage(), 503);
 			}
 		}
 
@@ -145,7 +145,7 @@ public class HTTPServer {
 			} catch (NumberFormatException e) {
 				sendResponse(ex, "Ugyldig client-id", 400);
 			} catch (SQLException e) {
-				sendResponse(ex, "Kunne ikke koble til databasen", 503);
+				sendResponse(ex, e.getMessage(), 503);
 			}
 		}
 	}
@@ -170,7 +170,7 @@ public class HTTPServer {
 			} catch (NumberFormatException e) {
 				sendResponse(ex, "Ugyldig klient-id", 400);
 			} catch (SQLException e) {
-				sendResponse(ex, "Kunne ikke koble til databasen", 503);
+				sendResponse(ex, e.getMessage(), 503);
 			}
 		}
 
@@ -188,7 +188,7 @@ public class HTTPServer {
 			} catch (IllegalArgumentException e) {
 				sendResponse(ex, e.getMessage(), 404);
 			} catch (SQLException e) {
-				sendResponse(ex, "Kunne ikke koble til databasen", 503);
+				sendResponse(ex, e.getMessage(), 503);
 			}
 		}
 	}
@@ -220,16 +220,15 @@ public class HTTPServer {
 				sendResponse(ex, "Ugyldig format paa okt-id", 400);
 			} catch (IllegalArgumentException e) {
 				sendResponse(ex, e.getMessage(), 404);
-				e.printStackTrace();
 			} catch (SQLException e) {
-				sendResponse(ex, "Kunne ikke koble til databasen", 503);
+				sendResponse(ex, e.getMessage(), 503);
 			}
 
 		}
 
 		private void post(HttpExchange ex) {
 			// Lager en ny ovelse. Kalles om man faar en http request POST
-			// /exercise/session_id
+			// /exercise
 			Map<String, String> params = getParams(ex);
 			try {
 				int exerciseId = SQLConnector.createStrengthExercise(Integer.parseInt(params.get("reps")),
@@ -238,10 +237,9 @@ public class HTTPServer {
 						Integer.parseInt(params.get("exerciseId")));
 				sendResponse(ex, Integer.toString(exerciseId), 201);
 			} catch (NumberFormatException e) {
-				e.printStackTrace();
 				sendResponse(ex, "Ugyldig klient-id", 400);
 			} catch (SQLException e) {
-				sendResponse(ex, "Kunne ikke koble til databasen", 503);
+				sendResponse(ex, e.getMessage(), 503);
 			}
 		}
 
@@ -258,7 +256,7 @@ public class HTTPServer {
 			} catch (NumberFormatException e) {
 				sendResponse(ex, "Ugyldig exercise-id", 400);
 			} catch (SQLException e) {
-				sendResponse(ex, "Kunne ikke koble til databasen", 503);
+				sendResponse(ex, e.getMessage(), 503);
 			}
 		}
 
@@ -272,7 +270,7 @@ public class HTTPServer {
 			} catch (NumberFormatException e) {
 				sendResponse(ex, "Ugyldig exercise-id", 400);
 			} catch (SQLException e) {
-				sendResponse(ex, "Kunne ikke koble til databasen", 503);
+				sendResponse(ex, e.getMessage(), 503);
 			}
 		}
 	}

@@ -41,7 +41,6 @@ public class HTTPServerTest {
 	@Test
 	public void testCreateSession() throws ClientProtocolException, IOException {
 		String postUrl = "http://localhost:8000/session";
-		Gson gson = new Gson();
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(postUrl);
 		StringEntity postingString = new StringEntity("clientID=4&date=2017-10-10&note=me", "utf-8");
@@ -61,7 +60,6 @@ public class HTTPServerTest {
 	@Test
 	public void testCreateSessionWrongClientId() throws ClientProtocolException, IOException {
 		String postUrl = "http://localhost:8000/session";
-		Gson gson = new Gson();
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(postUrl);
 		StringEntity postingString = new StringEntity("clientID=kevin&date=2017-10-10&note=me", "utf-8");
@@ -119,7 +117,7 @@ public class HTTPServerTest {
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(postUrl);
 		StringEntity postingString = new StringEntity(
-				"name=Lise&phone=12345678&age=17&motivation=sugardaddy&trainerID=2", "utf-8");
+				"name=Lise&phone=12345678&age=17&motivation=sugardaddy&trainerID=2&distancegoal=200", "utf-8");
 
 		post.setEntity(postingString);
 		post.setHeader("Content-type", "application/json");
@@ -177,7 +175,7 @@ public class HTTPServerTest {
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPut put = new HttpPut(putUrl);
 		StringEntity puttingString = new StringEntity(
-				"name=Lise&phone=12345678&age=17&motivation=sugardaddy&trainerID=2", "utf-8");
+				"name=Lise&phone=12345678&age=17&motivation=sugardaddy&trainerID=2&distancegoal=2000", "utf-8");
 
 		put.setEntity(puttingString);
 		put.setHeader("Content-type", "application/json");
@@ -203,7 +201,6 @@ public class HTTPServerTest {
 		HttpResponse response = httpClient.execute(post);
 
 		String s = EntityUtils.toString(response.getEntity());
-		System.out.println(s);
 		assertTrue(Integer.parseInt(s) > 0);
 
 		int statusCode = response.getStatusLine().getStatusCode();
@@ -221,6 +218,26 @@ public class HTTPServerTest {
 		int statusCode = response.getStatusLine().getStatusCode();
 		assertEquals(OK, statusCode);
 	}
+	
+//	@Test
+//	public void testCreateEnduranceExercise() throws ClientProtocolException, IOException {
+//		String postUrl = "http://localhost:8000/exercise/strength";
+//		HttpClient httpClient = HttpClientBuilder.create().build();
+//		HttpPost post = new HttpPost(postUrl);
+//		StringEntity postingString = new StringEntity("distance=4&time00:40:00=3&note=yahoo&sessionId=425&exerciseId=1",
+//				"utf-8");
+//
+//		post.setEntity(postingString);
+//		post.setHeader("Content-type", "application/json");
+//		HttpResponse response = httpClient.execute(post);
+//
+//		String s = EntityUtils.toString(response.getEntity());
+//		System.out.println(s);
+//		assertTrue(Integer.parseInt(s) > 0);
+//
+//		int statusCode = response.getStatusLine().getStatusCode();
+//		assertEquals(CREATED, statusCode);
+//	}
 
 	// Konverterer fra Json til map, der nokkel er variabelnavn
 	private Map<String, String> extractInfoFromResponse(String json) {

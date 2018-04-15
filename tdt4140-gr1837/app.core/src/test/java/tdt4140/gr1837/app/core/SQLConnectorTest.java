@@ -93,7 +93,7 @@ public class SQLConnectorTest {
 
 	@Test
 	public void testCreateGetDeleteUser() throws SQLException {
-		int clientId = SQLConnector.createUser("Test testesen", "666 66 666", 55, "Fa testene til å kjore", 5);
+		int clientId = SQLConnector.createUser("Test testesen", "666 66 666", 55, "Fa testene til å kjore", 5, 250);
 		try {
 			SQLConnector.getUser(clientId);
 		} catch (IllegalArgumentException e) {
@@ -132,14 +132,14 @@ public class SQLConnectorTest {
 
 	@Test
 	public void testCreateUpdateUser() throws SQLException {
-		int clientID = SQLConnector.createUser("Kong Harald", "22225555", 81, "Bli den mest veltrente kongen", 1);
+		int clientID = SQLConnector.createUser("Kong Harald", "22225555", 81, "Bli den mest veltrente kongen", 1, 5000);
 		try {
 			SQLConnector.getUser(clientID);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
 
-		SQLConnector.updateUser(clientID, "Kong Harald", "22225555", 81, "Sonja synes jeg er blitt tjukk", 1);
+		SQLConnector.updateUser(clientID, "Kong Harald", "22225555", 81, "Sonja synes jeg er blitt tjukk", 1, 2500);
 		if (!SQLConnector.getUser(clientID).getMotivation().equals("Sonja synes jeg er blitt tjukk")) {
 			fail();
 		}
