@@ -1,7 +1,11 @@
 package tdt4140.gr1837.app.core;
 
+import java.util.Date;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -94,6 +98,24 @@ public class User {
 	
 	public double getProgress() {
 		return 0.5;
+	}
+	
+	// Faar distansemaalet
+	public int getDistanceToRun() throws SQLException {
+		int distance = SQLConnector.getDistanceToRun(this.id);
+		if(distance <= 0) {
+			return 1;
+		}
+		return distance;
+	}
+	
+	// Faar distansen lopt siste maanden
+	public int getDistanceRun() throws SQLException { 
+		ZoneId z = ZoneId.of("America/Montreal");
+		LocalDate ld = LocalDate.now( z ); 
+		ld = ld.minusMonths(1);
+		System.out.println(String.format(ld.toString()));
+		return SQLConnector.getDistanceRun(this.id, ld.toString());
 	}
 	
 	public List<StrengthExercise> getStrengthExercise(String name) {

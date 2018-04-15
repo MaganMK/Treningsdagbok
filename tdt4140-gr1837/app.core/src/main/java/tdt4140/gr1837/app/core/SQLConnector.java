@@ -382,11 +382,21 @@ public class SQLConnector {
 		}
 		return result;
 	}
+	
 	public static int getDistanceRun(int client_id, String date) throws SQLException {
 		String sql = String.format("SELECT SUM(distance) AS distance_sum FROM Endurance_Exercise INNER JOIN Session ON (Endurance_Exercise.session_id = Session.session_id) WHERE client_id = %s AND date >= %s", client_id, date);
 		ResultSet rs = getResultSet(sql);
 		if(rs.next()) {
 			return rs.getInt("distance_sum");
+		}
+		return 0;
+	}
+	
+	public static int getDistanceToRun(int client_id) throws SQLException {
+		String sql = String.format("SELECT distance_goal FROM Client WHERE client_id = %s", client_id);
+		ResultSet rs = getResultSet(sql);
+		if(rs.next()) {
+			return rs.getInt("distance_goal");
 		}
 		return 0;
 	}

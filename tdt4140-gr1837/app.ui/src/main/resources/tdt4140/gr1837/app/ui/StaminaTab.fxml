@@ -44,7 +44,7 @@
                                  </children>
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" >
-                            	<fx:include fx:id="distanceBar" layoutY="25.0" source="DistanceBar.fxml" />
+                            	<fx:include fx:id="distanceBar" layoutY="10.0" source="DistanceBar.fxml" />
                             </AnchorPane>
                           </items>
                         </SplitPane>

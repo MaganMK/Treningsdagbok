@@ -7,18 +7,23 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.161" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tdt4140.gr1837.app.ui.DistanceBarController">
-	        <Rectangle fx:id="distanceBar" arcHeight="40.0" arcWidth="40.0" fill="#2b78b4" height="200.0" layoutX="53.0" layoutY="0.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="60.0" />
-            <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#ffffff00" height="200.0" layoutX="53.0" stroke="BLACK" strokeType="INSIDE" width="60.0" />
-   <Line endX="15.0" layoutX="97.0" layoutY="160.0" />
-   <Line endX="15.0" layoutX="97.0" layoutY="120.0" />
-   <Line endX="15.0" layoutX="97.0" layoutY="80.0" />
-   <Line endX="15.0" layoutX="97.0" layoutY="40.0" />
-   <Line fx:id="progressLine" endX="100.0" layoutX="54.0" layoutY="36.0" />
-   <Text fx:id="progressText" layoutX="113.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="43.099609375">
+	        <Rectangle fx:id="distanceBar" arcHeight="40.0" arcWidth="40.0" fill="#2b78b4" height="200.0" layoutX="53.0" layoutY="37.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="60.0" />
+            <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#ffffff00" height="200.0" layoutX="53.0" layoutY="38.0" stroke="BLACK" strokeType="INSIDE" width="60.0" />
+   <Line endX="15.0" layoutX="97.0" layoutY="197.0" />
+   <Line endX="15.0" layoutX="97.0" layoutY="157.0" />
+   <Line endX="15.0" layoutX="97.0" layoutY="117.0" />
+   <Line endX="15.0" layoutX="97.0" layoutY="77.0" />
+   <Line fx:id="progressLine" endX="100.0" layoutX="54.0" layoutY="73.0" />
+   <Text fx:id="progressText" layoutX="113.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="43.099609375">
       <font>
          <Font size="10.0" />
       </font>
    </Text>
-   <Text fx:id="distanceToRunText" layoutX="198.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-   <Text fx:id = "distanceRunText" layoutX="198.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+   <Text fx:id="distanceToRunText" layoutX="169.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+   <Text fx:id="distanceRunText" layoutX="169.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+   <Text layoutX="70.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Månedlig distansemål">
+      <font>
+         <Font size="17.0" />
+      </font>
+   </Text>
 </AnchorPane>

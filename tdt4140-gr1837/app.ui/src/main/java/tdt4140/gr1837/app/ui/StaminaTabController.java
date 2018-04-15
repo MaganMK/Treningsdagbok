@@ -1,5 +1,6 @@
 package tdt4140.gr1837.app.ui;
 
+import java.sql.SQLException;
 import java.util.Map;
 
 import javafx.collections.FXCollections;
@@ -34,7 +35,12 @@ public class StaminaTabController {
 		clientName.setText(user.getName());
 		staminaChartController.setUser(user);
 		updatePieChart(user);
-		distanceBarController.setProgress(1000, 1000);
+		try {
+			distanceBarController.setProgress(user.getDistanceToRun(), user.getDistanceRun());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@FXML PieChart piechart;
