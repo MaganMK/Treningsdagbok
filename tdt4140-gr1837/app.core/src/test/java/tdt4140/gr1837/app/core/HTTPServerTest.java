@@ -228,7 +228,7 @@ public class HTTPServerTest {
 	}
 	
 	private void testDeleteStrengthExercise(int id) throws ClientProtocolException, IOException {
-		String deleteUrl = "http://localhost:8000/exercise/" + id;
+		String deleteUrl = "http://localhost:8000/exercise/strength/" + id;
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpDelete delete = new HttpDelete(deleteUrl);
 		HttpResponse response = httpClient.execute(delete);
@@ -236,7 +236,7 @@ public class HTTPServerTest {
 	}
 
 	private int testCreateStrengthExercise(int sessionId) throws ClientProtocolException, IOException {
-		String postUrl = "http://localhost:8000/exercise";
+		String postUrl = "http://localhost:8000/exercise/strength";
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(postUrl);
 		StringEntity postingString = new StringEntity("reps=4&sett=3&weight=17&note=dritbra&sessionId="+sessionId+"&exerciseId=6",
@@ -252,7 +252,7 @@ public class HTTPServerTest {
 	}
 
 	private int testGetStrengthExercises(int sessionId) throws ClientProtocolException, IOException {
-		String getUrl = "http://localhost:8000/exercise/"+sessionId;
+		String getUrl = "http://localhost:8000/exercise/strength/"+sessionId;
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpGet get = new HttpGet(getUrl);
 		get.setHeader("Content-type", "application/json");
@@ -264,11 +264,11 @@ public class HTTPServerTest {
 	}
 	
 	private void testUpdateStrengthExercise(int id) throws ClientProtocolException, IOException {
-		String putUrl = "http://localhost:8000/exercise/1";
+		String putUrl = "http://localhost:8000/exercise/strength/"+id;
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPut put = new HttpPut(putUrl);
 		StringEntity puttingString = new StringEntity(
-				"reps=4&sett=3&weight=17&note=dritbra&exercise=6&exerciseId="+id, "utf-8");
+				"reps=4&sett=3&weight=17&note=dritbra&exercise=6", "utf-8");
 
 		put.setEntity(puttingString);
 		put.setHeader("Content-type", "application/json");
