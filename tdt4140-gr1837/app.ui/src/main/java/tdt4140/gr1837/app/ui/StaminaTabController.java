@@ -1,5 +1,6 @@
 package tdt4140.gr1837.app.ui;
 
+import java.sql.SQLException;
 import java.util.Map;
 
 import javafx.collections.FXCollections;
@@ -15,6 +16,9 @@ public class StaminaTabController {
 	
 	// Tekstfelt for a se hvilken bruker man er inne pa
 	@FXML Text clientName;
+	
+	// Controller for distanceBar
+	@FXML DistanceBarController distanceBarController;
 
 	// Managercontroller for kommunikasjon mellom controllers
 	public ManagerController managerController;
@@ -23,7 +27,7 @@ public class StaminaTabController {
 	// Initialiserer managercontroller
 	public void init(ManagerController managerController) {
 		this.managerController = managerController;
-		
+		distanceBarController.init();
 	}
 
 	// Setter oppsokt bruker i tekstfelt
@@ -31,6 +35,11 @@ public class StaminaTabController {
 		clientName.setText(user.getName());
 		staminaChartController.setUser(user);
 		updatePieChart(user);
+		try {
+			distanceBarController.setProgress(user.getDistanceToRun(), user.getDistanceRun());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@FXML PieChart piechart;
