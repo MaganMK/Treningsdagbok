@@ -12,6 +12,9 @@
 
 ## Treningsdagbok
 
+### Applikasjonens formål
+Applikasjonen lages som en del av faget TDT4140 Programvareutvikling, våren 2018. Med det gitte temaet "smart Liv og helse" valgte vi å lage en treningsdagbok.
+
 ### Om applikasjonen
 Her finner du prosjektmappe med kildekode, ressurser og diverse tilhørende treningsdagbok-applikasjonen. 
 

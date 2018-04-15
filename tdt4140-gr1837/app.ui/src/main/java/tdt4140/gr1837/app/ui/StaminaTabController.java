@@ -18,15 +18,18 @@ public class StaminaTabController {
 
 	// Managercontroller for kommunikasjon mellom controllers
 	public ManagerController managerController;
+	public StaminaChartController staminaChartController;
 
 	// Initialiserer managercontroller
 	public void init(ManagerController managerController) {
 		this.managerController = managerController;
+		
 	}
 
 	// Setter oppsokt bruker i tekstfelt
 	public void setUser(User user) {
 		clientName.setText(user.getName());
+		staminaChartController.setUser(user);
 		updatePieChart(user);
 	}
 	
@@ -47,5 +50,6 @@ public class StaminaTabController {
 		this.piechart.setData(pieChartData);
 		this.piechart.setLabelsVisible(false);
 	}
+
 
 }
