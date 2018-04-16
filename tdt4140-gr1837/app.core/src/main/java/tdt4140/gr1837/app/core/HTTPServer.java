@@ -26,6 +26,7 @@ public class HTTPServer {
 			try {
 				int port = initialize();
 				System.out.println("HTTPServeren kjorer naa paa port: " + port);
+				break;
 			} catch(Exception e) {
 				System.out.println("Klarte ikke aa koble til, prover igjen");
 			}
