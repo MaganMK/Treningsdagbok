@@ -135,7 +135,12 @@ public class User {
 	
 	public List<String> getMostUsedExercises(){
 		List<String> mostUsed = SQLConnector.mostUsedExercise(id);
-		mostUsed = mostUsed.subList(0, 3);
+		if(mostUsed.size() >= 3) {
+			mostUsed = mostUsed.subList(0, 3);
+		}
+		else{
+			mostUsed = mostUsed.subList(0, mostUsed.size());
+		}
 		return mostUsed;
 	}
 	
