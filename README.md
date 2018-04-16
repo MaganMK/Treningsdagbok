@@ -42,7 +42,8 @@ Applikasjonen vil først implementere støtte for styrketrening, for så å bli 
     f.eks. brukes K&R-stilen
 
 ## For å kjøre programmet selv må du
-- Ha JDK version 8 installert på din maskin. <br />
+- Ha JDK version 8 installert på din maskin.
+- Være på NTNU sitt nettverk for å få connecta til databasen <br />
 
 Du kan så *enten* bruke en IDE som støtter Java (f.eks. Eclipse eller IntelliJ): 
 1. Last ned prosjektet og åpne det i IDE'en. 
