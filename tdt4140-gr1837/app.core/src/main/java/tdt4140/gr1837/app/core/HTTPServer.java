@@ -20,7 +20,18 @@ import com.sun.net.httpserver.HttpServer;
 public class HTTPServer {
 
 	static HttpServer server;
-
+	
+	public static void main(String[] args) {
+		while(true) {
+			try {
+				int port = initialize();
+				System.out.println("HTTPServeren kjorer naa paa port: " + port);
+			} catch(Exception e) {
+				System.out.println("Klarte ikke aa koble til, prover igjen");
+			}
+		}
+	}
+	
 	public static int initialize() throws Exception {
 		Random generator = new Random();
 		int port = generator.nextInt(10000)+10000;
