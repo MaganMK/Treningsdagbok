@@ -8,6 +8,7 @@ import java.sql.Time;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.apache.commons.io.IOUtils;
 
@@ -19,15 +20,30 @@ import com.sun.net.httpserver.HttpServer;
 public class HTTPServer {
 
 	static HttpServer server;
-
-	public static void initialize() throws Exception {
-		server = HttpServer.create(new InetSocketAddress(8000), 0);
+	
+	public static void main(String[] args) {
+		while(true) {
+			try {
+				int port = initialize();
+				System.out.println("HTTPServeren kjorer naa paa port: " + port);
+				break;
+			} catch(Exception e) {
+				System.out.println("Klarte ikke aa koble til, prover igjen");
+			}
+		}
+	}
+	
+	public static int initialize() throws Exception {
+		Random generator = new Random();
+		int port = generator.nextInt(10000)+10000;
+		server = HttpServer.create(new InetSocketAddress(port), 0);
 		server.createContext("/session", new SessionHandler());
 		server.createContext("/clients", new ClientHandler());
 		server.createContext("/exercise/endurance", new EnduranceExerciceHandler());
 		server.createContext("/exercise/strength", new StrengthExerciseHandler());
 		server.setExecutor(null); // creates a default executor
 		server.start();
+		return port;
 	}
 
 	public static void tearDown() {

@@ -79,6 +79,6 @@ Du kan så *enten* bruke en IDE som støtter Java (f.eks. Eclipse eller IntelliJ
 Applikasjonen har en egen server som tillater databaserhåndtering.
 Serveren er til for at man skal kunne kommunisere med databasen fra bruker-siden. 
 Det er ikke laget et eget brukergrensesnitt for dette, men serveren settes opp og tester kommunikasjon i en egen JUnit-test.
-Det har vist seg at window-maskiner har problemer med å sette opp serveren, da portnummeret ser ut til å være okkupert (ca. 50% av gangene).  
-Det er mulig å kjøre serveren i en mainmetode, på adressen ```localhost:8000```, en kan da bruke f.eks. postman til å sende http-requests til serveren. 
+Det har vist seg at window-maskiner har problemer med å sette opp serveren, da portnummeret så ut til å være opptatt. Dette skal være løst med å starte serveren med et tilfeldig portnummer.  
+Det er mulig å kjøre HTTPServer.java for å kjøre serveren på en port som printes ut i konsollen, en kan da bruke f.eks. postman til å sende http-requests til serveren. 
 
