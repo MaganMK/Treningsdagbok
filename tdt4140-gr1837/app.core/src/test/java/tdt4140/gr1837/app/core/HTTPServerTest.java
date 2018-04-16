@@ -28,13 +28,17 @@ public class HTTPServerTest {
 	public static final int NOT_FOUND = 404;
 	public static final int CREATED = 201;
 	public static final int OK = 200;
+	
+	private int port;
 
 	@Before
 	public void setUpServer() {
-		try {
-			HTTPServer.initialize();
-		} catch (Exception e) {
-			fail();
+		while(true) {
+			try {
+				port = HTTPServer.initialize();
+				break;
+			} catch (Exception e) {
+			}
 		}
 	}
 	
@@ -50,7 +54,7 @@ public class HTTPServerTest {
 	}
 
 	private int testCreateSession() throws ClientProtocolException, IOException {
-		String postUrl = "http://localhost:8000/session";
+		String postUrl = String.format("http://localhost:%s/session", port);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(postUrl);
 		StringEntity postingString = new StringEntity("clientID=4&date=2017-10-10&note=me", "utf-8");
@@ -65,7 +69,7 @@ public class HTTPServerTest {
 	}
 	
 	private void testDeleteSession(int id) throws ClientProtocolException, IOException {
-		String deleteUrl = "http://localhost:8000/session/"+id;
+		String deleteUrl = String.format("http://localhost:%s/session/%s",port,id);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpDelete delete = new HttpDelete(deleteUrl);
 		HttpResponse response = httpClient.execute(delete);
@@ -75,7 +79,7 @@ public class HTTPServerTest {
 
 	@Test
 	public void testCreateSessionWrongClientId() throws ClientProtocolException, IOException {
-		String postUrl = "http://localhost:8000/session";
+		String postUrl = String.format("http://localhost:%s/session", port);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(postUrl);
 		StringEntity postingString = new StringEntity("clientID=kevin&date=2017-10-10&note=me", "utf-8");
@@ -88,7 +92,7 @@ public class HTTPServerTest {
 	}
 
 	private void testGetSession(int id) throws ClientProtocolException, IOException {
-		String getUrl = "http://localhost:8000/session/"+id;
+		String getUrl = String.format("http://localhost:%s/session/%s", port, id);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpGet get = new HttpGet(getUrl);
 		get.setHeader("Content-type", "application/json");
@@ -101,7 +105,7 @@ public class HTTPServerTest {
 	}
 
 	private void testGetSessionWithNonexcistingID(int id) throws ClientProtocolException, IOException {
-		String getUrl = "http://localhost:8000/session/"+id;
+		String getUrl = String.format("http://localhost:%s/session/%s",port,id);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpGet get = new HttpGet(getUrl);
 		get.setHeader("Content-type", "application/json");
@@ -113,7 +117,7 @@ public class HTTPServerTest {
 
 	@Test
 	public void testGetSessionWithIllegalID() throws ClientProtocolException, IOException {
-		String getUrl = "http://localhost:8000/session/-69";
+		String getUrl = String.format("http://localhost:%s/session/-69", port);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpGet get = new HttpGet(getUrl);
 		get.setHeader("Content-type", "application/json");
@@ -136,7 +140,7 @@ public class HTTPServerTest {
 	}
 	
 	private int testCreateClient() throws ClientProtocolException, IOException {
-		String postUrl = "http://localhost:8000/clients";
+		String postUrl = String.format("http://localhost:%s/clients", port);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(postUrl);
 		StringEntity postingString = new StringEntity(
@@ -153,7 +157,7 @@ public class HTTPServerTest {
 	}
 
 	private void testGetClient(int id) throws ClientProtocolException, IOException {
-		String getUrl = "http://localhost:8000/clients/"+id;
+		String getUrl = String.format("http://localhost:%s/clients/%s", port, id);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpGet get = new HttpGet(getUrl);
 		get.setHeader("Content-type", "application/json");
@@ -168,7 +172,7 @@ public class HTTPServerTest {
 
 	@Test
 	public void testGetClientWithNonexistingID() throws ClientProtocolException, IOException {
-		String getUrl = "http://localhost:8000/clients/12000000";
+		String getUrl = String.format("http://localhost:%s/clients/12000000", port);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpGet get = new HttpGet(getUrl);
 		get.setHeader("Content-type", "application/json");
@@ -180,7 +184,7 @@ public class HTTPServerTest {
 
 	@Test
 	public void testGetClientWithIllegalID() throws ClientProtocolException, IOException {
-		String getUrl = "http://localhost:8000/clients/seks";
+		String getUrl = String.format("http://localhost:%s/clients/seks", port);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpGet get = new HttpGet(getUrl);
 		get.setHeader("Content-type", "application/json");
@@ -191,7 +195,7 @@ public class HTTPServerTest {
 	}
 
 	private void testUpdateClient(int id) throws ClientProtocolException, IOException {
-		String putUrl = "http://localhost:8000/clients/"+id;
+		String putUrl = String.format("http://localhost:%s/clients/%s", port, id);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPut put = new HttpPut(putUrl);
 		StringEntity puttingString = new StringEntity(
@@ -206,7 +210,7 @@ public class HTTPServerTest {
 	}
 	
 	private void testDeleteClient(int id) throws ClientProtocolException, IOException {
-		String deleteUrl = "http://localhost:8000/clients/"+id;
+		String deleteUrl = String.format("http://localhost:%s/clients/%s", port, id);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpDelete delete = new HttpDelete(deleteUrl);
 		HttpResponse response = httpClient.execute(delete);
@@ -228,7 +232,7 @@ public class HTTPServerTest {
 	}
 	
 	private void testDeleteStrengthExercise(int id) throws ClientProtocolException, IOException {
-		String deleteUrl = "http://localhost:8000/exercise/strength/" + id;
+		String deleteUrl = String.format("http://localhost:%s/exercise/strength/%s", port, id);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpDelete delete = new HttpDelete(deleteUrl);
 		HttpResponse response = httpClient.execute(delete);
@@ -236,7 +240,7 @@ public class HTTPServerTest {
 	}
 
 	private int testCreateStrengthExercise(int sessionId) throws ClientProtocolException, IOException {
-		String postUrl = "http://localhost:8000/exercise/strength";
+		String postUrl = String.format("http://localhost:%s/exercise/strength", port);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(postUrl);
 		StringEntity postingString = new StringEntity("reps=4&sett=3&weight=17&note=dritbra&sessionId="+sessionId+"&exerciseId=6",
@@ -252,7 +256,7 @@ public class HTTPServerTest {
 	}
 
 	private int testGetStrengthExercises(int sessionId) throws ClientProtocolException, IOException {
-		String getUrl = "http://localhost:8000/exercise/strength/"+sessionId;
+		String getUrl = String.format("http://localhost:%s/exercise/strength/%s", port, sessionId);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpGet get = new HttpGet(getUrl);
 		get.setHeader("Content-type", "application/json");
@@ -264,7 +268,7 @@ public class HTTPServerTest {
 	}
 	
 	private void testUpdateStrengthExercise(int id) throws ClientProtocolException, IOException {
-		String putUrl = "http://localhost:8000/exercise/strength/"+id;
+		String putUrl = String.format("http://localhost:%s/exercise/strength/%s", port, id);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPut put = new HttpPut(putUrl);
 		StringEntity puttingString = new StringEntity(
@@ -294,7 +298,7 @@ public class HTTPServerTest {
 	}
 	
 	private int testCreateEnduranceExercise(int sessionId) throws ClientProtocolException, IOException {
-		String postUrl = "http://localhost:8000/exercise/endurance";
+		String postUrl = String.format("http://localhost:%s/exercise/endurance", port);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(postUrl);
 		StringEntity postingString = new StringEntity("distance=4&time=3000&note=yahoo&sessionId="+sessionId+"&exerciseId=1",
@@ -311,7 +315,7 @@ public class HTTPServerTest {
 	}
 	
 	private int testGetEnduranceExercise(int sessionId) throws ClientProtocolException, IOException {
-		String getUrl = "http://localhost:8000/exercise/endurance/" + sessionId;
+		String getUrl = String.format("http://localhost:%s/exercise/endurance/%s", port, sessionId);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpGet get = new HttpGet(getUrl);
 		get.setHeader("Content-type", "application/json");
@@ -325,7 +329,7 @@ public class HTTPServerTest {
 
 	@Test 
 	public void testGetEnduranceExerciseWithIllegalId() throws ClientProtocolException, IOException {
-		String getUrl = "http://localhost:8000/exercise/endurance/seks";
+		String getUrl = String.format("http://localhost:%s/exercise/endurance/seks", port);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpGet get = new HttpGet(getUrl);
 		get.setHeader("Content-type", "application/json");
@@ -336,7 +340,7 @@ public class HTTPServerTest {
 	}
 	
 	private void testDeleteEnduranceExercise(int id) throws ClientProtocolException, IOException {
-		String deleteUrl = "http://localhost:8000/exercise/endurance/" + id;
+		String deleteUrl = String.format("http://localhost:%s/exercise/endurance/%s", port, id);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpDelete delete = new HttpDelete(deleteUrl);
 		HttpResponse response = httpClient.execute(delete);
@@ -344,7 +348,7 @@ public class HTTPServerTest {
 	}
 	
 	private void testUpdateEnduranceExercise(int id) throws ClientProtocolException, IOException {
-		String putUrl = "http://localhost:8000/exercise/endurance/"+id;
+		String putUrl = String.format("http://localhost:%s/exercise/endurance/%s", port, id);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPut put = new HttpPut(putUrl);
 		StringEntity puttingString = new StringEntity(
