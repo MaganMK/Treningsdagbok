@@ -38,8 +38,6 @@ public class HTTPServerTest {
 				port = HTTPServer.initialize();
 				break;
 			} catch (Exception e) {
-				System.out.println("hey");
-				//fail();
 			}
 		}
 	}
