@@ -17,9 +17,19 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
 public class HTTPServer {
+	
+	// Kjorer Http-serveren, tilgjengelig på localhost:8000
+	public static void main(String[] args) {
+		try {
+			HTTPServer.initialize();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	static HttpServer server;
 
+	// Initialiserer endepunktene og starter serveren
 	public static void initialize() throws Exception {
 		server = HttpServer.create(new InetSocketAddress(8000), 0);
 		server.createContext("/session", new SessionHandler());
