@@ -41,6 +41,10 @@ Applikasjonen vil først implementere støtte for styrketrening, for så å bli 
 - Koden følger i stor grad konvensjonene gitt av oracle (se: http://www.oracle.com/technetwork/java/codeconventions-150003.pdf)
     f.eks. brukes K&R-stilen
 
+### Testing
+Prosjektet har til enhver tid høy kodedekning, med et minimumskrav på 70% på backend. Dette kontrolleres av Jacoco. Det er anbefalt at utviklerne følger TDD, og uansett skal all kode commites med tester. 
+For at UI-testene skal fungere er det viktig at man ikke beveger på musa under kjøring av testene, da testene bruker musa. Dette har vist seg å være spesielt viktig på windowsmaskiner. 
+
 ## For å kjøre programmet selv må du
 - Ha JDK version 8 installert på din maskin.
 - Være på NTNU sitt nettverk for å få connecta til databasen <br />
