@@ -222,7 +222,7 @@ public class SQLConnector {
 		}
 	}
 
-	// Metode for aa hente oktene
+	 //Returnerer alle økter som oppgitt bruker id har gjennomført
 	public static List<Session> getSessions(int id) throws SQLException {
 		try {
 			List<Session> sessions = new ArrayList<>();
@@ -248,7 +248,33 @@ public class SQLConnector {
 		}
 		throw new IllegalArgumentException("Okt med denne id-en finnes ikke");
 	}
-
+	
+	
+	 //Lager en tabell over hvor ofte en oovese har blitt gjort
+	 //returnerer en tabell med oovelses navn og antall forekomster for en client
+	public static List<String> mostUsedExercise(int id) {
+		try {
+			List<String> mostUsed = new ArrayList<>();
+			ResultSet rs = getResultSet("SELECT Exercise.exercise_name, count(exercise_name) as Antall\r\n" + 
+					"FROM((Session JOIN Strength_Exercise ON Strength_Exercise.session_id = Session.session_id)\r\n" + 
+					"               JOIN Exercise ON Strength_Exercise.exercise_id = Exercise.exercise_id)\r\n" + 
+					"               WHERE Session.client_id ="+ id +"\r\n" + 
+					"               GROUP by exercise_name  \r\n" + 
+					"ORDER BY `antall`  DESC");
+			while(rs.next()) {
+				String current = rs.getString("exercise_name");
+				mostUsed.add(current);
+			}
+			return mostUsed;
+		} catch (SQLException e1) {
+			try {
+				throw e1;
+			} catch (SQLException e) {
+				return new ArrayList<>();
+			}
+		}
+	}
+	
 	// Metode for aa opprette en okt
 	public static int createSession(int clientId, String date, String note, boolean isStrength) throws SQLException {
 		Connection conn = SQLConnector.getConnection();
@@ -360,7 +386,7 @@ public class SQLConnector {
 		Connection conn = SQLConnector.getConnection();
 		Statement statement = conn.createStatement();
 		int exerciseId = getMaximumIdFromDBPlusOneAlsoKnownAsNextID("exercise_id", "Exercise");
-		statement.executeUpdate(
+	  	statement.executeUpdate(
 				String.format("INSERT INTO Exercise (exercise_name, exercise_id) VALUES('%s', %d)", name, exerciseId));
 	}
 

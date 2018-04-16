@@ -158,6 +158,18 @@ public class User {
 		}
 		return Double.valueOf(result);
 	}
+	
+	public List<String> getMostUsedExercises(){
+		List<String> mostUsed = SQLConnector.mostUsedExercise(id);
+		if(mostUsed.size() >= 3) {
+			mostUsed = mostUsed.subList(0, 3);
+		}
+		else{
+			mostUsed = mostUsed.subList(0, mostUsed.size());
+		}
+		return mostUsed;
+	}
+	
 
 	public List<EnduranceExercise> getEnduranceExercise(String name){
 		try {

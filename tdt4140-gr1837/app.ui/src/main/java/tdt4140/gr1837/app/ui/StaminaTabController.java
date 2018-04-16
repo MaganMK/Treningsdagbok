@@ -41,7 +41,7 @@ public class StaminaTabController {
 			e.printStackTrace();
 		}
 	}
-	
+	 
 	@FXML PieChart piechart;
 	// Oppdaterer pichartet i henhold til brukerens treningsdata
 	public void updatePieChart(User user) {

@@ -37,7 +37,6 @@ public class UserTest {
 	@Test
 	public void testGetExercises() {
 		User user = UserDatabase.getUser("Test User");
-		System.out.println(UserDatabase.getUser("Test User"));
 		assertTrue(user.getExercises().size() > 0);
 	}
 	
@@ -59,6 +58,12 @@ public class UserTest {
 		assertTrue(user.getWeeklyTrainingFrequency() >= 0);
 	}
 	
+	@Test
+	public void testGetMosedUsedExercises() {
+		User user = UserDatabase.getUser("Hyacinth Harvey");
+		assertTrue(user.getMostUsedExercises().size() >= 0);
+	}
+
 	@Test
 	public void testGetEnduranceExercises()
 	{

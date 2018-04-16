@@ -59,7 +59,7 @@ public class ProfileTabTest extends ApplicationTest {
     		Node field2 = from(root).lookup("#trainingFrequency").query();
     		Assert.assertTrue(field2 instanceof Text);
     }
-    
+     
     @Test
     public void testMotivation() {
     		Text motivation = from(root).lookup("#motivationField").query();
