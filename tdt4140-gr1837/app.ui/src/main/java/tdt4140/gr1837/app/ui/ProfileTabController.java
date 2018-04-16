@@ -258,12 +258,12 @@ public class ProfileTabController {
 		ft.play();
 	}
 	
-	
+	/*
+	 * Fyller ListView slik at de mest brukte øvelsene dukker opp i ui
+	 */
 	private void updateMostUsedTable(User user){
 		List<String> mostUsedExercises = user.getMostUsedExercises();
-		System.out.println(mostUsedExercises);
 		mostUsedList.setItems(FXCollections.observableArrayList(mostUsedExercises));
-
 	}
 }
 
