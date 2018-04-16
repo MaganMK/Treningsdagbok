@@ -114,7 +114,6 @@ public class User {
 		ZoneId z = ZoneId.of("America/Montreal");
 		LocalDate ld = LocalDate.now( z ); 
 		ld = ld.minusMonths(1);
-		System.out.println(String.format(ld.toString()));
 		return SQLConnector.getDistanceRun(this.id, ld.toString());
 	}
 	

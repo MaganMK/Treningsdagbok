@@ -73,7 +73,6 @@ public class HTTPServerTest {
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpDelete delete = new HttpDelete(deleteUrl);
 		HttpResponse response = httpClient.execute(delete);
-		System.out.println(response.getEntity());
 		assertEquals(OK, response.getStatusLine().getStatusCode());
 	}
 
@@ -293,7 +292,6 @@ public class HTTPServerTest {
 		assertEquals(count + 1, testGetEnduranceExercise(sessionId));
 		testUpdateEnduranceExercise(id);
 		testDeleteEnduranceExercise(id);
-		System.out.println(count + "  " + testGetEnduranceExercise(sessionId));
 		assertEquals(count, testGetEnduranceExercise(sessionId));
 	}
 	

@@ -189,7 +189,6 @@ public class StaminaChartController {
 			Session session;
 			try {
 				session = SQLConnector.getSession(enduranceExercises.get(i).getSessionId());
-				System.out.println("HIT KOM VI");
 			} catch (SQLException e2) {
 				session = null;
 			}
