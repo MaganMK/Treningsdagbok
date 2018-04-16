@@ -75,3 +75,10 @@ Du kan så *enten* bruke en IDE som støtter Java (f.eks. Eclipse eller IntelliJ
 > https://mysqladmin.stud.ntnu.no/index.php?db=&token=38a7fdfd5b38012b12cf4bfc29e510cb&old_usr=didris_test
 
 
+## Server
+Applikasjonen har en egen server som tillater databaserhåndtering.
+Serveren er til for at man skal kunne kommunisere med databasen fra bruker-siden. 
+Det er ikke laget et eget brukergrensesnitt for dette, men serveren settes opp og tester kommunikasjon i en egen JUnit-test.
+Det har vist seg at window-maskiner har problemer med å sette opp serveren, da portnummeret ser ut til å være okkupert (ca. 50% av gangene).  
+Det er mulig å kjøre serveren i en mainmetode, på adressen ```localhost:8000```, en kan da bruke f.eks. postman til å sende http-requests til serveren. 
+
