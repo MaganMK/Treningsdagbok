@@ -197,12 +197,7 @@ public class SQLConnector {
 	}
 
 	
-	/**
-	 * Returnerer alle økter som oppgitt bruker id har gjennomført
-	 * @param brukerid
-	 * @return Liste med gjennomførte økter
-	 * @throws SQLException hvis noe går galt med sql queryen
-	 */
+	 //Returnerer alle økter som oppgitt bruker id har gjennomført
 	public static List<Session> getSessions(int id) throws SQLException {
 		try {
 			List<Session> sessions = new ArrayList<>();
@@ -234,12 +229,9 @@ public class SQLConnector {
 		throw new IllegalArgumentException("Okt med denne id-en finnes ikke");
 	}
 	
-	/**
-	 * Lager en tabell over hvor ofte en oovese har blitt gjort
-	 * @param id
-	 * @return tabell med oovelses navn og antall forekomster for en client
-	 * @throws SQLException hvis noe gaar galt med sql queryen
-	 */
+	
+	 //Lager en tabell over hvor ofte en oovese har blitt gjort
+	 //returnerer en tabell med oovelses navn og antall forekomster for en client
 	public static List<String> mostUsedExercise(int id) {
 		try {
 			List<String> mostUsed = new ArrayList<>();
